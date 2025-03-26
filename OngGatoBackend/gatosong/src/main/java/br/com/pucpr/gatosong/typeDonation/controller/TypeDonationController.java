@@ -2,15 +2,18 @@ package br.com.pucpr.gatosong.typeDonation.controller;
 
 import br.com.pucpr.gatosong.donation.dto.DonationDTO;
 import br.com.pucpr.gatosong.typeDonation.dto.TypeDonationDTO;
+import br.com.pucpr.gatosong.typeDonation.facade.TypeDonationFacade;
 import br.com.pucpr.gatosong.typeDonation.facade.impl.DefaultTypeDonationFacade;
 import br.com.pucpr.gatosong.typeDonation.model.TypeDonationModel;
 import br.com.pucpr.gatosong.typeDonation.service.TypeDonationService;
+import br.com.pucpr.gatosong.typeDonation.service.impl.DefaultTypeDonationService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -22,17 +25,19 @@ import java.util.Objects;
 @Getter
 @RestController
 @RequestMapping(value={"/type-donation"})
-@AllArgsConstructor
 @NoArgsConstructor
 public class TypeDonationController {
 
     private static final Logger logger = LogManager.getLogger(TypeDonationController.class);
 
-    private TypeDonationService typeDonationService;
+    @Autowired
+    private DefaultTypeDonationService typeDonationService;
+
+    @Autowired
     private DefaultTypeDonationFacade typeDonationFacade;
 
     @GetMapping
-    public ResponseEntity<?> getDonations() {
+    public ResponseEntity<?> getTypeDonations() {
         try {
 
             List<TypeDonationModel> modelList = typeDonationService.getAllTypeDonations();
@@ -45,30 +50,30 @@ public class TypeDonationController {
 
         } catch (Exception e) {
             logger.error("Unable to get Types", e);
-            throw new RuntimeException(e);
+            return ResponseEntity.badRequest().body("Unable to find types");
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getDonationById(@PathVariable Long id) {
+    public ResponseEntity<?> getTypeDonationById(@PathVariable Long id) {
         try {
 
             List<TypeDonationModel> modelList = typeDonationService.getTypeDonationById(id);
 
             if (CollectionUtils.isEmpty(modelList)) {
-                return ResponseEntity.ok().body("No type donation with code: " + id + "found");
+                return ResponseEntity.ok().body("No type donation with code: " + id + " found");
             }
 
             return ResponseEntity.ok().body(modelList);
 
         } catch (Exception e) {
             logger.error("Unable to get Type", e);
-            throw new RuntimeException(e);
+            return ResponseEntity.badRequest().body("Unable to find type");
         }
     }
 
     @PostMapping
-    public ResponseEntity<?> createDonation(@RequestBody TypeDonationModel donationModel) {
+    public ResponseEntity<?> createTypeDonation(@RequestBody TypeDonationModel donationModel) {
         try {
 
             List<TypeDonationModel> modelList = typeDonationService.createTypeDonation(donationModel);
@@ -80,22 +85,22 @@ public class TypeDonationController {
             return ResponseEntity.ok().body(modelList);
 
         } catch (Exception e) {
-            logger.error("Unable to create Donation", e);
-            throw new RuntimeException(e);
+            logger.error("Unable to create Type Donation", e);
+            return ResponseEntity.badRequest().body("Unable to create type");
         }
     }
 
     @PatchMapping
-    public ResponseEntity<?> updateDonation(@RequestBody TypeDonationDTO updateModel) {
+    public ResponseEntity<?> updateTypeDonation(@RequestBody TypeDonationDTO updateModel) {
         try {
-            if (updateModel == null) {
+            if (!Objects.isNull(updateModel)) {
                 TypeDonationModel model = typeDonationFacade.populateTypeDonationModel(updateModel);
 
                 return ResponseEntity.ok().body(Objects.requireNonNullElseGet(model, () -> "No type donation with code: " + updateModel.getId() + "found"));
             }
         } catch (Exception e) {
             logger.error("Unable to update Type", e);
-            throw new RuntimeException(e);
+            return ResponseEntity.badRequest().body("Unable to update type");
         }
         return null;
     }
@@ -107,7 +112,7 @@ public class TypeDonationController {
 
             TypeDonationModel model = typeDonationFacade.deleteTypeDonation(id);
 
-            if (model == null){
+            if (Objects.isNull(model)){
                 return ResponseEntity.ok().body("No type donation with code: " + id + "found");
             }
 
@@ -115,7 +120,7 @@ public class TypeDonationController {
 
         } catch (Exception e) {
             logger.error("Unable to delete Type", e);
-            throw new RuntimeException(e);
+            return ResponseEntity.badRequest().body("Unable to delete type");
         }
     }
 
