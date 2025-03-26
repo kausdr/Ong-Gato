@@ -79,7 +79,7 @@ public class DonationController {
             return ResponseEntity.ok().body(donationModelList);
 
         } catch (Exception e) {
-            logger.error("Unable to get Donation", e);
+            logger.error("Unable to create Donation", e);
             throw new RuntimeException(e);
         }
     }
@@ -93,7 +93,7 @@ public class DonationController {
                 return ResponseEntity.ok().body(Objects.requireNonNullElseGet(model, () -> "No donation with code: " + updateModel.getId() + "found"));
             }
         } catch (Exception e) {
-            logger.error("Unable to get Donation", e);
+            logger.error("Unable to update Donation", e);
             throw new RuntimeException(e);
         }
         return null;
@@ -113,7 +113,7 @@ public class DonationController {
             return ResponseEntity.ok().body("Model with code: "+ id + " deleted successfully");
 
         } catch (Exception e) {
-            logger.error("Unable to get Donation", e);
+            logger.error("Unable to delete Donation", e);
             throw new RuntimeException(e);
         }
     }
