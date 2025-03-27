@@ -6,24 +6,30 @@ import br.com.pucpr.gatosong.donation.model.DonationModel;
 import br.com.pucpr.gatosong.donation.service.DonationService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
+@Component
 public class DefaultDonationFacade implements DonationFacade {
 
     private static final Logger logger = LogManager.getLogger(DefaultDonationFacade.class);
 
+    @Autowired
     private DonationService donationService;
 
 
     @Override
     public DonationModel populateDonationModel(DonationDTO source) {
+
         DonationModel target = new DonationModel();
 
         target.setId(source.getId());

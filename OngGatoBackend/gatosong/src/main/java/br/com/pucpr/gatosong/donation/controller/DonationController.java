@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +22,15 @@ import java.util.Objects;
 @Getter
 @RestController
 @RequestMapping(value={"/donation"})
-@AllArgsConstructor
 @NoArgsConstructor
 public class DonationController {
 
     private static final Logger logger = LogManager.getLogger(DonationController.class);
 
+    @Autowired
     private DonationService donationService;
+
+    @Autowired
     private DefaultDonationFacade donationFacade;
 
     @GetMapping
@@ -72,7 +75,7 @@ public class DonationController {
 
             List<DonationModel> donationModelList = donationService.createDonation(donationModel);
 
-            if (CollectionUtils.isEmpty(donationModelList)) {
+            if (!CollectionUtils.isEmpty(donationModelList)) {
                 return ResponseEntity.ok().body("No donation with code: " + donationModel.getId() + "found");
             }
 
@@ -87,10 +90,10 @@ public class DonationController {
     @PatchMapping
     public ResponseEntity<?> updateDonation(@RequestBody DonationDTO updateModel) {
         try {
-            if (updateModel == null) {
+            if (!Objects.isNull(updateModel)) {
                 DonationModel model = donationFacade.populateDonationModel(updateModel);
 
-                return ResponseEntity.ok().body(Objects.requireNonNullElseGet(model, () -> "No donation with code: " + updateModel.getId() + "found"));
+                return ResponseEntity.ok().body(Objects.requireNonNullElseGet(model, () -> "No donation with code: " + updateModel.getId() + " found"));
             }
         } catch (Exception e) {
             logger.error("Unable to get Donation", e);
@@ -106,7 +109,7 @@ public class DonationController {
 
             DonationModel model = donationFacade.deleteDonation(id);
 
-            if (model == null){
+            if (Objects.isNull(model)){
                 return ResponseEntity.ok().body("No donation with code: " + id + "found");
             }
 
