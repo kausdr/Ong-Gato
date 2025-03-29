@@ -4,12 +4,14 @@ import br.com.pucpr.gatosong.donation.dto.UserDTO;
 import br.com.pucpr.gatosong.donation.facade.impl.DefaultUserFacade;
 import br.com.pucpr.gatosong.donation.model.UserModel;
 import br.com.pucpr.gatosong.donation.service.UserService;
+import br.com.pucpr.gatosong.donation.service.impl.DefaultUserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,20 +23,22 @@ import java.util.Objects;
 @Getter
 @RestController
 @RequestMapping(value={"/user"})
-@AllArgsConstructor
 @NoArgsConstructor
 public class UserController {
 
     private static final Logger logger = LogManager.getLogger(UserController.class);
 
-    private UserService userService;
+    @Autowired
+    private DefaultUserService userService;
+
+    @Autowired
     private DefaultUserFacade userFacade;
 
     @GetMapping
     public ResponseEntity<?> getUsers() {
         try {
 
-            List<UserModel> userModelList = userService.getAllUsers();
+            List<UserModel> userModelList = this.userService.getAllUsers();
 
             if (CollectionUtils.isEmpty(userModelList)) {
                 return ResponseEntity.ok().body("No users found");
@@ -72,7 +76,7 @@ public class UserController {
 
             List<UserModel> userModelList = userService.createUser(userModel);
 
-            if (CollectionUtils.isEmpty(userModelList)) {
+            if (!CollectionUtils.isEmpty(userModelList)) {
                 return ResponseEntity.ok().body("No user with code: " + userModel.getId() + "found");
             }
 
@@ -87,10 +91,10 @@ public class UserController {
     @PatchMapping
     public ResponseEntity<?> updateUser(@RequestBody UserDTO updateModel) {
         try {
-            if (updateModel == null) {
+            if (!Objects.isNull(updateModel)) {
                 UserModel model = userFacade.populateUserModel(updateModel);
 
-                return ResponseEntity.ok().body(Objects.requireNonNullElseGet(model, () -> "No user with code: " + updateModel.getId() + "found"));
+                return ResponseEntity.ok().body(Objects.requireNonNullElseGet(model, () -> "No user with code: " + updateModel.getId() + " found"));
             }
         } catch (Exception e) {
             logger.error("Unable to get user", e);
@@ -106,7 +110,7 @@ public class UserController {
 
             UserModel model = userFacade.deleteUser(id);
 
-            if (model == null){
+            if (Objects.isNull(model)){
                 return ResponseEntity.ok().body("No user with code: " + id + "found");
             }
 

@@ -10,19 +10,24 @@ import br.com.pucpr.gatosong.donation.service.DonationService;
 import br.com.pucpr.gatosong.donation.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
+@Component
 public class DefaultUserFacade implements UserFacade {
 
     private static final Logger logger = LogManager.getLogger(DefaultUserFacade.class);
 
+    @Autowired
     private UserService userService;
 
 
