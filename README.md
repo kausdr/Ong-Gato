@@ -55,7 +55,7 @@ Antes de instalar e rodar o projeto, certifique-se de ter instalado:
 ### Front-end
 1. **Acesse a pasta do front-end**
    ```sh
-   cd ../frontend
+   cd ../OngGatoFrontend
    ```
 2. **Instale as dependências**
    ```sh
