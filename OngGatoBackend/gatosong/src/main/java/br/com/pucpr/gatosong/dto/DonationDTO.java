@@ -1,4 +1,4 @@
-package br.com.pucpr.gatosong.donation.dto;
+package br.com.pucpr.gatosong.dto;
 
 import lombok.Data;
 import lombok.Getter;

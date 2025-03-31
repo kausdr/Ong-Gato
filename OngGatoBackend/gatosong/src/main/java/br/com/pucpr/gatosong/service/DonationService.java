@@ -1,6 +1,6 @@
-package br.com.pucpr.gatosong.donation.service;
+package br.com.pucpr.gatosong.service;
 
-import br.com.pucpr.gatosong.donation.model.DonationModel;
+import br.com.pucpr.gatosong.model.DonationModel;
 
 import java.util.List;
 

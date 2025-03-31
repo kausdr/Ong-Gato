@@ -1,9 +1,8 @@
-package br.com.pucpr.gatosong.donation.service.impl;
+package br.com.pucpr.gatosong.service.impl;
 
-import br.com.pucpr.gatosong.donation.model.DonationModel;
-import br.com.pucpr.gatosong.donation.repository.DonationRepository;
-import br.com.pucpr.gatosong.donation.service.DonationService;
-import lombok.AllArgsConstructor;
+import br.com.pucpr.gatosong.model.DonationModel;
+import br.com.pucpr.gatosong.repository.DonationRepository;
+import br.com.pucpr.gatosong.service.DonationService;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

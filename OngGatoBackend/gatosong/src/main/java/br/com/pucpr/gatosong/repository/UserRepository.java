@@ -1,6 +1,6 @@
-package br.com.pucpr.gatosong.donation.repository;
+package br.com.pucpr.gatosong.repository;
 
-import br.com.pucpr.gatosong.donation.model.UserModel;
+import br.com.pucpr.gatosong.model.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserModel,Long> {

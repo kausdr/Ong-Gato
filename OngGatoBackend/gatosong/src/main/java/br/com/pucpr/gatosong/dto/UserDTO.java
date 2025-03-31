@@ -1,51 +1,25 @@
-package br.com.pucpr.gatosong.donation.model;
-
-import jakarta.persistence.*;
+package br.com.pucpr.gatosong.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-public class UserModel {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "code", unique = true, nullable = false)
-    private Long id;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "userTypeID")
-    private Long userTypeID;
-
-    @Column(name = "birthDate")
-    private Date birthDate;
-
-    @Column(name = "telephone")
-    private String telephone;
-
-    @Column(name = "zipCode")
-    private String zipCode;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "password")
-    private String password;
-
-    public UserModel() {
-    }
+public class UserDTO {
+    public Long Id;
+    public String name;
+    public Date birthDate;
+    public String telephone;
+    public String zipCode;
+    public String email;
+    public String address;
+    public String password;
+    public Long userTypeID;
 
     public Long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        Id = id;
     }
 
     public String getName() {
@@ -54,14 +28,6 @@ public class UserModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getUserTypeID() {
-        return userTypeID;
-    }
-
-    public void setUserTypeID(Long userTypeID) {
-        this.userTypeID = userTypeID;
     }
 
     public Date getBirthDate() {
@@ -110,5 +76,13 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getUserTypeID() {
+        return userTypeID;
+    }
+
+    public void setUserTypeID(Long userTypeID) {
+        this.userTypeID = userTypeID;
     }
 }

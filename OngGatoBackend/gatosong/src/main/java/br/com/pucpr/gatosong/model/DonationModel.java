@@ -1,4 +1,4 @@
-package br.com.pucpr.gatosong.donation.model;
+package br.com.pucpr.gatosong.model;
 
 import jakarta.persistence.*;
 
