@@ -3,7 +3,6 @@ package br.com.pucpr.gatosong.donation.service.impl;
 import br.com.pucpr.gatosong.donation.model.UserModel;
 import br.com.pucpr.gatosong.donation.repository.UserRepository;
 import br.com.pucpr.gatosong.donation.service.UserService;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -3,9 +3,7 @@ package br.com.pucpr.gatosong.donation.controller;
 import br.com.pucpr.gatosong.donation.dto.UserDTO;
 import br.com.pucpr.gatosong.donation.facade.impl.DefaultUserFacade;
 import br.com.pucpr.gatosong.donation.model.UserModel;
-import br.com.pucpr.gatosong.donation.service.UserService;
 import br.com.pucpr.gatosong.donation.service.impl.DefaultUserService;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -83,7 +81,7 @@ public class UserController {
             return ResponseEntity.ok().body(userModelList);
 
         } catch (Exception e) {
-            logger.error("Unable to get Donation", e);
+            logger.error("Unable to get use", e);
             throw new RuntimeException(e);
         }
     }
