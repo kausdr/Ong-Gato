@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class UserModel {
@@ -36,6 +37,9 @@ public class UserModel {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "donator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<DonationModel> donations;
 
     public UserModel() {
     }
@@ -110,5 +114,13 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<DonationModel> getDonations() {
+        return donations;
+    }
+
+    public void setDonations(List<DonationModel> donations) {
+        this.donations = donations;
     }
 }

@@ -1,5 +1,6 @@
 package br.com.pucpr.gatosong.donation.model;
 
+import br.com.pucpr.gatosong.typeDonation.model.TypeDonationModel;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -19,8 +20,13 @@ public class DonationModel {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "donator")
-    private String donator;
+    @ManyToOne
+    @JoinColumn(name = "user_code", nullable = false)
+    private UserModel donator;
+
+    @ManyToOne
+    @JoinColumn(name = "type_code", nullable = false)
+    private TypeDonationModel type;
 
     public DonationModel() {
     }
@@ -41,19 +47,27 @@ public class DonationModel {
         this.date = date;
     }
 
-    public String getDonator() {
-        return donator;
-    }
-
-    public void setDonator(String donator) {
-        this.donator = donator;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public UserModel getDonator() {
+        return donator;
+    }
+
+    public void setDonator(UserModel donator) {
+        this.donator = donator;
+    }
+
+    public TypeDonationModel getType() {
+        return type;
+    }
+
+    public void setType(TypeDonationModel type) {
+        this.type = type;
     }
 }

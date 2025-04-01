@@ -1,10 +1,12 @@
 package br.com.pucpr.gatosong.typeDonation.model;
 
+import br.com.pucpr.gatosong.donation.model.DonationModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +20,10 @@ public class TypeDonationModel {
 
     @Column(name = "name")
     private String name;
+
+
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<DonationModel> donations;
 
     public TypeDonationModel() {
     }
