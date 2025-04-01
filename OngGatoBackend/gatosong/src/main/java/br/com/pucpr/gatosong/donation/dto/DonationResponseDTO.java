@@ -1,20 +1,24 @@
 package br.com.pucpr.gatosong.donation.dto;
 
-import lombok.Data;
+import br.com.pucpr.gatosong.typeDonation.dto.TypeDonationDTO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Data
-public class DonationDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+public class DonationResponseDTO {
 
     public Long Id;
     public BigDecimal amount;
-    public Long donator;
     public Date date;
-    public Long type;
+    public UserResponseDTO donator;
+    public TypeDonationDTO type;
+
 
     public Long getId() {
         return Id;
@@ -40,19 +44,19 @@ public class DonationDTO {
         this.date = date;
     }
 
-    public Long getDonator() {
+    public UserResponseDTO getDonator() {
         return donator;
     }
 
-    public void setDonator(Long donator) {
+    public void setDonator(UserResponseDTO donator) {
         this.donator = donator;
     }
 
-    public Long getType() {
+    public TypeDonationDTO getType() {
         return type;
     }
 
-    public void setType(Long type) {
+    public void setType(TypeDonationDTO type) {
         this.type = type;
     }
 }

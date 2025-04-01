@@ -1,6 +1,8 @@
 package br.com.pucpr.gatosong.donation.controller;
 
 import br.com.pucpr.gatosong.donation.dto.DonationDTO;
+import br.com.pucpr.gatosong.donation.dto.DonationResponseDTO;
+import br.com.pucpr.gatosong.donation.facade.DonationFacade;
 import br.com.pucpr.gatosong.donation.facade.impl.DefaultDonationFacade;
 import br.com.pucpr.gatosong.donation.model.DonationModel;
 import br.com.pucpr.gatosong.donation.service.DonationService;
@@ -31,19 +33,19 @@ public class DonationController {
     private DonationService donationService;
 
     @Autowired
-    private DefaultDonationFacade donationFacade;
+    private DonationFacade donationFacade;
 
     @GetMapping
     public ResponseEntity<?> getDonations() {
         try {
 
-            List<DonationModel> donationModelList = donationService.getAllDonations();
+            List<DonationResponseDTO> donationList = donationFacade.getAllDonations();
 
-            if (CollectionUtils.isEmpty(donationModelList)) {
+            if (CollectionUtils.isEmpty(donationList)) {
                 return ResponseEntity.ok().body("No donations found");
             }
 
-            return ResponseEntity.ok().body(donationModelList);
+            return ResponseEntity.ok().body(donationList);
 
         } catch (Exception e) {
             logger.error("Unable to get Donations", e);
@@ -55,13 +57,13 @@ public class DonationController {
     public ResponseEntity<?> getDonationById(@PathVariable Long id) {
         try {
 
-            List<DonationModel> donationModelList = donationService.getDonationById(id);
+            List<DonationResponseDTO> responseDTOS = donationFacade.getDonationById(id);
 
-            if (CollectionUtils.isEmpty(donationModelList)) {
+            if (CollectionUtils.isEmpty(responseDTOS)) {
                 return ResponseEntity.ok().body("No donation with code: " + id + "found");
             }
 
-            return ResponseEntity.ok().body(donationModelList);
+            return ResponseEntity.ok().body(responseDTOS);
 
         } catch (Exception e) {
             logger.error("Unable to get Donation", e);
@@ -70,16 +72,16 @@ public class DonationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createDonation(@RequestBody DonationModel donationModel) {
+    public ResponseEntity<?> createDonation(@RequestBody DonationDTO donation) {
         try {
 
-            List<DonationModel> donationModelList = donationService.createDonation(donationModel);
+            DonationResponseDTO responseDTO = donationFacade.createDonation(donation);
 
-            if (!CollectionUtils.isEmpty(donationModelList)) {
-                return ResponseEntity.ok().body("No donation with code: " + donationModel.getId() + "found");
+            if (Objects.isNull(responseDTO)) {
+                return ResponseEntity.ok().body("No donation created");
             }
 
-            return ResponseEntity.ok().body(donationModelList);
+            return ResponseEntity.ok().body(responseDTO);
 
         } catch (Exception e) {
             logger.error("Unable to create Donation", e);
@@ -91,9 +93,9 @@ public class DonationController {
     public ResponseEntity<?> updateDonation(@RequestBody DonationDTO updateModel) {
         try {
             if (!Objects.isNull(updateModel)) {
-                DonationModel model = donationFacade.populateDonationModel(updateModel);
+                DonationResponseDTO responseDTO = donationFacade.updateDonation(updateModel);
 
-                return ResponseEntity.ok().body(Objects.requireNonNullElseGet(model, () -> "No donation with code: " + updateModel.getId() + " found"));
+                return ResponseEntity.ok().body(Objects.requireNonNullElseGet(responseDTO, () -> "No donation with code: " + updateModel.getId() + " found"));
             }
         } catch (Exception e) {
             logger.error("Unable to update Donation", e);
