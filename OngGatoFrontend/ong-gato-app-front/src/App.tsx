@@ -7,11 +7,23 @@ import Signup from './Screens/Signup/Signup'
 import { UserManagement } from './Screens/RoleManagement/UserManagement'
 import { History } from './Components/data-input/History/History'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from 'react'
+import { UserService } from './API/user'
 
 function App() {
 
+  const fetchUsers = () => {
+    return UserService.getUsers()
+  }
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
+
   return (
     <>
+
+
 
       <BrowserRouter>
       <Routes>
