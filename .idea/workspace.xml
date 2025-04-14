@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b00bf33f-177d-4f23-8a6e-69ef82ff478f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/controller/UserTypeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/dto/UserTypeDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/facade/UserTypeFacade.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/facade/impl/DefaultUserTypeFacade.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/model/UserTypeModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/repository/UserTypeRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/service/UserTypeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/service/impl/DefaultUserTypeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/service/impl/DefaultUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/service/impl/DefaultUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/sprints/spr1_antes.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/sprints/spr1_antes.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/sprints/spr1_depois.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/sprints/spr1_depois.jpeg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,15 +49,20 @@
     "Application.GatosongApplication.executor": "Debug",
     "JUnit.GatosongApplicationTests.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/userType",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/julia/Downloads/BSI-5/Ong-Gato",
+    "last_opened_file_path": "C:/Users/julia/Downloads/BSI-5/Ong-Gato/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/sprints",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "MavenSettings"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\julia\Downloads\BSI-5\Ong-Gato\OngGatoBackend\gatosong\src\main\java\br\com\pucpr\gatosong\sprints" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Ong-Gato" />
