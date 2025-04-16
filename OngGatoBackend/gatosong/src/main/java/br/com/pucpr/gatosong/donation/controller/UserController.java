@@ -1,6 +1,7 @@
 package br.com.pucpr.gatosong.donation.controller;
 
 import br.com.pucpr.gatosong.donation.dto.UserDTO;
+import br.com.pucpr.gatosong.donation.facade.UserFacade;
 import br.com.pucpr.gatosong.donation.facade.impl.DefaultUserFacade;
 import br.com.pucpr.gatosong.donation.model.UserModel;
 import br.com.pucpr.gatosong.donation.service.impl.DefaultUserService;
@@ -30,7 +31,7 @@ public class UserController {
     private DefaultUserService userService;
 
     @Autowired
-    private DefaultUserFacade userFacade;
+    private UserFacade userFacade;
 
     @GetMapping
     public ResponseEntity<?> getUsers() {
@@ -74,8 +75,8 @@ public class UserController {
 
             List<UserModel> userModelList = userService.createUser(userModel);
 
-            if (!CollectionUtils.isEmpty(userModelList)) {
-                return ResponseEntity.ok().body("No user with code: " + userModel.getId() + "found");
+            if (CollectionUtils.isEmpty(userModelList)) {
+                return ResponseEntity.ok().body("No user with code: " + userModel.getId() + " found");
             }
 
             return ResponseEntity.ok().body(userModelList);
