@@ -1,8 +1,7 @@
-import Card from "../../Components/Layout/Card"
-import Input from "../../Components/data-input/Input"
+import Input from "../../../Components/data-input/Input"
 import { CiMail } from "react-icons/ci";
 import { IoKeyOutline } from "react-icons/io5";
-import Button from "../../Components/Layout/Button";
+import Button from "../../../Components/Layout/Button";
 import { useNavigate } from "react-router-dom";
 
 
