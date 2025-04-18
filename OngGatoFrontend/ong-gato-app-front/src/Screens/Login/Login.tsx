@@ -14,7 +14,7 @@ function Login() {
     return(
     <>
         <div className="w-full h-screen flex items-center justify-center">
-            <Card className="flex flex-col gap-10">
+            <Card className="flex flex-col gap-10 p-5">
                 <div className="flex justify-center">
                 <h1 className="font-medium">LOGIN</h1>
                 </div>
