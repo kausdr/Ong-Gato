@@ -6,7 +6,7 @@ import Login from './Screens/Login/Login'
 import Signup from './Screens/Signup/Signup'
 import { OngPage } from './Components/Layout/OngPage'
 import { UserManagement } from './Screens/RoleManagement/UserManagement'
-import { History } from './Components/data-input/History/History'
+import { History } from './Screens/History/History'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from 'react'
 import { UserService } from './API/user'
@@ -23,13 +23,10 @@ function App() {
 
   return (
     <>
-
-
-
       <BrowserRouter>
         <Routes>
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
           <Route path="/" element={<OngPage />}>
             <Route path="cargos" element={<UserManagement />} />
             <Route path="historico" element={<History />} />
