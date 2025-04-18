@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './Screens/Login/Login'
 import Signup from './Screens/Signup/Signup'
+import { OngPage } from './Components/Layout/OngPage'
 import { UserManagement } from './Screens/RoleManagement/UserManagement'
 import { History } from './Components/data-input/History/History'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -26,12 +27,14 @@ function App() {
 
 
       <BrowserRouter>
-      <Routes>
-        <Route path="login" element={<Login/>}/>
-        <Route path="signup" element={<Signup/>} />
-        <Route path="cargos" element={<UserManagement/>}/>
-        <Route path="historico" element={<History/>}/>
-      </Routes>
+        <Routes>
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
+          <Route path="/" element={<OngPage />}>
+            <Route path="cargos" element={<UserManagement />} />
+            <Route path="historico" element={<History />} />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </>
   )

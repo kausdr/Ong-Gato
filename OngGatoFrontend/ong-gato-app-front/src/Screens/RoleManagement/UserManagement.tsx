@@ -30,9 +30,10 @@ export const UserManagement = () => {
     ]
 
     return (
-        <div className="flex flex-col gap-5 p-10">
+        <Card>
+        <div className="flex flex-col w-full h-full gap-5 p-10 bg-white">
             <h1 className="text-xl font-bold">Gerenciamento de Usuário</h1>
-            <Card >
+
                 <div className="overflow-x-auto">
                 <table className="w-full">
                     <thead className="bg-slate-100 text-left rounded-md">
@@ -56,10 +57,11 @@ export const UserManagement = () => {
 
                 </table>
                 </div>
-            </Card>
+            
 
             <Outlet/>
         </div>
+        </Card>
     )
 }
 
