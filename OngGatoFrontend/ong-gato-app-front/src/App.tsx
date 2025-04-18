@@ -10,6 +10,7 @@ import { History } from './Screens/History/History'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from 'react'
 import { UserService } from './API/user'
+import { Access } from './Screens/Acesso/Access'
 
 function App() {
 
@@ -25,8 +26,10 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
+          <Route path="access" element={<Access />}>
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+          </Route>
           <Route path="/" element={<OngPage />}>
             <Route path="cargos" element={<UserManagement />} />
             <Route path="historico" element={<History />} />
