@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import { ReactElement, SetStateAction } from "react"
 
 interface InputProps {
     label: string
@@ -8,9 +8,11 @@ interface InputProps {
     name: string
     placeholder?: string
     className?: string
+    value: any
+    setValue: React.Dispatch<SetStateAction<any>>
 }
 
-function Input({ label, type, icon, id, name, placeholder, className }: InputProps) {
+function Input({ label, type, icon, id, name, placeholder, className, value, setValue }: InputProps) {
     return (
         <>
                 <label className={`flex flex-col ${className}`}>
@@ -21,7 +23,7 @@ function Input({ label, type, icon, id, name, placeholder, className }: InputPro
                                 {icon}
                             </div>
                         )}
-                        <input type={type} id={id} name={name} placeholder={placeholder} className={`w-full border border-1 border-gray-200 placeholder:font-light placeholder:text-sm rounded p-1 ${icon ? "pl-8" : ''}`} />
+                        <input type={type} id={id} name={name} placeholder={placeholder} value={value} onChange={(e) =>setValue(e.target.value)} className={`w-full border border-1 border-gray-200 placeholder:font-light placeholder:text-sm rounded p-1 ${icon ? "pl-8" : ''}`} />
                     </div>
 
                 </label>
