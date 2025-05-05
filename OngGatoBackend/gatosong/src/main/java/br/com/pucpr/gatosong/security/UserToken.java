@@ -1,10 +1,13 @@
 package br.com.pucpr.gatosong.security;
 
 import br.com.pucpr.gatosong.model.UserModel;
+import lombok.Getter;
+
 
 public class UserToken {
     private Long id;
     private String name;
+    private boolean isAdmin;
 
     public UserToken() {
         this.id=0L;
@@ -21,4 +24,11 @@ public class UserToken {
         this.name = name;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
 }

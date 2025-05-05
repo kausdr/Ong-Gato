@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b00bf33f-177d-4f23-8a6e-69ef82ff478f" name="Changes" comment="">
+    <list default="true" id="b00bf33f-177d-4f23-8a6e-69ef82ff478f" name="Changes" comment="Reformulação das pastas e começo da criação do token">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/facade/impl/DefaultUserFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/facade/impl/DefaultUserFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/service/impl/DefaultUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/service/impl/DefaultUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/facade/impl/DefaultUserFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/facade/impl/DefaultUserFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/model/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/model/UserModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/UserToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/UserToken.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +39,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/kausdr/Ong-Gato.git&quot;,
-    &quot;accountId&quot;: &quot;a06558fc-73b3-4f87-9d3a-20e47f28deb9&quot;
+    &quot;accountId&quot;: &quot;f1efbfde-d003-4c17-be05-d0090efb25f4&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -52,14 +55,22 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.GatosongApplication.executor": "Run",
     "JUnit.GatosongApplicationTests.executor": "Run",
+    "Maven.gatosong [clean].executor": "Run",
+    "Maven.gatosong [install].executor": "Run",
+    "Maven.gatosong [test].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/User",
+    "git-widget-placeholder": "feature/login",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/julia/Downloads/BSI-5/Ong-Gato",
-    "project.structure.last.edited": "Modules",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "MavenSettings"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -76,6 +87,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GatosongApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="gatosong" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.pucpr.gatosong.GatosongApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19416.15" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19416.15" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -85,8 +111,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1742855169309</updated>
+      <workItem from="1744063961892" duration="4650000" />
+      <workItem from="1744150787700" duration="1090000" />
+      <workItem from="1744665101366" duration="867000" />
+      <workItem from="1746463700351" duration="7128000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="UnknownFeatures">
     <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
@@ -107,5 +140,20 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Reformulação das pastas e começo da criação do token" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reformulação das pastas e começo da criação do token" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

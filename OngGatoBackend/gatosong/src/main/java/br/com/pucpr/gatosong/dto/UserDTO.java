@@ -1,6 +1,5 @@
 package br.com.pucpr.gatosong.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class UserDTO {
@@ -12,7 +11,7 @@ public class UserDTO {
     public String email;
     public String address;
     public String password;
-    public Long userTypeID;
+    public boolean isAdmin;
 
     public Long getId() {
         return Id;
@@ -78,11 +77,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public Long getUserTypeID() {
-        return userTypeID;
+    public boolean getIsAdmin() {
+        return isAdmin;
     }
 
-    public void setUserTypeID(Long userTypeID) {
-        this.userTypeID = userTypeID;
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }

@@ -38,7 +38,7 @@ public class DefaultUserFacade implements UserFacade {
         target.setEmail(source.getEmail());
         target.setAddress(source.getAddress());
         target.setPassword(source.getPassword());
-        target.setUserTypeID(source.getUserTypeID());
+        target.setIsAdmin(source.getIsAdmin());
 
         return userService.updateUser(target);
     }
