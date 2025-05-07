@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class DonationResponseDTO {
 
-    public Long Id;
+    public Long id;
     public BigDecimal amount;
     public Date date;
     public UserResponseDTO donator;
@@ -21,11 +21,11 @@ public class DonationResponseDTO {
 
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public BigDecimal getAmount() {

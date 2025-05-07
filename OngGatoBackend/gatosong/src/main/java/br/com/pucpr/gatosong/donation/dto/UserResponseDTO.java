@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserResponseDTO {
-    public Long Id;
+    public Long id;
     public String name;
     public String telephone;
     public String email;
@@ -17,11 +17,11 @@ public class UserResponseDTO {
 
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {

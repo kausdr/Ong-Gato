@@ -90,6 +90,7 @@ public class DefaultDonationFacade implements DonationFacade {
         donationDTO.setId(source.getType().getId());
         donationDTO.setName(source.getType().getName());
 
+        target.setType(donationDTO);
         return target;
     }
 
