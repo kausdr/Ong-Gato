@@ -15,4 +15,8 @@ public interface UserService {
     UserModel updateUser(UserModel target);
 
     void deleteUserModel(Long id);
+
+    boolean existsByCPF(String cpf);
+
+    boolean existsByEmail(String email);
 }

@@ -38,6 +38,10 @@ public class UserModel {
     @Column(name = "password")
     private String password;
 
+
+    @Column(name = "cpf")
+    private String cpf;
+
     @OneToMany(mappedBy = "donator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DonationModel> donations;
 
@@ -122,5 +126,13 @@ public class UserModel {
 
     public void setDonations(List<DonationModel> donations) {
         this.donations = donations;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
