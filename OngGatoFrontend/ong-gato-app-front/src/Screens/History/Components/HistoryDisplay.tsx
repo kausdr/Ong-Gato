@@ -18,9 +18,9 @@ export const HistoryDisplay = ({type, date, amount, donator} : HistoryDisplayPro
     
 
     return (
-        <tr>
+        <tr className="border-b border-slate-200">
             <td>
-                <div className="flex flex-col px-[10px]">
+                <div className="flex flex-col px-[10px] py-2 ">
                     <div className="flex gap-2 text-xl">
                         <p className=" font-bold">{type ? type : "Não consta"}</p>
                     </div>
