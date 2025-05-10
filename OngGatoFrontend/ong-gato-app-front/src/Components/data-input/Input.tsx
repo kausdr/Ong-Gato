@@ -11,18 +11,19 @@ interface InputProps {
     className?: string
     value: any
     setValue: React.Dispatch<SetStateAction<any>>
+    mandatory?: boolean
 }
 
 
 
-function Input({ label, type, icon, id, name, placeholder, className, value, setValue }: InputProps) {
+function Input({ label, type, icon, id, name, placeholder, className, value, setValue, mandatory = true}: InputProps) {
 
     const [renderError, setRenderError] = useState<boolean>(false)
     const [displayVazioWarn, setDisplayVazioWarn] = useState<boolean>(false)
     const [displayEmailWarn, setDisplayEmailWarn] = useState<boolean>(false)
 
     const fieldCheck = () => {
-        if (!value) {
+        if (!value && mandatory) {
             renderErrorWarning(Error.Vazio)
 
         } else {

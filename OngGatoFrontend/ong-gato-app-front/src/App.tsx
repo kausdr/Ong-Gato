@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from 'react'
 import { UserService } from './API/user'
 import { Access } from './Screens/Acesso/Access'
+import Donate from './Screens/Donate/Donate'
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
             <Route path="cargos" element={<UserManagement />} />
             <Route path="historico" element={<History />} />
             <Route path="doadores" element={<ListDonators/>}/>
+            <Route path="doar" element={<Donate/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

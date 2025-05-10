@@ -59,9 +59,9 @@ function Signup() {
                 <Input label="Endereço" type="text" id="adress" name="adress" placeholder="Av. Oswaldo Matoro, 176" value={address} setValue={setAddress} />
                 <Input label="CEP" type="number" id="cep" name="cep" placeholder="63748912" value={cep} setValue={setCep} />
 
-                <Input label="E-mail" type="text" icon={<CiMail></CiMail>} id="email" name="email" placeholder="seuemail@email.com" value={email} setValue={setEmail}/>
-                <Input label="Senha" type="password" icon={<IoKeyOutline></IoKeyOutline>} id="password" name="password" placeholder="Insira sua senha" value={password} setValue={setPassword} />
-                <Input label="Confirme sua senha" type="password" icon={<IoKeyOutline></IoKeyOutline>} id="password" name="password" placeholder="Confirme sua senha" value={confirmPassword} setValue={setConfirmPassword} />
+                <Input label="E-mail" type="text" icon={<CiMail/>} id="email" name="email" placeholder="seuemail@email.com" value={email} setValue={setEmail}/>
+                <Input label="Senha" type="password" icon={<IoKeyOutline/>} id="password" name="password" placeholder="Insira sua senha" value={password} setValue={setPassword} />
+                <Input label="Confirme sua senha" type="password" icon={<IoKeyOutline/>} id="password" name="password" placeholder="Confirme sua senha" value={confirmPassword} setValue={setConfirmPassword} />
 
                 <Button order={canCreate ? `primary` : `inactive`} text="SIGNUP" action={() => {
                     console.log("criou conta")
