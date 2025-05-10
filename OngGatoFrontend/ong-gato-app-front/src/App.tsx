@@ -7,6 +7,7 @@ import Signup from './Screens/Acesso/Signup/Signup'
 import { OngPage } from './Components/Layout/OngPage'
 import { UserManagement } from './Screens/RoleManagement/UserManagement'
 import { History } from './Screens/History/History'
+import { ListDonators } from './Screens/ListDonators/ListDonators'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from 'react'
 import { UserService } from './API/user'
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<OngPage />}>
             <Route path="cargos" element={<UserManagement />} />
             <Route path="historico" element={<History />} />
+            <Route path="doadores" element={<ListDonators/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -15,19 +15,19 @@ export interface User {
     // public String password;
     // public Long userTypeID;
 
-    id?: number
-    name?: string
-    birthDate?: Date
-    telephone?: string
-    zipCode?: string
-    email?: string
-    address?: string
-    password?: string
-    userTypeID?: number
+    id: number
+    name: string
+    birthDate: Date
+    telephone: string
+    zipCode: string
+    email: string
+    address: string
+    password: string
+    userTypeID: number
 }
 
 export class UserService {
-    static async getUsers(): Promise<[User | null, any]> {
+    static async getUsers(): Promise<[User[] | null, any]> {
         try {
             const response = await axios.get(link)
             return [response.data, null]

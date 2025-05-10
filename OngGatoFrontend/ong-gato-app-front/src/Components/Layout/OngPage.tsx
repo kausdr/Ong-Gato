@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom"
 import { LuHistory } from "react-icons/lu";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { RiListView } from "react-icons/ri";
 
 
 
@@ -17,6 +18,12 @@ export const OngPage = () => {
                     order={"nav"}
                     text={<LuHistory className="text-xl text-slate-500"/>}
                     action={() => {navigate("/historico")}}/>
+
+                    <Button
+                     order={"nav"}
+                     text={<RiListView className="text-xl text-slate-500"/>}
+                     action={() => {navigate("/doadores")}}
+                     />
                 </div>
             </div>
 
