@@ -48,15 +48,15 @@ public class DefaultUserService implements UserService {
 
         UserModel model = null;
 
-        if(!ObjectUtils.isEmpty(userModel)) {
+        if (!ObjectUtils.isEmpty(userModel)) {
             try {
-                model = userRepository.save(userModel);
-            }catch (Exception e) {
-                logger.error("Unable to save UserModel", e);
+                    model = userRepository.save(userModel);
+            } catch (Exception e) {
+                    logger.error("Unable to save UserModel", e);
             }
         }
 
-        return ObjectUtils.isEmpty(model)? null : Collections.singletonList(model);
+        return ObjectUtils.isEmpty(model) ? null : Collections.singletonList(model);
     }
 
     @Override
@@ -84,5 +84,15 @@ public class DefaultUserService implements UserService {
                 logger.error("Unable to delete UserModel", e);
             }
         }
+    }
+
+    @Override
+    public boolean existsByCPF(String cpf) {
+        return userRepository.existsByCpf(cpf);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 }
