@@ -13,7 +13,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -73,5 +75,68 @@ public class DefaultUserFacade implements UserFacade {
         userService.deleteUserModel(id);
 
         return model.get(0);
+    }
+
+    @Override
+    public List<UserResponseDTO> createUser(UserModel userModel) throws Exception {
+        if (!validateUserEmail(userModel.getEmail())){
+            throw new Exception("User email already being used");
+        }
+
+        if (!validateUserCPF(userModel.getCpf())){
+            throw new Exception("User cpf already being used");
+        }
+
+        List<UserResponseDTO> response = new ArrayList<>();
+
+        List<UserModel> model = this.userService.createUser(userModel);
+
+        if (!CollectionUtils.isEmpty(model)){
+             response.add(populateUserResponseDTO(model.getFirst()));
+        }
+
+        return response;
+    }
+
+    @Override
+    public List<UserResponseDTO> getAllUsers() throws Exception {
+        try {
+            List<UserResponseDTO> responseDTOList = new ArrayList<>();
+
+            List<UserModel> models = this.userService.getAllUsers();
+
+            for (UserModel model : models){
+                responseDTOList.add(populateUserResponseDTO(model));
+            }
+
+            return responseDTOList;
+        }catch (Exception e){
+            throw new Exception("Unable to get users");
+        }
+    }
+
+    @Override
+    public List<UserResponseDTO> getUserById(Long id) throws Exception {
+        try {
+            List<UserResponseDTO> responseDTOList = new ArrayList<>();
+
+            List<UserModel> models = this.userService.getUserById(id);
+
+            for (UserModel model : models){
+                responseDTOList.add(populateUserResponseDTO(model));
+            }
+
+            return responseDTOList;
+        }catch (Exception e){
+            throw new Exception("Unable to get user");
+        }
+    }
+
+    private boolean validateUserCPF(String cpf) {
+        return userService.existsByCPF(cpf);
+    }
+
+    private boolean validateUserEmail(String email){
+        return userService.existsByEmail(email);
     }
 }

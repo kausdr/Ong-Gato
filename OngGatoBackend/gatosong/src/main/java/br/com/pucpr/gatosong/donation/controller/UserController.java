@@ -1,10 +1,12 @@
 package br.com.pucpr.gatosong.donation.controller;
 
 import br.com.pucpr.gatosong.donation.dto.UserDTO;
+import br.com.pucpr.gatosong.donation.dto.UserResponseDTO;
 import br.com.pucpr.gatosong.donation.facade.UserFacade;
 import br.com.pucpr.gatosong.donation.facade.impl.DefaultUserFacade;
 import br.com.pucpr.gatosong.donation.model.UserModel;
 import br.com.pucpr.gatosong.donation.service.impl.DefaultUserService;
+import br.com.pucpr.gatosong.exception.UsedEmailException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,7 +39,7 @@ public class UserController {
     public ResponseEntity<?> getUsers() {
         try {
 
-            List<UserModel> userModelList = this.userService.getAllUsers();
+            List<UserResponseDTO> userModelList = this.userFacade.getAllUsers();
 
             if (CollectionUtils.isEmpty(userModelList)) {
                 return ResponseEntity.ok().body("No users found");
@@ -55,7 +57,7 @@ public class UserController {
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {
 
-            List<UserModel> userModelList = userService.getUserById(id);
+            List<UserResponseDTO> userModelList = userFacade.getUserById(id);
 
             if (CollectionUtils.isEmpty(userModelList)) {
                 return ResponseEntity.ok().body("No user with code: " + id + "found");
@@ -73,7 +75,7 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody UserModel userModel) {
         try {
 
-            List<UserModel> userModelList = userService.createUser(userModel);
+            List<UserResponseDTO> userModelList = userFacade.createUser(userModel);
 
             if (CollectionUtils.isEmpty(userModelList)) {
                 return ResponseEntity.ok().body("No user with code: " + userModel.getId() + " found");
@@ -121,4 +123,14 @@ public class UserController {
         }
     }
 
+
+    @GetMapping("/validateEmail/{email}")
+    public Boolean validateEmail(@PathVariable String email) {
+        return userService.existsByEmail(email);
+    }
+
+    @GetMapping("/validateCpf/{cpf}")
+    public Boolean validateCPF(@PathVariable String cpf) {
+        return userService.existsByCPF(cpf);
+    }
 }

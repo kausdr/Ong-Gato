@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class UserDTO {
-    public Long Id;
+    public Long id;
     public String name;
     public Date birthDate;
     public String telephone;
@@ -15,11 +15,11 @@ public class UserDTO {
     public Long userTypeID;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {

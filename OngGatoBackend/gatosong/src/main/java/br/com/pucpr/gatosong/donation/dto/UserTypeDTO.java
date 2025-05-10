@@ -4,16 +4,16 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class UserTypeDTO {
-    public Long Id;
+    public Long id;
     public String userType;
     public String description;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        this.Id = id;
+        this.id = id;
     }
 
     public String getUserType() {

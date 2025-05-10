@@ -10,18 +10,18 @@ import java.util.Date;
 @Data
 public class DonationDTO {
 
-    public Long Id;
+    public Long id;
     public BigDecimal amount;
     public Long donator;
     public Date date;
     public Long type;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public BigDecimal getAmount() {
