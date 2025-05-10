@@ -3,8 +3,7 @@ import Input from "../../../Components/data-input/Input"
 import { CiMail } from "react-icons/ci";
 import { IoKeyOutline } from "react-icons/io5";
 import Button from "../../../Components/Layout/Button";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import Signup from "../Signup/Signup";
+import { useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 
 

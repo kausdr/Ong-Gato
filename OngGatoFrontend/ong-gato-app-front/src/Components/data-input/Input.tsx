@@ -1,4 +1,4 @@
-import { ReactElement, SetStateAction, useEffect, useState } from "react"
+import { ReactElement, SetStateAction, useState } from "react"
 import { IoWarning } from "react-icons/io5";
 
 interface InputProps {

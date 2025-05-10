@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { User } from "../../../API/user"
 
 interface HistoryDisplayProps {
