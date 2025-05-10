@@ -52,7 +52,7 @@ function Donate() {
                     setDonateValue(150)
                 }} />
                 <Button order={"secondary"} text="240" icon={<FaBrazilianRealSign className="text-green-600" />} action={() => {
-                    setDonateValue(150)
+                    setDonateValue(240)
                 }} />
 
             </div>
