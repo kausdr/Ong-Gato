@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import { UserService } from './API/user'
 import { Access } from './Screens/Acesso/Access'
 import Donate from './Screens/Donate/Donate'
+import { Relatorio } from './Screens/Relatorio/Relatorio'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
             <Route path="doadores" element={<ListDonators/>}/>
             <Route path="doar" element={<Donate/>}/>
             <Route path="gerenciar" element={<UserManagement/>}/>
+            <Route path="relatorio" element={<Relatorio/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
