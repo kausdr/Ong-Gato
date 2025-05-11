@@ -30,7 +30,9 @@ export const ListDonators = () => {
 
     return (
         <Card>
-            <div className="flex flex-col w-full h-full gap-5 p-10 bg-white">
+            {
+                donations.length <= 0 ? (
+<div className="flex flex-col w-full h-full gap-5 p-10 bg-white">
                 <h1 className="text-xl font-bold">Lista de Doadores</h1>
 
                 <div className="overflow-x-auto">
@@ -62,6 +64,9 @@ export const ListDonators = () => {
 
                 <Outlet />
             </div>
+                ) : ("Ainda não há doadores")
+            }
+            
         </Card>
     )
 }

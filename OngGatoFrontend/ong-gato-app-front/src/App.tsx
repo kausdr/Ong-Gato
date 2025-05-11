@@ -37,6 +37,7 @@ function App() {
             <Route path="historico" element={<History />} />
             <Route path="doadores" element={<ListDonators/>}/>
             <Route path="doar" element={<Donate/>}/>
+            <Route path="gerenciar" element={<UserManagement/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

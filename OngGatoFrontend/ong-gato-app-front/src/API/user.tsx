@@ -15,15 +15,16 @@ export interface User {
     // public String password;
     // public Long userTypeID;
 
-    id: number
+    id?: number
     name: string
-    birthDate: Date
+    birthDate: string
     telephone: string
     zipCode: string
     email: string
     address: string
     password: string
-    userTypeID: number
+    userTypeID?: number
+    // donations: []
 }
 
 export class UserService {
@@ -46,6 +47,29 @@ export class UserService {
 
         } catch (error) {
             console.log("erro criar user " + error)
+            return [null, error]
+        }
+    }
+
+
+    static async validateEmail(email: string): Promise<[boolean | null, any]> {
+        try {
+            const response = await axios.get(link + `/validateEmail/${email}`)
+            return [response.data, null]
+
+        } catch (error) {
+            console.log("erro ao validar e-mail " + error)
+            return [null, error]
+        }
+    }
+
+    static async validateCPF(cpf: string): Promise<[boolean | null, any]> {
+        try {
+            const response = await axios.get(link + `/validateCPF/${cpf}`)
+            return [response.data, null]
+
+        } catch (error) {
+            console.log("erro ao validar e-mail " + error)
             return [null, error]
         }
     }

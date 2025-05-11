@@ -1,4 +1,5 @@
 import { User } from "../../../API/user"
+import { FaBrazilianRealSign } from "react-icons/fa6";
 
 interface HistoryDisplayProps {
     type: string
@@ -28,7 +29,7 @@ export const HistoryDisplay = ({type, date, amount, donator} : HistoryDisplayPro
                 </div>
             </td>
             <td>
-                <div className="px-[10px]">{amount}</div>
+                <div className="flex items-center px-[10px]">{type.toLocaleLowerCase() == "dinheiro" ? <p className="flex gap-2 items-center"><FaBrazilianRealSign className="text-green-600" /> {amount}</p> : amount}</div>
             </td>
             <td>
                 <div className="px-[10px]">por {donator.name}</div>

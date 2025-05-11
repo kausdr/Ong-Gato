@@ -41,7 +41,7 @@ export const History = () => {
             setDonations(response)
             console.log(response)
         }
-        console.log("É array?", Array.isArray(response)) 
+        console.log("É array?", Array.isArray(response))
         console.log("sucesso ao criar user: " + response)
 
         if (error) {
@@ -55,37 +55,40 @@ export const History = () => {
 
     return (
         <Card>
-            <div className="flex flex-col w-full h-[calc(100vh-40px)] gap-5 p-10 bg-white">
-                <h1 className="text-xl font-bold">Histórico de Doações</h1>
+            {donations.length <= 0 ? (
+                <div className="flex flex-col w-full h-[calc(100vh-40px)] gap-5 p-10 bg-white">
+                    <h1 className="text-xl font-bold">Histórico de Doações</h1>
 
-                <div className="overflow-x-auto">
-                    <table className="w-full">
-                        <thead className="bg-slate-100 text-left rounded-md">
-                            <tr>
-                                <th className="py-[20px] px-[10px] w-[20%]">Tipo</th>
-                                <th className="py-[20px] px-[10px]">Quantidade</th>
-                                <th className="py-[20px] px-[10px]">Doador</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {donations.map((donation, index) => (
-                                <HistoryDisplay
-                                    date={donation.date}
-                                    key={index}
-                                    type={donation.type}
-                                    amount={donation.amount}
-                                    donator={donation.donator}
-                                />
-                            ))
-                            }
-                        </tbody>
+                    <div className="overflow-x-auto">
+                        <table className="w-full">
+                            <thead className="bg-slate-100 text-left rounded-md">
+                                <tr>
+                                    <th className="py-[20px] px-[10px] w-[20%]">Tipo</th>
+                                    <th className="py-[20px] px-[10px]">Quantidade</th>
+                                    <th className="py-[20px] px-[10px]">Doador</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {donations.map((donation, index) => (
+                                    <HistoryDisplay
+                                        date={donation.date}
+                                        key={index}
+                                        type={donation.type.name}
+                                        amount={donation.amount}
+                                        donator={donation.donator}
+                                    />
+                                ))
+                                }
+                            </tbody>
 
-                    </table>
+                        </table>
+                    </div>
+
+
+                    <Outlet />
                 </div>
+            ) : ("Ainda não há doações")}
 
-
-                <Outlet />
-            </div>
         </Card>
     )
 }

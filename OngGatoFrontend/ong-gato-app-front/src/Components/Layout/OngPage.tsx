@@ -4,6 +4,7 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { RiListView } from "react-icons/ri";
 import { BiDonateHeart } from "react-icons/bi";
+import { MdOutlineManageAccounts } from "react-icons/md";
 
 
 
@@ -36,6 +37,14 @@ export const OngPage = () => {
                      icon={<BiDonateHeart className="text-xl text-slate-500"/>}
                      text={"Doar"}
                      action={() => {navigate("/doar")}}
+                     className="justify-start"
+                     />
+
+<Button
+                     order={"nav"}
+                     icon={<MdOutlineManageAccounts className="text-xl text-slate-500"/>}
+                     text={"Gerenciar"}
+                     action={() => {navigate("/gerenciar")}}
                      className="justify-start"
                      />
                 </div>

@@ -4,13 +4,17 @@ import { User } from "./user"
 
 const link: string = 'http://localhost:8081/donation'
 
+export interface TypeDonation {
+    id: number;
+    name: string;
+}
 
 export interface Donation {
     id: number
     amount: number
     date: string
     donator: User
-    type: string
+    type: TypeDonation
 }
 
 export class DonationService {

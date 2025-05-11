@@ -18,7 +18,7 @@ function Signup() {
     const [address, setAddress] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [canCreate, setCanCreate] = useState<boolean> (false)
+    const [canCreate, setCanCreate] = useState<boolean>(false)
 
 
     const createUser = async (newUser: User) => {
@@ -27,6 +27,27 @@ function Signup() {
         console.log("sucesso ao criar user: " + response)
         if (error) {
             console.log("erro criar user " + error)
+        }
+    }
+
+    const validateEmail = async (email: string) => {
+        const [response, error] = await UserService.validateEmail(email)
+
+        console.log("sucesso ao validar email: " + response)
+        return response
+
+        if (error) {
+            return console.log("erro ao validar email " + error)
+        }
+    }
+
+    const createAccount = async (newUser: User) => {
+        const response = await validateEmail(newUser.email)
+        if (response == false) {
+            console.log("EXISTE?: " + response)
+            createUser(newUser)
+        } else {
+            console.log("EXISTE?: " + response)
         }
     }
 
@@ -59,26 +80,25 @@ function Signup() {
                 <Input label="Endereço" type="text" id="adress" name="adress" placeholder="Av. Oswaldo Matoro, 176" value={address} setValue={setAddress} />
                 <Input label="CEP" type="number" id="cep" name="cep" placeholder="63748912" value={cep} setValue={setCep} />
 
-                <Input label="E-mail" type="text" icon={<CiMail/>} id="email" name="email" placeholder="seuemail@email.com" value={email} setValue={setEmail}/>
-                <Input label="Senha" type="password" icon={<IoKeyOutline/>} id="password" name="password" placeholder="Insira sua senha" value={password} setValue={setPassword} />
-                <Input label="Confirme sua senha" type="password" icon={<IoKeyOutline/>} id="password" name="password" placeholder="Confirme sua senha" value={confirmPassword} setValue={setConfirmPassword} />
+                <Input label="E-mail" type="text" icon={<CiMail />} id="email" name="email" placeholder="seuemail@email.com" value={email} setValue={setEmail} />
+                <Input label="Senha" type="password" icon={<IoKeyOutline />} id="password" name="password" placeholder="Insira sua senha" value={password} setValue={setPassword} />
+                <Input label="Confirme sua senha" type="password" icon={<IoKeyOutline />} id="password" name="password" placeholder="Confirme sua senha" value={confirmPassword} setValue={setConfirmPassword} />
 
                 <Button order={canCreate ? `primary` : `inactive`} text="SIGNUP" action={() => {
-                    console.log("criou conta")
-                    // createUser(
-                    //     {
-                    //         id: 3223,
-                    //         userTypeID: 562,
-                    //         birthDate: new Date(),
-                    //         name: name,
-                    //         telephone: telephone,
-                    //         zipCode: cep,
-                    //         email: email,
-                    //         password: password,
-                    //         address: ""
-                    //     }
-                    
-                }}/>
+                    createUser(
+                        {
+                            userTypeID: 333,
+                            birthDate: new Date().toISOString(),
+                            name: name,
+                            telephone: telephone,
+                            zipCode: cep,
+                            email: email,
+                            password: password,
+                            address: address
+                        }
+                    )
+
+                }} />
 
                 <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/login")}>Already have an account?</a>
             </div>
