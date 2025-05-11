@@ -14,6 +14,7 @@ import { UserService } from './API/user'
 import { Access } from './Screens/Acesso/Access'
 import Donate from './Screens/Donate/Donate'
 import { Relatorio } from './Screens/Relatorio/Relatorio'
+import { Profile } from './Screens/Profile/Profile'
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
             <Route path="doar" element={<Donate/>}/>
             <Route path="gerenciar" element={<UserManagement/>}/>
             <Route path="relatorio" element={<Relatorio/>}/>
+            <Route path="perfil" element={<Profile/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
