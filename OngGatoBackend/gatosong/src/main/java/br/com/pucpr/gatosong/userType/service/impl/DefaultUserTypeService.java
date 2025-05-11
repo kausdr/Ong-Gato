@@ -1,11 +1,8 @@
-package br.com.pucpr.gatosong.donation.service.impl;
+package br.com.pucpr.gatosong.userType.service.impl;
 
-import br.com.pucpr.gatosong.donation.model.UserModel;
-import br.com.pucpr.gatosong.donation.model.UserTypeModel;
-import br.com.pucpr.gatosong.donation.repository.UserRepository;
-import br.com.pucpr.gatosong.donation.repository.UserTypeRepository;
-import br.com.pucpr.gatosong.donation.service.UserService;
-import br.com.pucpr.gatosong.donation.service.UserTypeService;
+import br.com.pucpr.gatosong.userType.model.UserTypeModel;
+import br.com.pucpr.gatosong.userType.repository.UserTypeRepository;
+import br.com.pucpr.gatosong.userType.service.UserTypeService;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

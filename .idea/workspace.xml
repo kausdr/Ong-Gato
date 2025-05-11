@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b00bf33f-177d-4f23-8a6e-69ef82ff478f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/sprints/spr1_antes.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/sprints/spr1_antes.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/sprints/spr1_depois.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/sprints/spr1_depois.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,12 +28,12 @@
     &quot;assignee&quot;: &quot;AnaCezanoski&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/kausdr/Ong-Gato.git&quot;,
-    &quot;accountId&quot;: &quot;a06558fc-73b3-4f87-9d3a-20e47f28deb9&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/kausdr/Ong-Gato.git",
+    "accountId": "5b8c943b-05f4-4172-ab13-2592f05333df"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -49,13 +48,21 @@
     "Application.GatosongApplication.executor": "Debug",
     "JUnit.GatosongApplicationTests.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/julia/Downloads/BSI-5/Ong-Gato/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/sprints",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "MavenSettings"
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -64,12 +71,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Ong-Gato" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="Ong-Gato" />
       <option name="filePath" />
@@ -77,6 +78,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -86,8 +95,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1742855169309</updated>
+      <workItem from="1746990023940" duration="868000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="UnknownFeatures">
     <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />

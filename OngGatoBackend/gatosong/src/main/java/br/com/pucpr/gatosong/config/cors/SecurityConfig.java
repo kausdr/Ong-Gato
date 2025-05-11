@@ -1,4 +1,4 @@
-package br.com.pucpr.gatosong.Cors;
+package br.com.pucpr.gatosong.config.cors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

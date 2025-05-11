@@ -1,8 +1,8 @@
-package br.com.pucpr.gatosong.donation.model;
+package br.com.pucpr.gatosong.user.model;
 
+import br.com.pucpr.gatosong.donation.model.DonationModel;
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 

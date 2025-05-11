@@ -1,6 +1,7 @@
 package br.com.pucpr.gatosong.donation.dto;
 
 import br.com.pucpr.gatosong.typeDonation.dto.TypeDonationDTO;
+import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
