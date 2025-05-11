@@ -1,11 +1,11 @@
-package br.com.pucpr.gatosong.donation.facade.impl;
+package br.com.pucpr.gatosong.user.facade.impl;
 
-import br.com.pucpr.gatosong.donation.dto.UserDTO;
-import br.com.pucpr.gatosong.donation.dto.UserResponseDTO;
-import br.com.pucpr.gatosong.donation.facade.UserFacade;
-import br.com.pucpr.gatosong.donation.model.UserModel;
+import br.com.pucpr.gatosong.user.dto.UserDTO;
+import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
+import br.com.pucpr.gatosong.user.facade.UserFacade;
+import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.donation.service.DonationService;
-import br.com.pucpr.gatosong.donation.service.UserService;
+import br.com.pucpr.gatosong.user.service.UserService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -79,11 +79,11 @@ public class DefaultUserFacade implements UserFacade {
 
     @Override
     public List<UserResponseDTO> createUser(UserModel userModel) throws Exception {
-        if (!validateUserEmail(userModel.getEmail())){
+        if (checkIfUserEmailExists(userModel.getEmail())){
             throw new Exception("User email already being used");
         }
 
-        if (!validateUserCPF(userModel.getCpf())){
+        if (checkIfUserCpfExists(userModel.getCpf())){
             throw new Exception("User cpf already being used");
         }
 
@@ -132,11 +132,11 @@ public class DefaultUserFacade implements UserFacade {
         }
     }
 
-    private boolean validateUserCPF(String cpf) {
+    private boolean checkIfUserCpfExists(String cpf) {
         return userService.existsByCPF(cpf);
     }
 
-    private boolean validateUserEmail(String email){
+    private boolean checkIfUserEmailExists(String email){
         return userService.existsByEmail(email);
     }
 }

@@ -1,9 +1,9 @@
-package br.com.pucpr.gatosong.donation.facade.impl;
+package br.com.pucpr.gatosong.user.facade.impl;
 
-import br.com.pucpr.gatosong.donation.dto.UserTypeDTO;
-import br.com.pucpr.gatosong.donation.facade.UserTypeFacade;
-import br.com.pucpr.gatosong.donation.service.UserTypeService;
-import br.com.pucpr.gatosong.donation.model.UserTypeModel;
+import br.com.pucpr.gatosong.userType.dto.UserTypeDTO;
+import br.com.pucpr.gatosong.userType.facade.UserTypeFacade;
+import br.com.pucpr.gatosong.userType.service.UserTypeService;
+import br.com.pucpr.gatosong.userType.model.UserTypeModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

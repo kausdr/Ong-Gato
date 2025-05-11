@@ -1,9 +1,6 @@
-package br.com.pucpr.gatosong.donation.model;
+package br.com.pucpr.gatosong.userType.model;
 
 import jakarta.persistence.*;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 @Entity
 public class UserTypeModel {

@@ -1,20 +1,17 @@
-package br.com.pucpr.gatosong.donation.dto;
+package br.com.pucpr.gatosong.user.dto;
 
+import java.util.Date;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-public class UserResponseDTO {
+public class UserDTO {
     public Long id;
     public String name;
+    public Date birthDate;
     public String telephone;
+    public String zipCode;
     public String email;
     public String address;
-
+    public String password;
+    public Long userTypeID;
 
     public Long getId() {
         return id;
@@ -32,12 +29,28 @@ public class UserResponseDTO {
         this.name = name;
     }
 
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
     public String getTelephone() {
         return telephone;
     }
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getEmail() {
@@ -54,5 +67,21 @@ public class UserResponseDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getUserTypeID() {
+        return userTypeID;
+    }
+
+    public void setUserTypeID(Long userTypeID) {
+        this.userTypeID = userTypeID;
     }
 }

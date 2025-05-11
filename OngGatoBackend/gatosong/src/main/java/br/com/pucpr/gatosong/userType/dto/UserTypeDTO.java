@@ -1,7 +1,4 @@
-package br.com.pucpr.gatosong.donation.dto;
-
-import java.math.BigDecimal;
-import java.util.Date;
+package br.com.pucpr.gatosong.userType.dto;
 
 public class UserTypeDTO {
     public Long id;
