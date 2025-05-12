@@ -1,6 +1,7 @@
 package br.com.pucpr.gatosong.donation.model;
 
 import br.com.pucpr.gatosong.typeDonation.model.TypeDonationModel;
+import br.com.pucpr.gatosong.user.model.UserModel;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

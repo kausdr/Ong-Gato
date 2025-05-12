@@ -1,9 +1,9 @@
-package br.com.pucpr.gatosong.donation.facade;
+package br.com.pucpr.gatosong.user.facade;
 
 
-import br.com.pucpr.gatosong.donation.dto.UserDTO;
-import br.com.pucpr.gatosong.donation.dto.UserResponseDTO;
-import br.com.pucpr.gatosong.donation.model.UserModel;
+import br.com.pucpr.gatosong.user.dto.UserDTO;
+import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
+import br.com.pucpr.gatosong.user.model.UserModel;
 
 import java.util.List;
 

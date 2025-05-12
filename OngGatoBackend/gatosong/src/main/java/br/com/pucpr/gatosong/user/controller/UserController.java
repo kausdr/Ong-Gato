@@ -1,12 +1,10 @@
-package br.com.pucpr.gatosong.donation.controller;
+package br.com.pucpr.gatosong.user.controller;
 
-import br.com.pucpr.gatosong.donation.dto.UserDTO;
-import br.com.pucpr.gatosong.donation.dto.UserResponseDTO;
-import br.com.pucpr.gatosong.donation.facade.UserFacade;
-import br.com.pucpr.gatosong.donation.facade.impl.DefaultUserFacade;
-import br.com.pucpr.gatosong.donation.model.UserModel;
-import br.com.pucpr.gatosong.donation.service.impl.DefaultUserService;
-import br.com.pucpr.gatosong.exception.UsedEmailException;
+import br.com.pucpr.gatosong.user.dto.UserDTO;
+import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
+import br.com.pucpr.gatosong.user.facade.UserFacade;
+import br.com.pucpr.gatosong.user.model.UserModel;
+import br.com.pucpr.gatosong.user.service.impl.DefaultUserService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -85,7 +83,7 @@ public class UserController {
 
         } catch (Exception e) {
             logger.error("Unable to get use", e);
-            throw new RuntimeException(e);
+            return ResponseEntity.badRequest().body("No users found");
         }
     }
 
