@@ -13,6 +13,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
 
         Contact contact = new Contact();
+        contact.setName("Website Ong Gato");
         contact.setUrl("http://localhost:8080");
         return new OpenAPI()
                 .info(new Info()
