@@ -43,11 +43,11 @@ export const Profile = () => {
 
     return (
         <div className="flex justify-center items-center">
-        <Card>
+        <Card className="w-full">
             <div className="flex flex-col h-[calc(100vh-40px)] gap-5 p-10 bg-white">
                 <h1 className="text-xl font-bold">Perfil</h1>
-                <div className="flex flex-row gap-30">
-                    <div className="flex flex-col gap-2">
+                <div className="flex flex-col lg:flex-row gap-30">
+                    <div className="flex flex-col gap-2 items-center">
                         <div className="w-fit h-fit rounded rounded-md border-2 border-slate-200">
                             <MdOutlinePerson4 className={`text-slate-300`} size={150} />
                         </div>

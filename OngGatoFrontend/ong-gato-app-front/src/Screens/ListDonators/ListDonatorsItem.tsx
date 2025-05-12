@@ -3,21 +3,24 @@ import { GoGear } from "react-icons/go";
 import Button from "../../Components/Layout/Button";
 
 interface ListDonatorsItem {
-    amount: number,
+    name: string,
+    email: string
 }
 
 
-export const ListDonatorsItem = ({amount}: ListDonatorsItem) => {
+export const ListDonatorsItem = ({name, email}: ListDonatorsItem) => {
 
     return (
         <tr className="border-b-1 border-gray-100">
-            <td className="py-[10px]">
-                <div className="px-[10px]">{amount}</div>
+                        <td className="py-[10px]">
+                <div className="px-[10px]">{name}</div>
+
             </td>
-            {/* <td className="py-[10px]">
+                        <td className="py-[10px]">
                 <div className="px-[10px]">{email}</div>
 
-            </td> */}
+            </td>
+
         </tr>
     )
 }

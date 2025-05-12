@@ -19,6 +19,8 @@ function Signup() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [canCreate, setCanCreate] = useState<boolean>(false)
+    const [canCreateAccount, setCanCreateAccount] = useState<boolean>(false)
+    const [userToCreate, setUserToCreate] = useState<User>()
 
 
     const createUser = async (newUser: User) => {
@@ -45,9 +47,10 @@ function Signup() {
         const response = await validateEmail(newUser.email)
         if (response == false) {
             console.log("EXISTE?: " + response)
-            createUser(newUser)
+            setCanCreateAccount(true)
         } else {
             console.log("EXISTE?: " + response)
+            setCanCreateAccount(false)
         }
     }
 
@@ -59,6 +62,18 @@ function Signup() {
             setCanCreate(false)
         }
     }, [name, lastName, telephone, cep, email, address, password, confirmPassword])
+
+    useEffect(() => {
+        if (userToCreate != undefined) {
+            createAccount(userToCreate)
+        }
+    }, [userToCreate])
+
+    useEffect(() => {
+        if (canCreateAccount && userToCreate != undefined) {
+            createUser(userToCreate)
+        }
+    }, [canCreateAccount])
 
 
 
@@ -85,18 +100,28 @@ function Signup() {
                 <Input label="Confirme sua senha" type="password" icon={<IoKeyOutline />} id="password" name="password" placeholder="Confirme sua senha" value={confirmPassword} setValue={setConfirmPassword} />
 
                 <Button order={canCreate ? `primary` : `inactive`} text="SIGNUP" action={() => {
-                    createUser(
-                        {
-                            userTypeID: 333,
-                            birthDate: new Date().toISOString(),
-                            name: name,
-                            telephone: telephone,
-                            zipCode: cep,
-                            email: email,
-                            password: password,
-                            address: address
-                        }
-                    )
+                    // setUserToCreate({
+                    //     userTypeID: 333,
+                    //     birthDate: new Date().toISOString(),
+                    //     name: name,
+                    //     telephone: telephone,
+                    //     zipCode: cep,
+                    //     email: email,
+                    //     password: password,
+                    //     address: address
+                    // })
+
+                    createUser({
+                        userTypeID: 333,
+                        birthDate: new Date().toISOString(),
+                        name: name,
+                        telephone: telephone,
+                        zipCode: cep,
+                        email: email,
+                        password: password,
+                        address: address
+                    })
+
 
                 }} />
 
