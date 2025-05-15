@@ -1,5 +1,7 @@
 package br.com.pucpr.gatosong.controller;
 
+import br.com.pucpr.gatosong.dto.LoginRequest;
+import br.com.pucpr.gatosong.dto.LoginResponse;
 import br.com.pucpr.gatosong.dto.UserDTO;
 import br.com.pucpr.gatosong.facade.impl.DefaultUserFacade;
 import br.com.pucpr.gatosong.model.UserModel;
@@ -120,4 +122,14 @@ public class UserController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            LoginResponse response= userService.login(loginRequest.email(), loginRequest.password());
+            return ResponseEntity.ok().body(response);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Login incorreto",e);
+        }
+    }
 }

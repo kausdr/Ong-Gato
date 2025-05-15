@@ -1,13 +1,17 @@
 package br.com.pucpr.gatosong.service.impl;
 
+import br.com.pucpr.gatosong.dto.LoginResponse;
+import br.com.pucpr.gatosong.dto.UserResponse;
 import br.com.pucpr.gatosong.model.UserModel;
 import br.com.pucpr.gatosong.repository.UserRepository;
+import br.com.pucpr.gatosong.security.Jwt;
 import br.com.pucpr.gatosong.service.UserService;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.ResourceTransactionManager;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Collections;
@@ -22,6 +26,11 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private Jwt jwt;
+    @Autowired
+    private ResourceTransactionManager resourceTransactionManager;
 
     @Override
     public List<UserModel> getAllUsers() {
@@ -84,5 +93,15 @@ public class DefaultUserService implements UserService {
                 logger.error("Unable to delete UserModel", e);
             }
         }
+    }
+
+    @Override
+    public LoginResponse login(String username, String password) {
+
+        UserModel userModel = userRepository.findByEmail(username);
+        if( userModel == null || userModel.getPassword() == null) {
+            return null;
+        }
+        return new LoginResponse(jwt.createToken(userModel), new UserResponse(userModel));
     }
 }
