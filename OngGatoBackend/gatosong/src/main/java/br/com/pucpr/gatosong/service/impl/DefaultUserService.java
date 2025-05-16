@@ -29,8 +29,6 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private Jwt jwt;
-    @Autowired
-    private ResourceTransactionManager resourceTransactionManager;
 
     @Override
     public List<UserModel> getAllUsers() {
