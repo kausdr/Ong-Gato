@@ -5,6 +5,25 @@ import Button from "../../../Components/Layout/Button";
 import { useNavigate } from "react-router-dom";
 import { UserService, User } from "../../../API/user.tsx"
 import { useEffect, useState } from "react";
+import axios from "axios";
+
+const validateEmailRegex = (email: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+const validatePassword = (password: string) =>
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/.test(password);
+
+const validateTelephone = (telephone: string) =>
+  /^\d{10,11}$/.test(telephone);
+
+const validateCEP = async (cep: string) => {
+  try {
+    const res = await axios.get(`/viacep/ws/${cep}/json/`);
+    return !res.data.erro;
+  } catch (err) {
+    return false;
+  }
+}
 
 function Signup() {
 
@@ -19,41 +38,6 @@ function Signup() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [canCreate, setCanCreate] = useState<boolean>(false)
-    const [canCreateAccount, setCanCreateAccount] = useState<boolean>(false)
-    const [userToCreate, setUserToCreate] = useState<User>()
-
-
-    const createUser = async (newUser: User) => {
-        const [response, error] = await UserService.createUser(newUser)
-
-        console.log("sucesso ao criar user: " + response)
-        if (error) {
-            console.log("erro criar user " + error)
-        }
-    }
-
-    const validateEmail = async (email: string) => {
-        const [response, error] = await UserService.validateEmail(email)
-
-        console.log("sucesso ao validar email: " + response)
-        return response
-
-        if (error) {
-            return console.log("erro ao validar email " + error)
-        }
-    }
-
-    const createAccount = async (newUser: User) => {
-        const response = await validateEmail(newUser.email)
-        if (response == false) {
-            console.log("EXISTE?: " + response)
-            setCanCreateAccount(true)
-        } else {
-            console.log("EXISTE?: " + response)
-            setCanCreateAccount(false)
-        }
-    }
-
 
     useEffect(() => {
         if (name && lastName && telephone && cep && email && address && password && confirmPassword) {
@@ -62,20 +46,6 @@ function Signup() {
             setCanCreate(false)
         }
     }, [name, lastName, telephone, cep, email, address, password, confirmPassword])
-
-    useEffect(() => {
-        if (userToCreate != undefined) {
-            createAccount(userToCreate)
-        }
-    }, [userToCreate])
-
-    useEffect(() => {
-        if (canCreateAccount && userToCreate != undefined) {
-            createUser(userToCreate)
-        }
-    }, [canCreateAccount])
-
-
 
     return (
         <div className="flex flex-col gap-5">
@@ -99,32 +69,65 @@ function Signup() {
                 <Input label="Senha" type="password" icon={<IoKeyOutline />} id="password" name="password" placeholder="Insira sua senha" value={password} setValue={setPassword} />
                 <Input label="Confirme sua senha" type="password" icon={<IoKeyOutline />} id="password" name="password" placeholder="Confirme sua senha" value={confirmPassword} setValue={setConfirmPassword} />
 
-                <Button order={canCreate ? `primary` : `inactive`} text="SIGNUP" action={() => {
-                    // setUserToCreate({
-                    //     userTypeID: 333,
-                    //     birthDate: new Date().toISOString(),
-                    //     name: name,
-                    //     telephone: telephone,
-                    //     zipCode: cep,
-                    //     email: email,
-                    //     password: password,
-                    //     address: address
-                    // })
+                <Button 
+                    order={canCreate ? `primary` : `inactive`} 
+                    text="SIGNUP" 
+                    action={async () => {
+                        if (!validateTelephone(telephone)) {
+                            alert("Telefone inválido! Use 10 ou 11 dígitos numéricos.");
+                            return;
+                        }
 
-                    createUser({
-                        userTypeID: 333,
-                        birthDate: new Date().toISOString(),
-                        name: name,
-                        telephone: telephone,
-                        zipCode: cep,
-                        email: email,
-                        password: password,
-                        address: address
-                    })
+                        const isCepValid = await validateCEP(cep);
+                        if (!isCepValid) {
+                            alert("CEP inválido ou não encontrado.");
+                            return;
+                        }
 
+                        if (!validateEmailRegex(email)) {
+                            alert("E-mail inválido!");
+                            return;
+                        }
 
-                }} />
+                        if (!validatePassword(password)) {
+                            alert(
+                                "Senha inválida! A senha deve conter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais."
+                            );
+                            return;
+                        }
 
+                        if (password !== confirmPassword) {
+                            alert("As senhas não coincidem!");
+                            return;
+                        }
+
+                        const [emailExists, error] = await UserService.validateEmail(email);
+                        if (emailExists) {
+                            alert("Este e-mail já está cadastrado.");
+                            return;
+                        }
+
+                        const newUser: User = {
+                            userTypeID: 333,
+                            birthDate: new Date().toISOString(),
+                            name: `${name} ${lastName}`.trim(),
+                            telephone,
+                            zipCode: cep,
+                            email,
+                            password,
+                            address,
+                        };
+
+                        const [response, creationError] = await UserService.createUser(newUser);
+                        if (creationError) {
+                            alert("Erro ao criar usuário.");
+                        } else {
+                            alert("Usuário criado com sucesso!");
+                            navigate("/access/login");
+                        }
+
+                    }}
+                />
                 <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/login")}>Already have an account?</a>
             </div>
         </div>

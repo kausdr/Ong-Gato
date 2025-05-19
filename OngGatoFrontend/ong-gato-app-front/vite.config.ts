@@ -6,6 +6,14 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   server: {
     port: 8080,
+    // apenas para testes locais, adicionar um endpoint para o viacep no backend posteriormente
+    proxy: {
+      '/viacep': {
+        target: 'https://viacep.com.br',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/viacep/, ''),
+      },
+    },
   },
   plugins: [
     react(),
