@@ -4,6 +4,7 @@ import br.com.pucpr.gatosong.user.dto.LoginRequest;
 import br.com.pucpr.gatosong.user.dto.LoginResponse;
 import br.com.pucpr.gatosong.user.dto.UserDTO;
 import br.com.pucpr.gatosong.user.model.UserModel;
+import br.com.pucpr.gatosong.user.service.UserService;
 import br.com.pucpr.gatosong.user.service.impl.DefaultUserService;
 import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
@@ -30,7 +31,7 @@ public class UserController {
     private static final Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
-    private DefaultUserService userService;
+    private UserService userService;
 
     @Autowired
     private UserFacade userFacade;
@@ -71,7 +72,7 @@ public class UserController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserModel userModel) {
         try {
 
