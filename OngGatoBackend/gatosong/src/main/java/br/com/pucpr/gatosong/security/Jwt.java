@@ -1,6 +1,6 @@
 package br.com.pucpr.gatosong.security;
 
-import br.com.pucpr.gatosong.model.UserModel;
+import br.com.pucpr.gatosong.user.model.UserModel;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.jackson.io.JacksonDeserializer;
 import io.jsonwebtoken.jackson.io.JacksonSerializer;

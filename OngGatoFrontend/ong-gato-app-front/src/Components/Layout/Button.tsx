@@ -1,16 +1,18 @@
-interface Button {
+interface ButtonProps {
     order: string
-    text: String
+    text: any
     action: () => void
+    icon?: React.ReactNode
+    className?: string
 }
 
-function Button({order, text, action}: Button) {
+function Button({order, text, action, icon, className}: ButtonProps) {
 
-    // const buttonClass = order == "primary" ? "bg-sky-400" : order == "secondary" ? ""
+    const buttonClass = order == "primary" ? "bg-sky-400 hover:bg-sky-500" : order == "secondary" ? "border-1 hover:bg-slate-100" : order == "nav" ? "rounded-none hover:bg-slate-100" : order == "inactive" ? "pointer-events-none !bg-gray-200 !text-gray-400" : order == "cancel" ? "bg-yellow-400 hover:bg-yellow-500" : ""
 
     return(
-        <button className={`button inline-flex justify-center items-center button rounded py-2 px-4 cursor-pointer ${order == "primary" ? "bg-sky-400 hover:bg-sky-500" : "border-1 hover:bg-slate-50"}`} onClick={action}>
-            {text}
+        <button className={`button inline-flex justify-center items-center gap-2 rounded py-2 px-4 cursor-pointer ${buttonClass} ${className}`} onClick={action}>
+            {icon && icon}{text}
         </button>
     )
 }

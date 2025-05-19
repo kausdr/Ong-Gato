@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b00bf33f-177d-4f23-8a6e-69ef82ff478f" name="Changes" comment="Controller e service prontas">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="b00bf33f-177d-4f23-8a6e-69ef82ff478f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/service/impl/DefaultUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/service/impl/DefaultUserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,9 +15,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Record" />
         <option value="Class" />
-        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -32,12 +28,12 @@
     &quot;assignee&quot;: &quot;AnaCezanoski&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/kausdr/Ong-Gato.git&quot;,
-    &quot;accountId&quot;: &quot;f1efbfde-d003-4c17-be05-d0090efb25f4&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/kausdr/Ong-Gato.git",
+    "accountId": "5b8c943b-05f4-4172-ab13-2592f05333df"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -49,49 +45,35 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.GatosongApplication.executor": "Run",
+    "Application.GatosongApplication.executor": "Debug",
     "JUnit.GatosongApplicationTests.executor": "Run",
-    "Maven.gatosong [clean].executor": "Run",
-    "Maven.gatosong [install].executor": "Run",
-    "Maven.gatosong [test].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.GatosongApplication.executor": "Run",
-    "git-widget-placeholder": "feature/login",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/julia/Downloads/BSI-5/Ong-Gato",
+    "last_opened_file_path": "C:/Users/julia/Downloads/BSI-5/Ong-Gato/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/sprints",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "MavenSettings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\julia\Downloads\BSI-5\Ong-Gato\OngGatoBackend\gatosong\src\main\java\br\com\pucpr\gatosong\sprints" />
+    </key>
+  </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Ong-Gato" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="Ong-Gato" />
       <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GatosongApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="gatosong" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.pucpr.gatosong.GatosongApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -113,42 +95,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1742855169309</updated>
-      <workItem from="1744063961892" duration="4650000" />
-      <workItem from="1744150787700" duration="1090000" />
-      <workItem from="1744665101366" duration="867000" />
-      <workItem from="1746463700351" duration="11417000" />
-      <workItem from="1746556131883" duration="4806000" />
-      <workItem from="1746568927561" duration="878000" />
-      <workItem from="1746641902019" duration="2479000" />
-      <workItem from="1747253371664" duration="607000" />
-      <workItem from="1747254395873" duration="24000" />
-      <workItem from="1747254438739" duration="9297000" />
+      <workItem from="1746990023940" duration="868000" />
     </task>
-    <task id="LOCAL-00001" summary="Base">
-      <option name="closed" value="true" />
-      <created>1746477345245</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1746477345245</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Filto implantado e regras de acesso a rotas">
-      <option name="closed" value="true" />
-      <created>1747253487943</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1747253487943</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Controller e service prontas">
-      <option name="closed" value="true" />
-      <created>1747346881763</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1747346881763</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,23 +121,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reformulação das pastas e começo da criação do token" />
-    <MESSAGE value="Base" />
-    <MESSAGE value="Filto implantado e regras de acesso a rotas" />
-    <MESSAGE value="Controller e service prontas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Controller e service prontas" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
