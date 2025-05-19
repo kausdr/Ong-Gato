@@ -7,33 +7,6 @@ import { Outlet } from "react-router-dom";
 export const History = () => {
     const [donations, setDonations] = useState<Donation[]>([])
 
-    // const donations = [
-    //     {
-    //         createdAt: '12/02/2025',
-    //         nome: "LuisLuis Luis LuisLuis",
-    //         email: "luis@gmail.com",
-    //         value: "200"
-    //     },
-    //     {
-    //         createdAt: '02/04/2025',
-    //         nome: "LuLuisis",
-    //         email: "luis@gmail.com",
-    //         value: "200"
-    //     },
-    //     {
-    //         createdAt: '12/02/2025',
-    //         nome: "tereza terezatereza",
-    //         email: "tereza@gmail.com",
-    //         value: "200"
-    //     },
-    //     {
-    //         createdAt: '12/02/2025',
-    //         nome: "angela",
-    //         email: "angela@gmail.com",
-    //         value: "200"
-    //     },
-    // ]
-
     const fetchDonations = async () => {
         const [response, error] = await DonationService.getDonations()
 
@@ -41,7 +14,6 @@ export const History = () => {
             setDonations(response)
             console.log(response)
         }
-        console.log("É array?", Array.isArray(response))
         console.log("sucesso ao criar user: " + response)
 
         if (error) {

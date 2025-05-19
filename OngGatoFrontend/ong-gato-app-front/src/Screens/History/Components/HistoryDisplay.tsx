@@ -36,7 +36,11 @@ export const HistoryDisplay = ({type, date, amount, donator} : HistoryDisplayPro
                 </div>
             </td>
             <td>
-                <div className="flex items-center px-[10px]">{type.name.toLocaleLowerCase() == "dinheiro" ? <p className="flex gap-2 items-center"><FaBrazilianRealSign className="text-green-600" /> {amount} </p> : type.name.toLocaleLowerCase() == "alimento" ? <p>{amount} <span className="text-sm font-semibold text-orange-600">kg</span></p> : ""}</div>
+                <div className="flex items-center px-[10px]">{type.name.toLocaleLowerCase() == "dinheiro" ? <p className="flex gap-2 items-center"><FaBrazilianRealSign className="text-green-600" /> {amount} </p> 
+                : type.name.toLocaleLowerCase() == "alimento" ? <p>{amount} <span className="text-sm font-semibold text-orange-600">kg</span></p> 
+                : type.name.toLocaleLowerCase() == "roupa" ? <p>{amount}</p> 
+                : ""}
+                </div>
             </td>
             <td>
                 <div className="px-[10px]">por {donator ? donator.name : "Não consta"}</div>
