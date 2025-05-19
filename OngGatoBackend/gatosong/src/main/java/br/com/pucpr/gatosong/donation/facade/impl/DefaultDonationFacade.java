@@ -65,6 +65,41 @@ public class DefaultDonationFacade implements DonationFacade {
             target.setDonator(userModel);
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         TypeDonationModel typeDonationModel = typeDonationService.getTypeDonationById(source.getType()).get(0);
         if (!Objects.isNull(typeDonationModel))
         {

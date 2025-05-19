@@ -51,6 +51,25 @@ public class UserController {
         }
     }
 
+
+    @GetMapping("/list-donators")
+    public ResponseEntity<?> getDonators() {
+        try {
+
+            List<UserResponseDTO> userModelList = this.userFacade.getDonators();
+
+            if (CollectionUtils.isEmpty(userModelList)) {
+                return ResponseEntity.ok().body("No users found");
+            }
+
+            return ResponseEntity.ok().body(userModelList);
+
+        } catch (Exception e) {
+            logger.error("Unable to get users", e);
+            throw new RuntimeException(e);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {

@@ -44,6 +44,18 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    public List<UserModel> getUsersWithDonations() {
+
+        List<UserModel> list = userRepository.findAllByDonationsIsNotNull();
+
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        return list;
+    }
+
+    @Override
     public List<UserModel> createUser(UserModel userModel) {
 
         UserModel model = null;

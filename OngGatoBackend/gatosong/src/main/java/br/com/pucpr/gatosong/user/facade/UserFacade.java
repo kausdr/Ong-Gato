@@ -19,4 +19,6 @@ public interface UserFacade {
     List<UserResponseDTO> getAllUsers() throws Exception;
 
     List<UserResponseDTO> getUserById(Long id) throws Exception;
+
+    List<UserResponseDTO> getDonators() throws Exception;
 }

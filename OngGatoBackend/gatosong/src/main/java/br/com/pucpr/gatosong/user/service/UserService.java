@@ -9,6 +9,8 @@ public interface UserService {
 
     List<UserModel> getUserById(Long id);
 
+    List<UserModel> getUsersWithDonations();
+
     List<UserModel> createUser(UserModel userModel);
 
     UserModel updateUser(UserModel target);

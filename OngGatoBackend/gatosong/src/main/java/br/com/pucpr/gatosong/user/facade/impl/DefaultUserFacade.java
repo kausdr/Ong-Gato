@@ -132,6 +132,23 @@ public class DefaultUserFacade implements UserFacade {
         }
     }
 
+    @Override
+    public List<UserResponseDTO> getDonators() throws Exception {
+        try {
+            List<UserResponseDTO> responseDTOList = new ArrayList<>();
+
+            List<UserModel> models = this.userService.getUsersWithDonations();
+
+            for (UserModel model : models){
+                responseDTOList.add(populateUserResponseDTO(model));
+            }
+
+            return responseDTOList;
+        }catch (Exception e){
+            throw new Exception("Unable to get users");
+        }
+    }
+
     private boolean checkIfUserCpfExists(String cpf) {
         return userService.existsByCPF(cpf);
     }
