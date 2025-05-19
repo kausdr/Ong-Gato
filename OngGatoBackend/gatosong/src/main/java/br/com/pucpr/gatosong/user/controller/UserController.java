@@ -1,10 +1,13 @@
 package br.com.pucpr.gatosong.user.controller;
 
+import br.com.pucpr.gatosong.user.dto.LoginRequest;
+import br.com.pucpr.gatosong.user.dto.LoginResponse;
 import br.com.pucpr.gatosong.user.dto.UserDTO;
+import br.com.pucpr.gatosong.user.model.UserModel;
+import br.com.pucpr.gatosong.user.service.UserService;
+import br.com.pucpr.gatosong.user.service.impl.DefaultUserService;
 import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
-import br.com.pucpr.gatosong.user.model.UserModel;
-import br.com.pucpr.gatosong.user.service.impl.DefaultUserService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +31,7 @@ public class UserController {
     private static final Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
-    private DefaultUserService userService;
+    private UserService userService;
 
     @Autowired
     private UserFacade userFacade;
@@ -69,7 +72,7 @@ public class UserController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserModel userModel) {
         try {
 
@@ -121,7 +124,16 @@ public class UserController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            LoginResponse response = userService.login(loginRequest.email(), loginRequest.password());
+            return ResponseEntity.ok().body(response);
 
+        } catch (Exception e) {
+            throw new RuntimeException("Login incorreto", e);
+        }
+    }
     @GetMapping("/validateEmail/{email}")
     public Boolean validateEmail(@PathVariable String email) {
         return userService.existsByEmail(email);

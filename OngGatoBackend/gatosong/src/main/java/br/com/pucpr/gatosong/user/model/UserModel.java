@@ -18,7 +18,7 @@ public class UserModel {
     private String name;
 
     @Column(name = "userTypeID")
-    private Long userTypeID;
+    private boolean isAdmin;
 
     @Column(name = "birthDate")
     private Date birthDate;
@@ -64,12 +64,12 @@ public class UserModel {
         this.name = name;
     }
 
-    public Long getUserTypeID() {
-        return userTypeID;
+    public boolean getIsAdmin() {
+        return isAdmin;
     }
 
-    public void setUserTypeID(Long userTypeID) {
-        this.userTypeID = userTypeID;
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public Date getBirthDate() {

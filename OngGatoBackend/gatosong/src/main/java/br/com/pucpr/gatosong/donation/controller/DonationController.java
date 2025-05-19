@@ -6,7 +6,6 @@ import br.com.pucpr.gatosong.donation.facade.DonationFacade;
 import br.com.pucpr.gatosong.donation.facade.impl.DefaultDonationFacade;
 import br.com.pucpr.gatosong.donation.model.DonationModel;
 import br.com.pucpr.gatosong.donation.service.DonationService;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
