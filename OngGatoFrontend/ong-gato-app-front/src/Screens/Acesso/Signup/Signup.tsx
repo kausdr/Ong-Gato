@@ -40,7 +40,7 @@ function Signup() {
     }
 
     const createAccount = async (newUser: User) => {
-        const response = await validateEmail(newUser.email)
+        const response = await validateEmail(newUser.email ?? "")
         if (response == false) {
             console.log("EXISTE?: " + response)
             createUser(newUser)
