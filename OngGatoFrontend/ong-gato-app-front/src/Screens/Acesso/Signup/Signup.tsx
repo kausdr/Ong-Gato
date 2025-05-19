@@ -12,6 +12,7 @@ function Signup() {
 
     const [name, setName] = useState('')
     const [lastName, setLastName] = useState('')
+    const [cpf, setCpf] = useState<string>('')
     const [telephone, setTelephone] = useState<string>('')
     const [cep, setCep] = useState<string>('')
     const [email, setEmail] = useState('')
@@ -19,7 +20,6 @@ function Signup() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [canCreate, setCanCreate] = useState<boolean>(false)
-    const [canCreateAccount, setCanCreateAccount] = useState<boolean>(false)
     const [userToCreate, setUserToCreate] = useState<User>()
 
 
@@ -33,28 +33,24 @@ function Signup() {
     }
 
     const validateEmail = async (email: string) => {
-        const [response, error] = await UserService.validateEmail(email)
+        const [response] = await UserService.validateEmail(email)
 
         console.log("sucesso ao validar email: " + response)
         return response
-
-        if (error) {
-            return console.log("erro ao validar email " + error)
-        }
     }
 
     const createAccount = async (newUser: User) => {
         const response = await validateEmail(newUser.email)
         if (response == false) {
             console.log("EXISTE?: " + response)
-            setCanCreateAccount(true)
+            createUser(newUser)
         } else {
             console.log("EXISTE?: " + response)
-            setCanCreateAccount(false)
         }
     }
 
 
+    //verifica se os campos estão em branco
     useEffect(() => {
         if (name && lastName && telephone && cep && email && address && password && confirmPassword) {
             setCanCreate(true)
@@ -63,17 +59,12 @@ function Signup() {
         }
     }, [name, lastName, telephone, cep, email, address, password, confirmPassword])
 
+
     useEffect(() => {
         if (userToCreate != undefined) {
             createAccount(userToCreate)
         }
     }, [userToCreate])
-
-    useEffect(() => {
-        if (canCreateAccount && userToCreate != undefined) {
-            createUser(userToCreate)
-        }
-    }, [canCreateAccount])
 
 
 
@@ -90,6 +81,7 @@ function Signup() {
                 </div>
 
                 <div className="flex gap-2">
+                    <Input label="CPF" type="number" id="cpf" name="cpf" placeholder="Digite seu cpf" value={cpf} setValue={setCpf} className="w-full" />
                     <Input label="Telefone" type="number" id="tel" name="tel" placeholder="Digite seu telefone" value={telephone} setValue={setTelephone} className="w-full" />
                 </div>
                 <Input label="Endereço" type="text" id="adress" name="adress" placeholder="Av. Oswaldo Matoro, 176" value={address} setValue={setAddress} />
@@ -100,29 +92,17 @@ function Signup() {
                 <Input label="Confirme sua senha" type="password" icon={<IoKeyOutline />} id="password" name="password" placeholder="Confirme sua senha" value={confirmPassword} setValue={setConfirmPassword} />
 
                 <Button order={canCreate ? `primary` : `inactive`} text="SIGNUP" action={() => {
-                    // setUserToCreate({
-                    //     userTypeID: 333,
-                    //     birthDate: new Date().toISOString(),
-                    //     name: name,
-                    //     telephone: telephone,
-                    //     zipCode: cep,
-                    //     email: email,
-                    //     password: password,
-                    //     address: address
-                    // })
-
-                    createUser({
-                        userTypeID: 333,
+                    setUserToCreate({
+                        userTypeID: 0,
                         birthDate: new Date().toISOString(),
                         name: name,
+                        cpf: cpf,
                         telephone: telephone,
                         zipCode: cep,
                         email: email,
                         password: password,
                         address: address
                     })
-
-
                 }} />
 
                 <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/login")}>Already have an account?</a>

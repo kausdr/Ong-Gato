@@ -5,26 +5,17 @@ const link: string = 'http://localhost:8081/user'
 
 
 export interface User {
-    // public Long Id;
-    // public String name;
-    // public Date birthDate;
-    // public String telephone;
-    // public String zipCode;
-    // public String email;
-    // public String address;
-    // public String password;
-    // public Long userTypeID;
-
     id?: number
-    name: string
-    birthDate: string
-    telephone: string
-    zipCode: string
-    email: string
-    address: string
-    password: string
+    name?: string
+    birthDate?: string
+    cpf?: string
+    telephone?: string
+    zipCode?: string
+    email?: string
+    address?: string
+    password?: string
     userTypeID?: number
-    // donations: []
+    cargo?: string
 }
 
 export class UserService {
