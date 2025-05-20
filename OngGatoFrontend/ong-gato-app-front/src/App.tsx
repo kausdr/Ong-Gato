@@ -15,6 +15,7 @@ import { Access } from './Screens/Acesso/Access'
 import Donate from './Screens/Donate/Donate'
 import { Relatorio } from './Screens/Relatorio/Relatorio'
 import { Profile } from './Screens/Profile/Profile'
+import NavBar from './Screens/NavBar/NavBar'
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
             <Route path="gerenciar" element={<UserManagement/>}/>
             <Route path="relatorio" element={<Relatorio/>}/>
             <Route path="perfil" element={<Profile/>}/>
+            <Route path="nav-bar" element={<NavBar/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
