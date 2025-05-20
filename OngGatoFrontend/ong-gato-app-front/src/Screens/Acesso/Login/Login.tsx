@@ -4,8 +4,7 @@ import { IoKeyOutline } from "react-icons/io5";
 import Button from "../../../Components/Layout/Button";
 import { useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
-
-
+import { UserService } from "../../../API/user";
 
 function Login() {
 
@@ -15,9 +14,15 @@ function Login() {
         const [canCreate, setCanCreate] = useState<boolean> (false)
 
 
-    const verifyLogin = () => {
-        console.log("verify")
-        navigate("/historico")
+    const verifyLogin = async () => {
+        const [response, error] = await UserService.login(email, password)
+        
+        if (response) {
+            console.log("Login bem-sucedido:", response)
+            navigate("/historico")
+        } else {
+            alert("Login falhou. Verifique suas credenciais.")
+        }
     }
 
     useEffect(() => {
@@ -45,8 +50,15 @@ function Login() {
                 <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/signup")}>Não tem uma conta ainda?</a>
             </div>
         </div>
-
     )
 }
 
 export default Login
+
+export function logout() {
+    localStorage.removeItem('token')
+}
+
+export function isAuthenticated(): boolean {
+    return !!localStorage.getItem('token')
+}
