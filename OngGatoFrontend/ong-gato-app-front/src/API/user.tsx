@@ -42,7 +42,7 @@ export class UserService {
 
     static async createUser(newUser: User): Promise<[User | null, any]> {
         try {
-            const response = await axios.post(link, newUser)
+            const response = await axios.post("http://localhost:8081/user/create", newUser)
             return [response.data, null]
 
         } catch (error) {
@@ -73,8 +73,4 @@ export class UserService {
             return [null, error]
         }
     }
-
-
-
-
 }
