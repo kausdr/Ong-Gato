@@ -41,6 +41,19 @@ export class UserService {
         }
     }
 
+    static async loginUser(email: string, password: string): Promise<[any | null, any]> {
+        try {
+            const response = await axios.post(link + `/login`, {
+                email,
+                password
+            })
+            return [response.data, null]
+        } catch (error) {
+            console.log("erro ao fazer login " + error)
+            return [null, error]
+        }
+    }
+
 
     static async validateEmail(email: string): Promise<[boolean | null, any]> {
         try {

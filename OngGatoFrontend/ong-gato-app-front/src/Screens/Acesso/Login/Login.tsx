@@ -6,6 +6,8 @@ import { useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { UserService } from "../../../API/user";
 
+
+
 function Login() {
 
     const navigate = useNavigate();
@@ -22,6 +24,15 @@ function Login() {
             navigate("/historico")
         } else {
             alert("Login falhou. Verifique suas credenciais.")
+        }
+    }
+
+    const login = async (email: string, password: string) => {
+        const [response, error] = await UserService.loginUser(email, password)
+        if (error) {
+            console.log("erro ao fazer login "+error)
+        } else {
+            console.log("response login "+response)
         }
     }
 
@@ -44,7 +55,7 @@ function Login() {
                 <Input label="Senha" type="password" icon={<IoKeyOutline></IoKeyOutline>} id="password" name="password" placeholder="Insira sua senha" value={password} setValue={setPassword}></Input>
 
                 <Button order={canCreate ? `primary` : `inactive`} text="Login" action={() => {
-                    verifyLogin()
+                    login(email, password)
                     }}></Button>
 
                 <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/signup")}>Não tem uma conta ainda?</a>
