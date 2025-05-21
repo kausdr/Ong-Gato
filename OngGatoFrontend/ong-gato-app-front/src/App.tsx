@@ -15,6 +15,8 @@ import { Access } from './Screens/Acesso/Access'
 import Donate from './Screens/Donate/Donate'
 import { Relatorio } from './Screens/Relatorio/Relatorio'
 import { Profile } from './Screens/Profile/Profile'
+import { ProtectedRoutes } from './Screens/Acesso/ProtectedRoutes'
+import { AuthProvider } from './Contexts/AuthContext' 
 
 function App() {
 
@@ -27,13 +29,15 @@ function App() {
   }, [])
 
   return (
-    <>
+    <AuthProvider>
       <BrowserRouter>
         <Routes>
           <Route path="access" element={<Access />}>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
           </Route>
+          
+          <Route element={<ProtectedRoutes/>}>
           <Route path="/" element={<OngPage />}>
             <Route path="cargos" element={<UserManagement />} />
             <Route path="historico" element={<History />} />
@@ -43,9 +47,10 @@ function App() {
             <Route path="relatorio" element={<Relatorio/>}/>
             <Route path="perfil" element={<Profile/>}/>
           </Route>
+          </Route>
         </Routes>
       </BrowserRouter>
-    </>
+      </AuthProvider>
   )
 }
 
