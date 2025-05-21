@@ -28,7 +28,7 @@ function Login() {
     }
 
     const login = async (email: string, password: string) => {
-        const [response, error] = await UserService.loginUser(email, password)
+        const [response, error] = await UserService.login(email, password)
         if (error) {
             console.log("erro ao fazer login "+error)
         } else {

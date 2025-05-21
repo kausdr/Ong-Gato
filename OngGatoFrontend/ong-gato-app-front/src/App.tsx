@@ -37,7 +37,7 @@ function App() {
             <Route path="signup" element={<Signup />} />
           </Route>
           
-          <Route element={<ProtectedRoutes/>}>
+          {/* <Route element={<ProtectedRoutes/>}> */}
           <Route path="/" element={<OngPage />}>
             <Route path="cargos" element={<UserManagement />} />
             <Route path="historico" element={<History />} />
@@ -47,7 +47,7 @@ function App() {
             <Route path="relatorio" element={<Relatorio/>}/>
             <Route path="perfil" element={<Profile/>}/>
           </Route>
-          </Route>
+          {/* </Route> */}
         </Routes>
       </BrowserRouter>
       </AuthProvider>
