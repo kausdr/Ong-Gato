@@ -1,17 +1,22 @@
 package br.com.pucpr.gatosong.user.controller;
 
+import br.com.pucpr.gatosong.user.dto.LoginRequest;
+import br.com.pucpr.gatosong.user.dto.LoginResponse;
 import br.com.pucpr.gatosong.user.dto.UserDTO;
+import br.com.pucpr.gatosong.user.model.UserModel;
+import br.com.pucpr.gatosong.user.service.UserService;
+import br.com.pucpr.gatosong.user.service.impl.DefaultUserService;
 import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
-import br.com.pucpr.gatosong.user.model.UserModel;
-import br.com.pucpr.gatosong.user.service.impl.DefaultUserService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +33,7 @@ public class UserController {
     private static final Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
-    private DefaultUserService userService;
+    private UserService userService;
 
     @Autowired
     private UserFacade userFacade;
@@ -54,22 +59,18 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {
-
-            List<UserResponseDTO> userModelList = userFacade.getUserById(id);
-
-            if (CollectionUtils.isEmpty(userModelList)) {
-                return ResponseEntity.ok().body("No user with code: " + id + "found");
+            UserResponseDTO user = (UserResponseDTO) userFacade.getUserById(id);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No user with code: " + id + " found");
             }
-
-            return ResponseEntity.ok().body(userModelList);
-
+            return ResponseEntity.ok(user);
         } catch (Exception e) {
             logger.error("Unable to get user", e);
-            throw new RuntimeException(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving user");
         }
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserModel userModel) {
         try {
 
@@ -99,7 +100,7 @@ public class UserController {
             logger.error("Unable to get user", e);
             throw new RuntimeException(e);
         }
-        return null;
+        return ResponseEntity.badRequest().body("Dados de atualização inválidos");
     }
 
 
@@ -121,6 +122,19 @@ public class UserController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            LoginResponse response = userService.login(loginRequest.email(), loginRequest.password());
+            return ResponseEntity.ok(response);
+        } catch (AuthenticationException e) {
+            logger.warn("Login failed for email {}", loginRequest.email());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
+        } catch (Exception e) {
+            logger.error("Login error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno no login");
+        }
+    }
 
     @GetMapping("/validateEmail/{email}")
     public Boolean validateEmail(@PathVariable String email) {

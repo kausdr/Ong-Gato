@@ -30,8 +30,8 @@ export const OngPage = () => {
             <div role="navigation" className="flex flex-col justify-between gap-2 py-5 h-screen bg-white w-[200px] border-1 border-slate-200">
                 <div className="flex flex-col gap-10">
                     <div className="flex flex-col gap-2 items-center">
-                        <LiaCatSolid className="text-sky-600" size={40} />
-                        <p className="text-sky-600">Meawnager</p>
+                        <img src="/OngLogo.png" alt="Logo" className="w-16 h-16 rounded-full" />
+                        <p className="text-sky-600">Meownager</p>
                     </div>
 
                     <div className="flex flex-col w-full">

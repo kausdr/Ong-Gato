@@ -104,7 +104,6 @@ function Signup() {
                         address: address
                     })
                 }} />
-
                 <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/login")}>Already have an account?</a>
             </div>
         </div>

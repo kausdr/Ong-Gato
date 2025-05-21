@@ -1,6 +1,9 @@
 package br.com.pucpr.gatosong.user.service.impl;
 
+import br.com.pucpr.gatosong.user.dto.LoginResponse;
+import br.com.pucpr.gatosong.user.dto.UserResponse;
 import br.com.pucpr.gatosong.user.model.UserModel;
+import br.com.pucpr.gatosong.security.Jwt;
 import br.com.pucpr.gatosong.user.repository.UserRepository;
 import br.com.pucpr.gatosong.user.service.UserService;
 import lombok.NoArgsConstructor;
@@ -22,6 +25,9 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private Jwt jwt;
 
     @Override
     public List<UserModel> getAllUsers() {
@@ -86,6 +92,16 @@ public class DefaultUserService implements UserService {
         }
     }
 
+    @Override
+    public LoginResponse login(String username, String password) {
+
+        UserModel userModel = userRepository.findByEmail(username);
+        if (userModel == null || userModel.getPassword() == null) {
+            return null;
+        }
+        return new LoginResponse(jwt.createToken(userModel), new UserResponse(userModel));
+
+    }
     @Override
     public boolean existsByCPF(String cpf) {
         return userRepository.existsByCpf(cpf);
