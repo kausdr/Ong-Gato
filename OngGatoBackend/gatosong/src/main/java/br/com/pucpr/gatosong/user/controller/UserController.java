@@ -84,16 +84,19 @@ public class UserController {
         }
     }
 
-    @PatchMapping
-    public ResponseEntity<?> updateUser(@RequestBody UserDTO updateModel) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDTO updateModel) {
         try {
-            if (!Objects.isNull(updateModel)) {
+            if (updateModel != null) {
+                updateModel.setId(id);
                 UserModel model = userFacade.populateUserModel(updateModel);
 
-                return ResponseEntity.ok().body(Objects.requireNonNullElseGet(model, () -> "No user with code: " + updateModel.getId() + " found"));
+                return ResponseEntity.ok().body(
+                        Objects.requireNonNullElseGet(model, () -> "No user with code: " + id + " found")
+                );
             }
         } catch (Exception e) {
-            logger.error("Unable to get user", e);
+            logger.error("Unable to update user", e);
             throw new RuntimeException(e);
         }
         return ResponseEntity.badRequest().body("Dados de atualização inválidos");

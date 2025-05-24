@@ -44,6 +44,7 @@ public class DefaultUserFacade implements UserFacade {
         target.setAddress(source.getAddress());
         target.setPassword(source.getPassword());
         target.setIsAdmin(source.getIsAdmin());
+        target.setCpf(source.getCpf());
 
         return target;
     }

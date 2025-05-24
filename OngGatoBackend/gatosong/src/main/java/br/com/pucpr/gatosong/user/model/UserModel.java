@@ -40,7 +40,7 @@ public class UserModel {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "cpf", nullable = true)
+    @Column(name = "cpf", nullable = false, unique = true)
     private String cpf;
 
     @OneToMany(mappedBy = "donator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
