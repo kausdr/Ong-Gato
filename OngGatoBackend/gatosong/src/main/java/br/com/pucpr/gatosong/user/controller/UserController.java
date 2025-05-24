@@ -1,11 +1,9 @@
 package br.com.pucpr.gatosong.user.controller;
 
-import br.com.pucpr.gatosong.user.dto.LoginRequest;
-import br.com.pucpr.gatosong.user.dto.LoginResponse;
-import br.com.pucpr.gatosong.user.dto.UserDTO;
+import br.com.pucpr.gatosong.security.UserToken;
+import br.com.pucpr.gatosong.user.dto.*;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.user.service.UserService;
-import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import java.util.List;
 import java.util.Objects;
@@ -62,10 +61,42 @@ public class UserController {
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No user with code: " + id + " found");
             }
+
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             logger.error("Unable to get user", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving user");
+        }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserToken userToken) {
+        if (userToken == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário não autenticado");
+        }
+
+        try {
+            UserResponseDTO user = userFacade.getUserById(userToken.getId());
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao obter o usuário logado");
+        }
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<?> updateCurrentUser(
+            @AuthenticationPrincipal UserToken userToken,
+            @RequestBody UserUpdateDTO userUpdateDTO) {
+        if (userToken == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário não autenticado");
+        }
+
+        try {
+            UserResponseDTO updatedUser = userFacade.updateUserProfile(userToken.getId(), userUpdateDTO);
+            return ResponseEntity.ok(updatedUser);
+        } catch (Exception e) {
+            logger.error("Erro ao atualizar perfil do usuário", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar perfil");
         }
     }
 

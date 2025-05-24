@@ -13,6 +13,7 @@ public class UserDTO {
     private String password;
     private boolean isAdmin;
     private String cpf;
+    private String profilePicture;
 
     public UserDTO() {
     }
@@ -92,4 +93,8 @@ public class UserDTO {
     public String getCpf() { return cpf; }
 
     public void setCpf(String cpf) { this.cpf = cpf; }
+
+    public String getProfilePicture() { return profilePicture; }
+
+    public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }
 }

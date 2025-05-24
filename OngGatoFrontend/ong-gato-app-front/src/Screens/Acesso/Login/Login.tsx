@@ -16,18 +16,6 @@ function Login() {
         const [password, setPassword] = useState('')
         const [canCreate, setCanCreate] = useState<boolean> (false)
 
-
-    const verifyLogin = async () => {
-        const [response, error] = await UserService.login(email, password)
-        
-        if (response) {
-            console.log("Login bem-sucedido:", response)
-            navigate("/historico")
-        } else {
-            alert("Login falhou. Verifique suas credenciais.")
-        }
-    }
-
     const login = async (email: string, password: string) => {
         const [response, error] = await UserService.login(email, password)
         if (error) {
@@ -64,7 +52,7 @@ function Login() {
                     login(email, password)
                     }}></Button>
 
-                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/signup")}>Não tem uma conta ainda?</a>
+                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/signup")}>Não possui uma conta ainda?</a>
             </div>
         </div>
     )
@@ -74,6 +62,7 @@ export default Login
 
 export function logout() {
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
 }
 
 export function isAuthenticated(): boolean {

@@ -7,12 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserResponseDTO {
-    private Long id;
+public class UserUpdateDTO {
     private String name;
     private String telephone;
-    private String email;
-    private String address;
     private String zipCode;
+    private String address;
     private String profilePicture;
 }

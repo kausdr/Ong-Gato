@@ -70,18 +70,16 @@ public class DefaultUserService implements UserService {
 
     @Override
     public UserModel updateUser(UserModel userModel) {
-
-        UserModel model = null;
-
-        if(!ObjectUtils.isEmpty(userModel) && userRepository.existsById(userModel.getId())) {
-            try {
-                model = userRepository.save(userModel);
-            }catch (Exception e) {
-                logger.error("Unable to save UserModel", e);
-            }
-        }
-
-        return ObjectUtils.isEmpty(model)? null : model;
+        return userRepository.findById(userModel.getId())
+                .map(existingUser -> {
+                    existingUser.setName(userModel.getName());
+                    existingUser.setTelephone(userModel.getTelephone());
+                    existingUser.setAddress(userModel.getAddress());
+                    existingUser.setZipCode(userModel.getZipCode());
+                    existingUser.setProfilePicture(userModel.getProfilePicture());
+                    return userRepository.save(existingUser);
+                })
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + userModel.getId()));
     }
 
     @Override
