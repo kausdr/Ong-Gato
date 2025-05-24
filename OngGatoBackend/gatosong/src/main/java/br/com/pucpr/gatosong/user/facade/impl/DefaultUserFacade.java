@@ -33,6 +33,22 @@ public class DefaultUserFacade implements UserFacade {
     private DonationService donationService;
 
     @Override
+    public UserModel fromDto(UserDTO source) {
+        UserModel target = new UserModel();
+
+        target.setName(source.getName());
+        target.setBirthDate(source.getBirthDate());
+        target.setTelephone(source.getTelephone());
+        target.setZipCode(source.getZipCode());
+        target.setEmail(source.getEmail());
+        target.setAddress(source.getAddress());
+        target.setPassword(source.getPassword());
+        target.setIsAdmin(source.getIsAdmin());
+
+        return target;
+    }
+
+    @Override
     public UserModel populateUserModel(UserDTO source) {
         UserModel target = new UserModel();
 

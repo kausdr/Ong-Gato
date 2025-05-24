@@ -2,9 +2,10 @@ package br.com.pucpr.gatosong.user.model;
 
 import br.com.pucpr.gatosong.donation.model.DonationModel;
 import jakarta.persistence.*;
-
-import java.util.Date;
+import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class UserModel {
@@ -17,11 +18,11 @@ public class UserModel {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "userTypeID")
+    @Column(name = "is_admin")
     private boolean isAdmin;
 
     @Column(name = "birthDate")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "telephone")
     private String telephone;
@@ -35,15 +36,15 @@ public class UserModel {
     @Column(name = "address")
     private String address;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
-
-    @Column(name = "cpf")
+    @Column(name = "cpf", nullable = true)
     private String cpf;
 
     @OneToMany(mappedBy = "donator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<DonationModel> donations;
+    private List<DonationModel> donations = new ArrayList<>();
 
     public UserModel() {
     }
@@ -72,11 +73,11 @@ public class UserModel {
         this.isAdmin = isAdmin;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

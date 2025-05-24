@@ -100,8 +100,8 @@ public class DefaultUserService implements UserService {
             return null;
         }
         return new LoginResponse(jwt.createToken(userModel), new UserResponse(userModel));
-
     }
+
     @Override
     public boolean existsByCPF(String cpf) {
         return userRepository.existsByCpf(cpf);

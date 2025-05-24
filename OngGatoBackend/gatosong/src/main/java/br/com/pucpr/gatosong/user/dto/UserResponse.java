@@ -10,5 +10,4 @@ public record UserResponse(
     public UserResponse(UserModel user) {
         this(user.getId(), user.getName(), user.getEmail());
     }
-
 }

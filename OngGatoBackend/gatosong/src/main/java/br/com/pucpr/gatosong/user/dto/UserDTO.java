@@ -1,18 +1,21 @@
-
 package br.com.pucpr.gatosong.user.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class UserDTO {
-    public Long id;
-    public String name;
-    public Date birthDate;
-    public String telephone;
-    public String zipCode;
-    public String email;
-    public String address;
-    public String password;
-    public boolean isAdmin;
+    private Long id;
+    private String name;
+    private LocalDate birthDate;
+    private String telephone;
+    private String zipCode;
+    private String email;
+    private String address;
+    private String password;
+    private boolean isAdmin;
+    private String cpf;
+
+    public UserDTO() {
+    }
 
     public Long getId() {
         return id;
@@ -30,11 +33,11 @@ public class UserDTO {
         this.name = name;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -85,4 +88,8 @@ public class UserDTO {
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
+    public String getCpf() { return cpf; }
+
+    public void setCpf(String cpf) { this.cpf = cpf; }
 }

@@ -5,7 +5,6 @@ import br.com.pucpr.gatosong.user.dto.LoginResponse;
 import br.com.pucpr.gatosong.user.dto.UserDTO;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.user.service.UserService;
-import br.com.pucpr.gatosong.user.service.impl.DefaultUserService;
 import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
 import lombok.Getter;
@@ -71,20 +70,17 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createUser(@RequestBody UserModel userModel) {
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
         try {
 
-            List<UserResponseDTO> userModelList = userFacade.createUser(userModel);
+            UserModel userModel = userFacade.fromDto(userDTO);
 
-            if (CollectionUtils.isEmpty(userModelList)) {
-                return ResponseEntity.ok().body("No user with code: " + userModel.getId() + " found");
-            }
+            List<UserResponseDTO> createdUsers = userFacade.createUser(userModel);
 
-            return ResponseEntity.ok().body(userModelList);
-
+            return ResponseEntity.ok().body(createdUsers);
         } catch (Exception e) {
-            logger.error("Unable to get use", e);
-            return ResponseEntity.badRequest().body("No users found");
+            logger.error("Unable to create user", e);
+            return ResponseEntity.badRequest().body("Erro ao o criar usuário: " + e.getMessage());
         }
     }
 
@@ -102,7 +98,6 @@ public class UserController {
         }
         return ResponseEntity.badRequest().body("Dados de atualização inválidos");
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
