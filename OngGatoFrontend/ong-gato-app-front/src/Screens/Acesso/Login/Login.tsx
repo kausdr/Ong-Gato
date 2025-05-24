@@ -5,10 +5,11 @@ import Button from "../../../Components/Layout/Button";
 import { useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { UserService } from "../../../API/user";
-
-
+import { useAuth } from "../../../Contexts/AuthContext"
 
 function Login() {
+
+    const { login: loginContext } = useAuth()
 
     const navigate = useNavigate();
         const [email, setEmail] = useState('')
@@ -31,8 +32,13 @@ function Login() {
         const [response, error] = await UserService.login(email, password)
         if (error) {
             console.log("erro ao fazer login "+error)
+            alert("Erro ao fazer login. Verifique suas credenciais.")
         } else {
-            console.log("response login "+response)
+            console.log("response login ", response)
+            localStorage.setItem('token', response.token)
+            loginContext(response.user)
+            localStorage.setItem('user', JSON.stringify(response.user))
+            navigate("/")
         }
     }
 
