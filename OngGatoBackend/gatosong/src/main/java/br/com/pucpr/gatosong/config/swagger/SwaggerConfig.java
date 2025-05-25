@@ -14,7 +14,7 @@ public class SwaggerConfig {
 
         Contact contact = new Contact();
         contact.setName("Website Ong Gato");
-        contact.setUrl("http://localhost:8080");
+        contact.setUrl("http://localhost:8081");
         return new OpenAPI()
                 .info(new Info()
                         .title("Ong Gato - API")

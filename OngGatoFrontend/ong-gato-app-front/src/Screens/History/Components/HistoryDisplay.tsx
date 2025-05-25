@@ -1,8 +1,12 @@
+import { TypeDonation } from "../../../API/donation";
 import { User } from "../../../API/user"
 import { FaBrazilianRealSign } from "react-icons/fa6";
+import { TbPigMoney } from "react-icons/tb";
+import { PiCoatHangerBold } from "react-icons/pi";
+import { GiOpenedFoodCan } from "react-icons/gi";
 
 interface HistoryDisplayProps {
-    type: string
+    type: TypeDonation
     date: string
     amount: number
     donator: User
@@ -23,16 +27,23 @@ export const HistoryDisplay = ({type, date, amount, donator} : HistoryDisplayPro
             <td>
                 <div className="flex flex-col px-[10px] py-2 ">
                     <div className="flex gap-2 text-xl">
-                        <p className=" font-bold">{type ? type : "Não consta"}</p>
+                        <p className="text-slate-600">{type.name ? type.name.toLocaleLowerCase() == "dinheiro" ? <p className="flex gap-1 items-center"><TbPigMoney className="text-green-600"/> {type.name}</p>
+                        : type.name.toLocaleLowerCase() == "roupa" ? <p className="flex gap-1 items-center"><PiCoatHangerBold className="text-sky-400"/> {type.name}</p>
+                        : type.name.toLocaleLowerCase() == "alimento" ? <p className="flex gap-1 items-center"><GiOpenedFoodCan className="text-orange-400"/> {type.name}</p>
+                        : "Não consta" : ""}</p>
                     </div>
                     <p className="font-light text-xs text-gray-400">{dataFormatada}</p>
                 </div>
             </td>
             <td>
-                <div className="flex items-center px-[10px]">{type.toLocaleLowerCase() == "dinheiro" ? <p className="flex gap-2 items-center"><FaBrazilianRealSign className="text-green-600" /> {amount}</p> : amount}</div>
+                <div className="flex items-center px-[10px]">{type.name.toLocaleLowerCase() == "dinheiro" ? <p className="flex gap-2 items-center"><FaBrazilianRealSign className="text-green-600" /> {amount} </p> 
+                : type.name.toLocaleLowerCase() == "alimento" ? <p>{amount} <span className="text-sm font-semibold text-orange-600">kg</span></p> 
+                : type.name.toLocaleLowerCase() == "roupa" ? <p>{amount}</p> 
+                : ""}
+                </div>
             </td>
             <td>
-                <div className="px-[10px]">por {donator.name}</div>
+                <div className="px-[10px]">por {donator ? donator.name : "Não consta"}</div>
             </td>
         </tr>
     )
