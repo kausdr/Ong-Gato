@@ -60,13 +60,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher(HttpMethod.GET.name(), "/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher(HttpMethod.PATCH.name(), "/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/user/create",HttpMethod.POST.name())).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/user/login",HttpMethod.POST.name())).permitAll()
-//                        .requestMatchers(mvc.pattern(HttpMethod.POST, "/users/login")).permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/**").permitAll()
                 )
                 .addFilterAfter(jwtTokenFilter, BasicAuthenticationFilter.class)
                 .build();

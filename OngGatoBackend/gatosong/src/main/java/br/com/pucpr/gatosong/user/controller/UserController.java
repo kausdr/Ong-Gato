@@ -8,6 +8,8 @@ import br.com.pucpr.gatosong.user.service.UserService;
 import br.com.pucpr.gatosong.user.service.impl.DefaultUserService;
 import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.annotation.security.PermitAll;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +39,7 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<?> getUsers() {
         try {
@@ -54,6 +58,7 @@ public class UserController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {
@@ -72,6 +77,7 @@ public class UserController {
         }
     }
 
+    @PermitAll
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserModel userModel) {
         try {
@@ -90,6 +96,7 @@ public class UserController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @PatchMapping
     public ResponseEntity<?> updateUser(@RequestBody UserDTO updateModel) {
         try {
@@ -105,7 +112,7 @@ public class UserController {
         return null;
     }
 
-
+    @SecurityRequirement(name = "AuthServer")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         try {
@@ -124,6 +131,7 @@ public class UserController {
         }
     }
 
+    @PermitAll
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
@@ -134,11 +142,14 @@ public class UserController {
             throw new RuntimeException("Login incorreto", e);
         }
     }
+
+    @PermitAll
     @GetMapping("/validateEmail/{email}")
     public Boolean validateEmail(@PathVariable String email) {
         return userService.existsByEmail(email);
     }
 
+    @PermitAll
     @GetMapping("/validateCpf/{cpf}")
     public Boolean validateCPF(@PathVariable String cpf) {
         return userService.existsByCPF(cpf);
