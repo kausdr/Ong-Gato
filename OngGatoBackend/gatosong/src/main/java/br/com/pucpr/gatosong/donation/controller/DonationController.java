@@ -6,6 +6,7 @@ import br.com.pucpr.gatosong.donation.facade.DonationFacade;
 import br.com.pucpr.gatosong.donation.facade.impl.DefaultDonationFacade;
 import br.com.pucpr.gatosong.donation.model.DonationModel;
 import br.com.pucpr.gatosong.donation.service.DonationService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +36,7 @@ public class DonationController {
     @Autowired
     private DonationFacade donationFacade;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<?> getDonations() {
         try {
@@ -52,6 +55,7 @@ public class DonationController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @GetMapping("/{id}")
     public ResponseEntity<?> getDonationById(@PathVariable Long id) {
         try {
@@ -70,6 +74,7 @@ public class DonationController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @PostMapping
     public ResponseEntity<?> createDonation(@RequestBody DonationDTO donation) {
         try {
@@ -88,6 +93,7 @@ public class DonationController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @PatchMapping
     public ResponseEntity<?> updateDonation(@RequestBody DonationDTO updateModel) {
         try {
@@ -104,6 +110,7 @@ public class DonationController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDonation(@PathVariable Long id) {
         try {
