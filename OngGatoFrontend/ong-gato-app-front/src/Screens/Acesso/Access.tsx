@@ -1,16 +1,162 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Card from "../../Components/Layout/Card";
+import foodImg from '../../imgs/foodImg.jpg'
+import donateImg from '../../imgs/donate.jpg'
+import chartImg from '../../imgs/chartImg.png'
+import mainImg from '../../imgs/mainPic.png'
+import waveImg from '../../imgs/wave3.svg'
+import dogImg from '../../imgs/dogImg.png'
+import catImg from '../../imgs/catImg.png'
+import { FaGithub } from "react-icons/fa";
+import { useState } from "react";
 
 
 export const Access = () => {
-
+    const [canLogin, setCanLogin] = useState<boolean>(false)
+    const [canSignIn, setCanSignIn] = useState<boolean>(false)
+    const navigate = useNavigate();
 
     return (
-        <div className="w-full h-screen flex items-center justify-center">
-        <Card className="flex flex-col gap-10 p-5">
-            <Outlet/>
-        </Card>
-        
-    </div>
+        <div className="flex flex-col">
+            <div className="flex justify-center">
+                <div className="w-[80%] pt-5 flex justify-between items-center">
+                    <div className="flex flex-row gap-1 items-center">
+                        <img src="/OngLogo.png" alt="Logo" className="w-10 h-10 rounded-full" />
+                        <h1 className="pt-serif-regular text-blue-800 font-bold text-[20px]">Meawnager</h1>
+                    </div>
+                    <div className="flex gap-10">
+                    <button className="text-blue-500 hover:text-blue-600 font-bold p-2 rounded-md cursor-pointer"
+                    onClick={() => {
+                        navigate("/inicio")
+                        setCanLogin(false)}}
+                    >
+                        Início
+                    </button>
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold p-2 rounded-md cursor-pointer"
+                    onClick={() => {
+                        navigate("/inicio/login")
+                        setCanLogin(true)
+                        }}>
+                        Entrar
+                    </button>
+                    </div>
+                    
+                </div>
+            </div>
+        {!canLogin ? (
+            <>
+            <div className="flex flex-col h-[500px] items-center py-20 relative">
+                <div className="w-[80%] flex flex-grow flex-col  gap-20 md:flex-row justify-between items-center md:items-start">
+                    <div className="flex flex-col gap-3 justify-center items-center md:items-start">
+                        <h1 className="text-blue-900 font-bold text-[40px] text-center md:text-start">Plataforma de gerenciamento</h1>
+                        <div className="flex flex-col text-xl">
+                            <p className="text-blue-900">Feita para quem faz a <span className="bg-yellow-400 rounded-md px-1">diferença.</span></p>
+                            <p className="text-blue-900">Doe e gerencie doações.</p>
+
+                        </div>
+                    </div>
+                    <div className="flex justify-center items-center">
+                        <div className="rounded-md w-40 h-40 md:w-100 md:h-100 p-2 flex  justify-center items-center">
+                            <img src={mainImg} />
+                        </div>
+                    </div>
+                </div>
+                <img src={waveImg} className="w-full h-full object-cover absolute  z-[-1]" />
+
+
+            </div>
+
+
+            <div className="flex flex-col pt-10 bg-blue-200">
+                <div className=" pb-40">
+                    <div className="flex justify-center">
+                        <div className="w-[80%] flex flex-col gap-20">
+                            <div className="flex flex-col gap-1">
+                                <h1 className="text-xl text-center md:text-start font-normal text-blue-900">Como funciona?</h1>
+                                <h3 className="text-[30px] text-center md:text-start font-bold text-blue-900">Tudo em um lugar só</h3>
+                            </div>
+                            <div className="flex flex-col md:flex-row gap-20 justify-center">
+                                <div className="flex flex-col gap-5 items-center">
+                                    <div className="rounded-md w-50 h-50  bg-blue-400 flex  justify-center items-center overflow-hidden">
+                                        <img src={foodImg} className="w-full h-full object-cover" />
+                                    </div>
+                                    <div className="flex flex-col items-center">
+                                        <h3 className="text-xl font-bold text-blue-900">Registrar</h3>
+                                        <p className="text-blue-900 w-50 text-center">Registre suas doações feitas em postos físicos.</p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-3 items-center">
+                                    <div className="rounded-md w-50 h-50 bg-blue-400 flex  justify-center items-center overflow-hidden">
+                                        <img src={donateImg} className="w-full h-full object-cover" />
+                                    </div>
+                                    <div className="flex flex-col items-center">
+                                        <h3 className="text-xl font-bold text-blue-900">Doar</h3>
+                                        <p className="text-blue-900 w-50 text-center">Ajude online, doe direto na plataforma.</p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-3 items-center">
+                                    <div className="rounded-md w-50 h-50 bg-[#edc05f] flex  justify-center items-center overflow-hidden">
+                                        <img src={chartImg} className="w-full h-full object-cover" />
+                                    </div>
+                                    <div className="flex flex-col items-center">
+                                        <h3 className="text-xl font-bold text-blue-900">Acompanhe</h3>
+                                        <p className="text-blue-900 w-50 text-center">Acomponhe como estão os recursos da ONG.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex justify-center bg-white py-20">
+                    <div className="flex flex-col md:flex-row gap-5 items-center justify-center">
+                        <img src={dogImg} className="max-w-[200px]"/>
+                        <div className="flex flex-col items-center gap-20">
+                            <div className="flex flex-col gap-3 items-center">
+                                <h1 className="text-blue-900 font-bold text-[40px] text-center w-100">Comece a fazer a diferença agora</h1>
+                                <p className="text-blue-900">Crie uma conta e acompanhe a ONG</p>
+                            </div>
+                            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold p-2 rounded-md cursor-pointer"
+                            onClick={() =>  {
+                                navigate("/inicio/signup")
+                                setCanLogin(true)
+                            }}
+                            >Cadastrar</button>
+                        </div>
+                        <img src={catImg} className="max-w-[200px]"/>
+                    </div>
+
+                </div>
+                
+
+                <div>
+                    
+                </div>
+            </div>
+            </>
+        ) : (
+            <div className="w-full flex flex-row items-center justify-center">
+                <Card className="flex flex-col gap-10 p-5">
+                    <Outlet />
+                </Card>
+            </div> 
+        )}
+            
+
+
+            <div className={`${canLogin && "w-full absolute bottom-0"} flex justify-center items-center bg-[#7AA3D7] h-[300px] text-lg`}>
+                    <div className="w-[80%] flex gap-30 justify-evenly">
+                        <div className="flex flex-col gap-1 items-center bg-slate-200 rounded-md px-2 py-1">
+                            <img src="/OngLogo.png" alt="Logo" className="w-20 h-20 rounded-full" />
+                            <h1 className="pt-serif-regular text-blue-900 font-bold text-[30px]">Meawnager</h1>
+                        </div>
+                        <div className="flex flex-col gap-5 items-start justify-center">
+                            <p className="text-slate-700">Plataforma para gerenciamento de ONG</p>
+                            <p className="text-slate-700">Créditos imagens: <a className="text-slate-700 cursor-pointer hover:text-slate-900" href="https://br.freepik.com/" target="#blank">Freepik</a></p>
+                            <p className="flex gap-2 text-slate-700" >Créditos desenvolvimento: <a href="https://github.com/kausdr/Ong-Gato" target="blank" ><FaGithub className="text-slate-700 cursor-pointer hover:text-slate-900 text-[30px]" /></a></p>
+                        </div>
+                    </div>
+                </div>
+        </div>
     )
 }
