@@ -10,10 +10,12 @@ export interface TypeDonation {
 }
 
 export interface Donation {
-    id: number
+    id?: number
     amount: number
     date: string
+    donatorId?: number
     donator: User
+    typeId?: number
     type: TypeDonation
 }
 
@@ -30,9 +32,9 @@ export class DonationService {
 
     }
 
-    static async createDonation(newUser: Donation): Promise<[Donation | null, any]> {
+    static async createDonation(donation: Donation): Promise<[Donation | null, any]> {
         try {
-            const response = await axios.post(link, newUser)
+            const response = await axios.post(link, donation)
             return [response.data, null]
 
         } catch (error) {
