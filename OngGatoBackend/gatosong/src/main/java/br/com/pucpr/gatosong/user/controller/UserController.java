@@ -5,6 +5,8 @@ import br.com.pucpr.gatosong.user.dto.*;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.user.service.UserService;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.annotation.security.PermitAll;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +39,7 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<?> getUsers() {
         try {
@@ -54,6 +58,7 @@ public class UserController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {
@@ -69,6 +74,7 @@ public class UserController {
         }
     }
 
+    @PermitAll
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserToken userToken) {
         if (userToken == null) {
@@ -100,6 +106,7 @@ public class UserController {
         }
     }
 
+    @PermitAll
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
         try {
@@ -115,6 +122,7 @@ public class UserController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDTO updateModel) {
         try {
@@ -133,6 +141,7 @@ public class UserController {
         return ResponseEntity.badRequest().body("Dados de atualização inválidos");
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         try {
@@ -151,6 +160,7 @@ public class UserController {
         }
     }
 
+    @PermitAll
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
@@ -165,11 +175,14 @@ public class UserController {
         }
     }
 
+
+    @PermitAll
     @GetMapping("/validateEmail/{email}")
     public Boolean validateEmail(@PathVariable String email) {
         return userService.existsByEmail(email);
     }
 
+    @PermitAll
     @GetMapping("/validateCpf/{cpf}")
     public Boolean validateCPF(@PathVariable String cpf) {
         return userService.existsByCPF(cpf);
