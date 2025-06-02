@@ -4,12 +4,13 @@ import { LiaCatSolid } from "react-icons/lia";
 import { IoPersonCircleOutline } from "react-icons/io5";
 
 const navigation = [
-  { name: 'Home Page', href: '/', current: true },
+  { name: 'Home Page', href: '/nav-bar', current: true },
   { name: 'Fazer Doação', href: '/doar', current: false },
   { name: 'Relatórios', href: '/relatorio', current: false },
   { name: 'Doadores', href: '/doadores', current: false },
   { name: 'Gerenciar', href: '/gerenciar', current: false },
   { name: 'Histórico', href: '/historico', current: false },
+  { name: 'Perfil', href: '/perfil', current: false },
 ]
 
 function classNames(...classes) {
@@ -72,7 +73,7 @@ export default function NavBar() {
               >
                 <MenuItem>
                   <a
-                    href="#"
+                    href="/perfil"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
                     Your Profile

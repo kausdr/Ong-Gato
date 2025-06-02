@@ -13,9 +13,11 @@ import { useEffect } from 'react'
 import { UserService } from './API/user'
 import { Access } from './Screens/Acesso/Access'
 import Donate from './Screens/Donate/Donate'
+import HomePage from './Screens/HomePage/HomePage'
 import { Relatorio } from './Screens/Relatorio/Relatorio'
 import { Profile } from './Screens/Profile/Profile'
 import NavBar from './Screens/NavBar/NavBar'
+
 
 function App() {
 
@@ -41,6 +43,7 @@ function App() {
             <Route path="doadores" element={<ListDonators/>}/>
             <Route path="doar" element={<Donate/>}/>
             <Route path="gerenciar" element={<UserManagement/>}/>
+            <Route path="home-page" element={<HomePage/>}/>
             <Route path="relatorio" element={<Relatorio/>}/>
             <Route path="perfil" element={<Profile/>}/>
             <Route path="nav-bar" element={<NavBar/>}/>
