@@ -5,12 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +28,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 )
 public class SecurityConfig {
 
-    private JwtTokenFilter jwtTokenFilter;
+    private final JwtTokenFilter jwtTokenFilter;
 
     public SecurityConfig(JwtTokenFilter jwtTokenFilter) {
         this.jwtTokenFilter = jwtTokenFilter;
@@ -47,15 +46,14 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/user/validateEmail/**", HttpMethod.GET.name())).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/user/create", HttpMethod.POST.name())).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/user/login", HttpMethod.POST.name())).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/**", HttpMethod.GET.name())).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/**", HttpMethod.PATCH.name())).permitAll()
-                        .anyRequest().authenticated()
+                .requestMatchers("/**").permitAll()
                 )
                 .addFilterAfter(jwtTokenFilter, BasicAuthenticationFilter.class)
                 .build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

@@ -1,13 +1,12 @@
 package br.com.pucpr.gatosong.user.controller;
 
-import br.com.pucpr.gatosong.user.dto.LoginRequest;
-import br.com.pucpr.gatosong.user.dto.LoginResponse;
-import br.com.pucpr.gatosong.user.dto.UserDTO;
+import br.com.pucpr.gatosong.security.UserToken;
+import br.com.pucpr.gatosong.user.dto.*;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.user.service.UserService;
-import br.com.pucpr.gatosong.user.service.impl.DefaultUserService;
-import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.annotation.security.PermitAll;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,9 +15,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import java.util.List;
 import java.util.Objects;
@@ -38,6 +39,7 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<?> getUsers() {
         try {
@@ -56,6 +58,7 @@ public class UserController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {
@@ -63,6 +66,7 @@ public class UserController {
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No user with code: " + id + " found");
             }
+
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             logger.error("Unable to get user", e);
@@ -70,40 +74,74 @@ public class UserController {
         }
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createUser(@RequestBody UserModel userModel) {
+    @PermitAll
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserToken userToken) {
+        if (userToken == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário não autenticado");
+        }
+
         try {
-
-            List<UserResponseDTO> userModelList = userFacade.createUser(userModel);
-
-            if (CollectionUtils.isEmpty(userModelList)) {
-                return ResponseEntity.ok().body("No user with code: " + userModel.getId() + " found");
-            }
-
-            return ResponseEntity.ok().body(userModelList);
-
+            UserResponseDTO user = userFacade.getUserById(userToken.getId());
+            return ResponseEntity.ok(user);
         } catch (Exception e) {
-            logger.error("Unable to get use", e);
-            return ResponseEntity.badRequest().body("No users found");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao obter o usuário logado");
         }
     }
 
-    @PatchMapping
-    public ResponseEntity<?> updateUser(@RequestBody UserDTO updateModel) {
+    @PutMapping("/me")
+    public ResponseEntity<?> updateCurrentUser(
+            @AuthenticationPrincipal UserToken userToken,
+            @RequestBody UserUpdateDTO userUpdateDTO) {
+        if (userToken == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário não autenticado");
+        }
+
         try {
-            if (!Objects.isNull(updateModel)) {
+            UserResponseDTO updatedUser = userFacade.updateUserProfile(userToken.getId(), userUpdateDTO);
+            return ResponseEntity.ok(updatedUser);
+        } catch (Exception e) {
+            logger.error("Erro ao atualizar perfil do usuário", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar perfil");
+        }
+    }
+
+    @PermitAll
+    @PostMapping("/create")
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
+        try {
+
+            UserModel userModel = userFacade.fromDto(userDTO);
+
+            List<UserResponseDTO> createdUsers = userFacade.createUser(userModel);
+
+            return ResponseEntity.ok().body(createdUsers);
+        } catch (Exception e) {
+            logger.error("Unable to create user", e);
+            return ResponseEntity.badRequest().body("Erro ao o criar usuário: " + e.getMessage());
+        }
+    }
+
+    @SecurityRequirement(name = "AuthServer")
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDTO updateModel) {
+        try {
+            if (updateModel != null) {
+                updateModel.setId(id);
                 UserModel model = userFacade.populateUserModel(updateModel);
 
-                return ResponseEntity.ok().body(Objects.requireNonNullElseGet(model, () -> "No user with code: " + updateModel.getId() + " found"));
+                return ResponseEntity.ok().body(
+                        Objects.requireNonNullElseGet(model, () -> "No user with code: " + id + " found")
+                );
             }
         } catch (Exception e) {
-            logger.error("Unable to get user", e);
+            logger.error("Unable to update user", e);
             throw new RuntimeException(e);
         }
         return ResponseEntity.badRequest().body("Dados de atualização inválidos");
     }
 
-
+    @SecurityRequirement(name = "AuthServer")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         try {
@@ -122,6 +160,7 @@ public class UserController {
         }
     }
 
+    @PermitAll
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
@@ -136,11 +175,14 @@ public class UserController {
         }
     }
 
+
+    @PermitAll
     @GetMapping("/validateEmail/{email}")
     public Boolean validateEmail(@PathVariable String email) {
         return userService.existsByEmail(email);
     }
 
+    @PermitAll
     @GetMapping("/validateCpf/{cpf}")
     public Boolean validateCPF(@PathVariable String cpf) {
         return userService.existsByCPF(cpf);

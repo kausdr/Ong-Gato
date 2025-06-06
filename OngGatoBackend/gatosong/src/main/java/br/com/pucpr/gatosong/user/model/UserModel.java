@@ -2,9 +2,10 @@ package br.com.pucpr.gatosong.user.model;
 
 import br.com.pucpr.gatosong.donation.model.DonationModel;
 import jakarta.persistence.*;
-
-import java.util.Date;
+import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class UserModel {
@@ -17,11 +18,11 @@ public class UserModel {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "userTypeID")
+    @Column(name = "is_admin")
     private boolean isAdmin;
 
     @Column(name = "birthDate")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "telephone")
     private String telephone;
@@ -35,15 +36,19 @@ public class UserModel {
     @Column(name = "address")
     private String address;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
-
-    @Column(name = "cpf")
+    @Column(name = "cpf", nullable = false, unique = true)
     private String cpf;
 
+    @Lob
+    @Column(name = "profile_picture", columnDefinition = "MEDIUMTEXT")
+    private String profilePicture;
+
     @OneToMany(mappedBy = "donator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<DonationModel> donations;
+    private List<DonationModel> donations = new ArrayList<>();
 
     public UserModel() {
     }
@@ -72,11 +77,11 @@ public class UserModel {
         this.isAdmin = isAdmin;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -135,4 +140,8 @@ public class UserModel {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+    public String getProfilePicture() { return profilePicture; }
+
+    public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }
 }

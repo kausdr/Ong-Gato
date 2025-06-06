@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -28,6 +30,9 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private Jwt jwt;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserModel> getAllUsers() {
@@ -51,34 +56,30 @@ public class DefaultUserService implements UserService {
 
     @Override
     public List<UserModel> createUser(UserModel userModel) {
-
-        UserModel model = null;
-
         if (!ObjectUtils.isEmpty(userModel)) {
             try {
-                    model = userRepository.save(userModel);
+                userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
+                UserModel saved = userRepository.save(userModel);
+                return Collections.singletonList(saved);
             } catch (Exception e) {
-                    logger.error("Unable to save UserModel", e);
+                logger.error("Unable to save UserModel", e);
             }
         }
-
-        return ObjectUtils.isEmpty(model) ? null : Collections.singletonList(model);
+        return null;
     }
 
     @Override
     public UserModel updateUser(UserModel userModel) {
-
-        UserModel model = null;
-
-        if(!ObjectUtils.isEmpty(userModel) && userRepository.existsById(userModel.getId())) {
-            try {
-                model = userRepository.save(userModel);
-            }catch (Exception e) {
-                logger.error("Unable to save UserModel", e);
-            }
-        }
-
-        return ObjectUtils.isEmpty(model)? null : model;
+        return userRepository.findById(userModel.getId())
+                .map(existingUser -> {
+                    existingUser.setName(userModel.getName());
+                    existingUser.setTelephone(userModel.getTelephone());
+                    existingUser.setAddress(userModel.getAddress());
+                    existingUser.setZipCode(userModel.getZipCode());
+                    existingUser.setProfilePicture(userModel.getProfilePicture());
+                    return userRepository.save(existingUser);
+                })
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + userModel.getId()));
     }
 
     @Override
@@ -93,15 +94,15 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public LoginResponse login(String username, String password) {
+    public LoginResponse login(String email, String rawPassword) {
 
-        UserModel userModel = userRepository.findByEmail(username);
-        if (userModel == null || userModel.getPassword() == null) {
-            return null;
+        UserModel userModel = userRepository.findByEmail(email);
+        if (userModel == null || !passwordEncoder.matches(rawPassword, userModel.getPassword())) {
+            throw new BadCredentialsException("Credenciais inválidas");
         }
         return new LoginResponse(jwt.createToken(userModel), new UserResponse(userModel));
-
     }
+
     @Override
     public boolean existsByCPF(String cpf) {
         return userRepository.existsByCpf(cpf);

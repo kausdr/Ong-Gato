@@ -2,6 +2,7 @@ package br.com.pucpr.gatosong.user.facade.impl;
 
 import br.com.pucpr.gatosong.user.dto.UserDTO;
 import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
+import br.com.pucpr.gatosong.user.dto.UserUpdateDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.donation.service.DonationService;
@@ -18,6 +19,8 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hibernate.internal.CoreLogging.logger;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,6 +36,23 @@ public class DefaultUserFacade implements UserFacade {
     private DonationService donationService;
 
     @Override
+    public UserModel fromDto(UserDTO source) {
+        UserModel target = new UserModel();
+
+        target.setName(source.getName());
+        target.setBirthDate(source.getBirthDate());
+        target.setTelephone(source.getTelephone());
+        target.setZipCode(source.getZipCode());
+        target.setEmail(source.getEmail());
+        target.setAddress(source.getAddress());
+        target.setPassword(source.getPassword());
+        target.setIsAdmin(source.getIsAdmin());
+        target.setCpf(source.getCpf());
+
+        return target;
+    }
+
+    @Override
     public UserModel populateUserModel(UserDTO source) {
         UserModel target = new UserModel();
 
@@ -46,6 +66,7 @@ public class DefaultUserFacade implements UserFacade {
         target.setPassword(source.getPassword());
         target.setIsAdmin(source.getIsAdmin());
         target.setDonations(donationService.getDonationById(source.getId()));
+        target.setProfilePicture(source.getProfilePicture());
 
         return userService.updateUser(target);
     }
@@ -59,6 +80,11 @@ public class DefaultUserFacade implements UserFacade {
         target.setName(source.getName());
         target.setAddress(source.getAddress());
         target.setEmail(source.getEmail());
+        target.setZipCode(source.getZipCode());
+
+        if (source.getProfilePicture() != null && !source.getProfilePicture().isEmpty()) {
+            target.setProfilePicture("data:image/jpeg;base64," + source.getProfilePicture());
+        }
 
         return target;
     }
@@ -116,20 +142,31 @@ public class DefaultUserFacade implements UserFacade {
     }
 
     @Override
-    public List<UserResponseDTO> getUserById(Long id) throws Exception {
-        try {
-            List<UserResponseDTO> responseDTOList = new ArrayList<>();
+    public UserResponseDTO getUserById(Long id) {
+        List<UserModel> users = userService.getUserById(id);
+        if (users.isEmpty()) throw new RuntimeException("User not found");
+        return populateUserResponseDTO(users.get(0));
+    }
 
-            List<UserModel> models = this.userService.getUserById(id);
+    @Override
+    public UserResponseDTO updateUserProfile(Long userId, UserUpdateDTO dto) {
+        List<UserModel> users = userService.getUserById(userId);
+        if (users.isEmpty()) throw new RuntimeException("Usuário não encontrado");
 
-            for (UserModel model : models){
-                responseDTOList.add(populateUserResponseDTO(model));
-            }
+        UserModel user = users.get(0);
 
-            return responseDTOList;
-        }catch (Exception e){
-            throw new Exception("Unable to get user");
-        }
+        if (dto.getName() != null) user.setName(dto.getName());
+        if (dto.getTelephone() != null) user.setTelephone(dto.getTelephone());
+        if (dto.getZipCode() != null) user.setZipCode(dto.getZipCode());
+        if (dto.getAddress() != null) user.setAddress(dto.getAddress());
+        if (dto.getProfilePicture() != null) user.setProfilePicture(dto.getProfilePicture());
+
+        UserModel updated = userService.updateUser(user);
+
+        logger.info("UserID: " + userId);
+        logger.info("DTO: " + dto);
+
+        return populateUserResponseDTO(updated);
     }
 
     private boolean checkIfUserCpfExists(String cpf) {
