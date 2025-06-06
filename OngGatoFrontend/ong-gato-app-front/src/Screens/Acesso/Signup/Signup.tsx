@@ -182,7 +182,7 @@ function Signup() {
 
                     }}
                 />
-                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/login")}>Já possui uma conta?</a>
+                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/inicio/login")}>Já possui uma conta?</a>
             </div>
         </div>
     )

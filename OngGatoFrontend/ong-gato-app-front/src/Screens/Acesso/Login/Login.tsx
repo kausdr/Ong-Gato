@@ -53,11 +53,7 @@ function Login() {
                     login(email, password)
                     }}></Button>
 
-<<<<<<< HEAD
-                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/inicio/signup")}>Não tem uma conta ainda?</a>
-=======
-                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/signup")}>Não possui uma conta ainda?</a>
->>>>>>> master
+                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/inicio/signup")}>Não possui uma conta ainda?</a>
             </div>
         </div>
     )
