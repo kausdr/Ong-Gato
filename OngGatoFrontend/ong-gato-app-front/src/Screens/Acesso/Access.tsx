@@ -17,7 +17,7 @@ export const Access = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col min-h-screen">
             <div className="flex justify-center">
                 <div className="w-[80%] pt-5 flex justify-between items-center">
                     <div className="flex flex-row gap-1 items-center">
@@ -135,7 +135,7 @@ export const Access = () => {
             </div>
             </>
         ) : (
-            <div className="w-full flex flex-row items-center justify-center">
+            <div className="w-full flex flex-grow items-center justify-center">
                 <Card className="flex flex-col gap-10 p-5">
                     <Outlet />
                 </Card>
@@ -144,7 +144,7 @@ export const Access = () => {
             
 
 
-            <div className={`${canLogin && "w-full absolute bottom-0"} flex justify-center items-center bg-[#7AA3D7] h-[300px] text-lg`}>
+            <div className={` flex justify-center items-center bg-[#7AA3D7] h-[300px] text-lg`}>
                     <div className="w-[80%] flex gap-30 justify-evenly">
                         <div className="flex flex-col gap-1 items-center bg-slate-200 rounded-md px-2 py-1">
                             <img src="/OngLogo.png" alt="Logo" className="w-20 h-20 rounded-full" />
