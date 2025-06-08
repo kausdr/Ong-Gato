@@ -6,19 +6,24 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code", unique = true, nullable = false)
+    @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("name")
     @Column(name = "name")
     private String name;
 
-    @Column(name = "userTypeID")
-    private boolean isAdmin;
+    @JsonProperty("isAdmin")
+    @Column(name = "isAdmin")
+    private Boolean isAdmin;
 
     @Column(name = "birthDate")
     private Date birthDate;
@@ -64,11 +69,11 @@ public class UserModel {
         this.name = name;
     }
 
-    public boolean getIsAdmin() {
+    public Boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean isAdmin) {
+    public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 

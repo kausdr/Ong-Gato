@@ -41,7 +41,6 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<?> getUsers() {
         try {
@@ -60,7 +59,6 @@ public class UserController {
         }
     }
 
-    @SecurityRequirement(name = "AuthServer")
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {
@@ -75,7 +73,6 @@ public class UserController {
         }
     }
 
-    @PermitAll
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserModel userModel) {
         try {
@@ -94,7 +91,6 @@ public class UserController {
         }
     }
 
-    @SecurityRequirement(name = "AuthServer")
     @PatchMapping
     public ResponseEntity<?> updateUser(@RequestBody UserDTO updateModel) {
         try {
@@ -110,7 +106,6 @@ public class UserController {
         return ResponseEntity.badRequest().body("Dados de atualização inválidos");
     }
 
-    @SecurityRequirement(name = "AuthServer")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         try {
@@ -129,7 +124,6 @@ public class UserController {
         }
     }
 
-    @PermitAll
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
@@ -144,14 +138,11 @@ public class UserController {
         }
     }
 
-
-    @PermitAll
     @GetMapping("/validateEmail/{email}")
     public Boolean validateEmail(@PathVariable String email) {
         return userService.existsByEmail(email);
     }
 
-    @PermitAll
     @GetMapping("/validateCpf/{cpf}")
     public Boolean validateCPF(@PathVariable String cpf) {
         return userService.existsByCPF(cpf);
