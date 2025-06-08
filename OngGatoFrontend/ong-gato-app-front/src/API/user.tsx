@@ -7,7 +7,6 @@ export interface User {
     id?: number
     name?: string
     lastName?: string
-    birthDate?: string
     cpf?: string
     telephone?: string
     zipCode?: string
@@ -15,7 +14,7 @@ export interface User {
     address?: string
     password?: string
     userTypeID?: number
-    cargo?: string
+    isAdmin?: boolean
     profilePicture?: string;
 }
 

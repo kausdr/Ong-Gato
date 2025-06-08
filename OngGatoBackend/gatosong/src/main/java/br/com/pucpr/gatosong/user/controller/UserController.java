@@ -58,7 +58,7 @@ public class UserController {
         }
     }
 
-    @SecurityRequirement(name = "AuthServer")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {
@@ -74,7 +74,7 @@ public class UserController {
         }
     }
 
-    @PermitAll
+    @SecurityRequirement(name = "AuthServer")
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserToken userToken) {
         if (userToken == null) {
@@ -89,6 +89,7 @@ public class UserController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @PutMapping("/me")
     public ResponseEntity<?> updateCurrentUser(
             @AuthenticationPrincipal UserToken userToken,
@@ -122,7 +123,7 @@ public class UserController {
         }
     }
 
-    @SecurityRequirement(name = "AuthServer")
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDTO updateModel) {
         try {
@@ -141,7 +142,7 @@ public class UserController {
         return ResponseEntity.badRequest().body("Dados de atualização inválidos");
     }
 
-    @SecurityRequirement(name = "AuthServer")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         try {

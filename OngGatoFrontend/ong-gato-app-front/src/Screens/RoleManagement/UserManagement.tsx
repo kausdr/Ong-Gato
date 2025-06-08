@@ -45,7 +45,7 @@ useEffect(() => {
                         <UserList
                             nome={user.name ?? ""}
                             email={user.email ?? ""}
-                            cargo={user.cargo ?? ""}
+                            cargo={user.isAdmin ?? ""}
                         ></UserList>
                     ))
                     }
