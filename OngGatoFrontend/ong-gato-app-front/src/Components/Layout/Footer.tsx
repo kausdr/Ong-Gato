@@ -1,6 +1,6 @@
 import { FaInstagram, FaFacebookF, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
-const Footer = () => {
+export default function Footer = () => {
   return (
     <footer className="bg-sky-800 mt-16 text-white relative">
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -75,4 +75,3 @@ const Footer = () => {
   );
 };
 
-export default Footer;
