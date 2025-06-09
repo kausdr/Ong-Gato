@@ -73,7 +73,7 @@ function Signup() {
 
     const navigate = useNavigate()
 
-    const [name, setName] = useState('')
+    const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('')
     const [telephone, setTelephone] = useState<string>('')
     const [cep, setCep] = useState<string>('')
@@ -85,12 +85,12 @@ function Signup() {
     const [cpf, setCpf] = useState<string>('')
 
     useEffect(() => {
-        if (name && lastName && telephone && cep && email && address && password && confirmPassword && cpf) {
+        if (firstName && lastName && telephone && cep && email && address && password && confirmPassword && cpf) {
             setCanCreate(true)
         } else {
             setCanCreate(false)
         }
-    }, [name, lastName, telephone, cep, email, address, password, confirmPassword, cpf])
+    }, [firstName, lastName, telephone, cep, email, address, password, confirmPassword, cpf])
 
     return (
         <div className="flex flex-col gap-5">
@@ -100,7 +100,7 @@ function Signup() {
 
             <div className="flex flex-col gap-4">
                 <div className="flex gap-2">
-                    <Input label="Primeiro nome" type="text" id="fname" name="fname" value={name} setValue={setName} placeholder="Insira seu primeiro nome" />
+                    <Input label="Primeiro nome" type="text" id="fname" name="fname" value={firstName} setValue={setFirstName} placeholder="Insira seu primeiro nome" />
                     <Input label="Último nome" type="text" id="lname" name="lname" value={lastName} setValue={setLastName} placeholder="Insira seu sobrenome" />
                 </div>
 
@@ -161,8 +161,8 @@ function Signup() {
 
                         const newUser: User = {
                             userTypeID: 333,
-                            birthDate: new Date().toISOString(),
-                            name: `${name} ${lastName}`.trim(),
+                            firstName: firstName,
+                            lastName: lastName,
                             telephone: telephone.replace(/\D/g, ''),
                             zipCode: cep.replace(/\D/g, ''),
                             email,

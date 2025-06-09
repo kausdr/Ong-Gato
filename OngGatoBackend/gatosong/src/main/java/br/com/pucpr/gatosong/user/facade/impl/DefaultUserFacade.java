@@ -39,7 +39,8 @@ public class DefaultUserFacade implements UserFacade {
     public UserModel fromDto(UserDTO source) {
         UserModel target = new UserModel();
 
-        target.setName(source.getName());
+        target.setFirstName(source.getFirstName());
+        target.setLastName(source.getLastName());
         target.setBirthDate(source.getBirthDate());
         target.setTelephone(source.getTelephone());
         target.setZipCode(source.getZipCode());
@@ -57,7 +58,8 @@ public class DefaultUserFacade implements UserFacade {
         UserModel target = new UserModel();
 
         target.setId(source.getId());
-        target.setName(source.getName( ));
+        target.setFirstName(source.getFirstName());
+        target.setLastName(source.getLastName());
         target.setBirthDate(source.getBirthDate( ));
         target.setTelephone(source.getTelephone());
         target.setZipCode(source.getZipCode());
@@ -77,7 +79,8 @@ public class DefaultUserFacade implements UserFacade {
 
         target.setId(source.getId());
         target.setTelephone(source.getTelephone());
-        target.setName(source.getName());
+        target.setFirstName(source.getFirstName());
+        target.setLastName(source.getLastName());
         target.setAddress(source.getAddress());
         target.setEmail(source.getEmail());
         target.setZipCode(source.getZipCode());
@@ -155,7 +158,8 @@ public class DefaultUserFacade implements UserFacade {
 
         UserModel user = users.get(0);
 
-        if (dto.getName() != null) user.setName(dto.getName());
+        if (dto.getFirstName() != null) user.setFirstName(dto.getFirstName());
+        if (dto.getLastName() != null) user.setLastName(dto.getLastName());
         if (dto.getTelephone() != null) user.setTelephone(dto.getTelephone());
         if (dto.getZipCode() != null) user.setZipCode(dto.getZipCode());
         if (dto.getAddress() != null) user.setAddress(dto.getAddress());

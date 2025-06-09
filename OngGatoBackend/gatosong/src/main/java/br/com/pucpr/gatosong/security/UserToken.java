@@ -16,7 +16,7 @@ public class UserToken {
 
     public UserToken(UserModel user) {
         this.id = user.getId();
-        this.name = user.getName();
+        this.name = user.getFirstName()+user.getLastName();
         this.isAdmin = user.getIsAdmin();
     }
 

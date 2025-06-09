@@ -4,10 +4,15 @@ import { MdOutlinePerson4 } from "react-icons/md";
 import Input from "../../../src/Components/data-input/Input.tsx"
 import Button from "../../Components/Layout/Button";
 import { UserService, User } from "../../API/user.tsx"
+import { useAuth } from "../../Contexts/AuthContext.tsx";
+import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
 
-    const [name, setName] = useState('')
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+
+    const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('')
     const [telephone, setTelephone] = useState<string>('')
     const [cep, setCep] = useState<string>('')
@@ -22,12 +27,18 @@ export const Profile = () => {
         setBlockEdit(!blockEdit)
     }
 
+    const handleLogout = () => {
+        logout();
+        navigate("/access/login");
+    };
+
     useEffect(() => {
         const fetchUser = async () => {
             const [data, error] = await UserService.getCurrentUser();
             if (data) {
                 setUser(data);
-                setName(data.name || "");
+                setFirstName(data.firstName || "");
+                setLastName(data.lastName || "");
                 setLastName(data.lastName || "");
                 setTelephone(data.telephone || "");
                 setCep(data.zipCode || "");
@@ -87,16 +98,23 @@ export const Profile = () => {
                     </div>
 
                     <div className="flex flex-col gap-4">
-                        <Input label={"Nome"} type="text" id="name" name="name" value={name} setValue={setName} placeholder={`${user?.name ?? ""}`} inactive={blockEdit} mandatory={false} />
+                        <div className="flex gap-2">
+                            <Input label={"Primeiro Nome"} type="text" id="firstName" name="firstName" value={firstName} setValue={setFirstName} placeholder={`${user?.firstName ?? ""}`} inactive={blockEdit} mandatory={false} />
+                            <Input label={"Sobrenome"} type="text" id="lastName" name="lastName" value={lastName} setValue={setLastName} placeholder={`${user?.lastName ?? ""}`} inactive={blockEdit} mandatory={false} />
+                        </div>
                         <Input label={"Telefone"} type="number" id="tel" name="tel" value={telephone} setValue={setTelephone} className="w-full" placeholder={`${user?.telephone ?? ""}`} inactive={blockEdit} mandatory={false} />
                         <Input label={"Email"} type="email" id="email" name="email" value={email} setValue={setEmail} placeholder={`${user?.email ?? ""}`} inactive={blockEdit} mandatory={false} />
                         <Input label={"Endereço"} type="text" id="address" name="address" value={address} setValue={setAddress} placeholder={`${user?.address ?? ""}`} inactive={blockEdit} mandatory={false} />
                         <Input label={"CEP"} type="number" id="cep" name="cep" value={cep} setValue={setCep} placeholder={`${user?.zipCode ?? ""}`} inactive={blockEdit} mandatory={false} />
+                        <div className="flex flex-col gap-4 items-center mt-4">
+                            <Button order="quit" text="Sair" action={handleLogout} />
+                        </div>
 
                         {!blockEdit && 
                         <Button order={`primary`} text="Salvar" action={async () => {
                             const payload: any = {
-                                name,
+                                firstName,
+                                lastName,
                                 telephone,
                                 zipCode: cep,
                                 email,

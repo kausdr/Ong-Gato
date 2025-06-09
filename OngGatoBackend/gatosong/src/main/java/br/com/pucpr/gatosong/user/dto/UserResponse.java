@@ -4,11 +4,21 @@ import br.com.pucpr.gatosong.user.model.UserModel;
 
 public record UserResponse(
         Long id,
-        String name,
+        String firstName,
+        String lastName,
         String email,
-        boolean isAdmin
+        boolean isAdmin,
+        String profilePicture
 ) {
     public UserResponse(UserModel user) {
-        this(user.getId(), user.getName(), user.getEmail(), user.getIsAdmin());
+        this(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getIsAdmin(),
+                user.getProfilePicture() != null && !user.getProfilePicture().isEmpty() ?
+                        "data:image/jpeg;base64," + user.getProfilePicture() : null
+        );
     }
 }
