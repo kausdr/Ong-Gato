@@ -22,6 +22,7 @@
       <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/application.properties" afterDir="false" />
     </list>
+    <list default="true" id="b00bf33f-177d-4f23-8a6e-69ef82ff478f" name="Changes" comment="testado" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +83,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.GatosongApplication.executor": "Debug",
-    "git-widget-placeholder": "feature/login",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/julia/Downloads/BSI-5/Ong-Gato/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/sprints",
@@ -161,6 +162,8 @@
       <workItem from="1748986883205" duration="3919000" />
       <workItem from="1749065504749" duration="9581000" />
       <workItem from="1749171234847" duration="14893000" />
+      <workItem from="1748133703625" duration="2165000" />
+      <workItem from="1749428345339" duration="427000" />
     </task>
     <task id="LOCAL-00001" summary="testado">
       <option name="closed" value="true" />
