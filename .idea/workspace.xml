@@ -5,24 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b00bf33f-177d-4f23-8a6e-69ef82ff478f" name="Changes" comment="testado">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/Bootstrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/AdminConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/security.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/config/swagger/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/config/swagger/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/Bootstrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/Bootstrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/controller/DonationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/controller/DonationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/JwtTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/JwtTokenFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/UserToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/UserToken.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/model/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/model/UserModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/application.properties" afterDir="false" />
     </list>
-    <list default="true" id="b00bf33f-177d-4f23-8a6e-69ef82ff478f" name="Changes" comment="testado" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,6 +32,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -82,7 +72,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.GatosongApplication.executor": "Debug",
+    "Spring Boot.GatosongApplication.executor": "Run",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -164,6 +154,7 @@
       <workItem from="1749171234847" duration="14893000" />
       <workItem from="1748133703625" duration="2165000" />
       <workItem from="1749428345339" duration="427000" />
+      <workItem from="1749505381519" duration="3088000" />
     </task>
     <task id="LOCAL-00001" summary="testado">
       <option name="closed" value="true" />
@@ -201,14 +192,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merge com a main" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge com a main" />
+    <MESSAGE value="testado" />
+    <option name="LAST_COMMIT_MESSAGE" value="testado" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/service/impl/DefaultUserService.java</url>
-          <line>95</line>
+          <line>96</line>
           <properties class="br.com.pucpr.gatosong.user.service.impl.DefaultUserService" method="login">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -217,12 +209,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/controller/UserController.java</url>
-          <line>129</line>
+          <line>159</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/controller/DonationController.java</url>
-          <line>42</line>
+          <line>43</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -255,7 +247,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/Bootstrapper.java</url>
-          <line>29</line>
+          <line>33</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -265,7 +257,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/service/impl/DefaultUserService.java</url>
-          <line>101</line>
+          <line>102</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -310,17 +302,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/Bootstrapper.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/Bootstrapper.java</url>
-          <line>36</line>
+          <line>42</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/Bootstrapper.java</url>
-          <line>28</line>
+          <line>32</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -337,6 +324,16 @@
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
           <line>55</line>
           <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/service/impl/DefaultUserService.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/service/impl/DefaultUserService.java</url>
+          <line>100</line>
+          <option name="timeStamp" value="38" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="org.springframework.orm.jpa.JpaSystemException" package="org.springframework.orm.jpa" />

@@ -39,6 +39,7 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
+    @SecurityRequirement(name = "AuthServer")
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<?> getUsers() {
@@ -58,6 +59,7 @@ public class UserController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
@@ -123,6 +125,7 @@ public class UserController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDTO updateModel) {
@@ -142,6 +145,8 @@ public class UserController {
         return ResponseEntity.badRequest().body("Dados de atualização inválidos");
     }
 
+
+    @SecurityRequirement(name = "AuthServer")
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
