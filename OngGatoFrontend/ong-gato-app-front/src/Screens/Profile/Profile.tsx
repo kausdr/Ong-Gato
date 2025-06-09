@@ -8,6 +8,14 @@ import { useAuth } from "../../Contexts/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
 import { useToast } from '../../Contexts/ToastContext';
 
+interface FormErrors {
+    firstName?: string;
+    lastName?: string;
+    telephone?: string;
+    cep?: string;
+    address?: string;
+}
+
 export const Profile = () => {
 
     const { logout, updateUserContext } = useAuth();
@@ -24,10 +32,75 @@ export const Profile = () => {
     const [profilePicture, setProfilePicture] = useState<string | null>(null)
 
     const [user, setUser] = useState<User | null>(null);
+    const [errors, setErrors] = useState<FormErrors>({});
+
+    const validateForm = (): boolean => {
+        const newErrors: FormErrors = {};
+
+        if (!firstName.trim()) {
+            newErrors.firstName = "";
+        }
+
+        if (!lastName.trim()) {
+            newErrors.lastName = "";
+        }
+
+        if (!telephone.trim()) {
+            newErrors.telephone = "";
+        } else if (!/^\d{10,11}$/.test(telephone)) {
+            newErrors.telephone = "O telefone deve conter 10 ou 11 dígitos.";
+        }
+
+        if (!cep.trim()) {
+            newErrors.cep = "";
+        } else if (!/^\d{8}$/.test(cep)) {
+            newErrors.cep = "O CEP deve conter 8 dígitos.";
+        }
+
+        if (!address.trim()) {
+            newErrors.address = "";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSave = async () => {
+        if (!validateForm()) {
+            showToast("Por favor, corrija os erros indicados.", "error");
+            return;
+        }
+
+        const payload: any = {
+            firstName,
+            lastName,
+            telephone,
+            zipCode: cep,
+            address,
+        };
+
+        if (profilePicture) {
+            payload.profilePicture = profilePicture;
+        }
+
+        const [data, error] = await UserService.updateProfile(payload);
+
+        if (!error && data) {
+            setBlockEdit(true);
+            showToast("Perfil atualizado com sucesso!", "success");
+            updateUserContext(data);
+            setUser(data);
+            setErrors({});
+        } else {
+            console.error("Erro ao atualizar perfil:", error);
+            showToast("Erro ao atualizar perfil. Verifique os dados e tente novamente.", "error");
+        }
+    };
 
     const handleEdit = () => {
         setBlockEdit(!blockEdit)
-    }
+        setErrors({});
+    };
 
     const handleLogout = () => {
         logout();
@@ -40,7 +113,6 @@ export const Profile = () => {
             if (data) {
                 setUser(data);
                 setFirstName(data.firstName || "");
-                setLastName(data.lastName || "");
                 setLastName(data.lastName || "");
                 setTelephone(data.telephone || "");
                 setCep(data.zipCode || "");
@@ -55,97 +127,83 @@ export const Profile = () => {
 
     return (
         <div className="flex justify-center items-center">
-        <Card className="w-full">
-            <div className="flex flex-col h-[calc(100vh-40px)] gap-5 p-10 bg-white">
-                <h1 className="text-xl font-bold">Perfil</h1>
-                <div className="flex flex-col lg:flex-row gap-30">
-                    <div className="flex flex-col gap-2 items-center">
-                        <div className="w-fit h-fit rounded-md border-2 border-slate-200 overflow-hidden">
-                            {user?.profilePicture ? (
-                                <img
-                                    src={user.profilePicture}
-                                    alt="Foto de perfil"
-                                    className="w-[150px] h-[150px] object-cover"
-                                />
-                            ) : (
-                                <MdOutlinePerson4 className="text-slate-300" size={150} />
-                            )}
-                        </div>
-
-                        {!blockEdit && (
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
+            <Card className="w-full">
+                <div className="flex flex-col h-auto min-h-[calc(100vh-40px)] gap-5 p-10 bg-white">
+                    <h1 className="text-xl font-bold">Perfil</h1>
+                    <div className="flex flex-col lg:flex-row gap-10">
+                        <div className="flex flex-col gap-2 items-center">
+                            <div className="w-fit h-fit rounded-md border-2 border-slate-200 overflow-hidden">
+                                {user?.profilePicture ? (
+                                    <img
+                                        src={user.profilePicture}
+                                        alt="Foto de perfil"
+                                        className="w-[150px] h-[150px] object-cover"
+                                    />
+                                ) : (
+                                    <MdOutlinePerson4 className="text-slate-300" size={150} />
+                                )}
+                            </div>
+                            {!blockEdit && (
+                                <input type="file" accept="image/*" onChange={(e) => {
                                     const file = e.target.files?.[0];
                                     if (file) {
                                         const reader = new FileReader();
                                         reader.onload = () => {
-                                            const base64Full = reader.result as string;
-                                            const base64 = base64Full.split(',')[1];
+                                            const base64 = (reader.result as string).split(',')[1];
                                             setProfilePicture(base64);
-                                            setUser((prev) =>
-                                                prev ? { ...prev, profilePicture: `data:image/jpeg;base64,${base64}` } : null
-                                            );
+                                            setUser((prev) => prev ? { ...prev, profilePicture: `data:image/jpeg;base64,${base64}` } : null);
                                         };
                                         reader.readAsDataURL(file);
                                     }
-                                }}
-                            />
-                        )}
-
-                        <Button order={`${blockEdit ? "primary" : "cancel"}`} text={`${blockEdit ? "Editar" : "Cancelar"}`} action={() => {
-                            handleEdit()
-                        }} />
-                    </div>
-
-                    <div className="flex flex-col gap-4">
-                        <div className="flex gap-2">
-                            <Input label={"Primeiro Nome"} type="text" id="firstName" name="firstName" value={firstName} setValue={setFirstName} placeholder={`${user?.firstName ?? ""}`} inactive={blockEdit} mandatory={false} />
-                            <Input label={"Sobrenome"} type="text" id="lastName" name="lastName" value={lastName} setValue={setLastName} placeholder={`${user?.lastName ?? ""}`} inactive={blockEdit} mandatory={false} />
-                        </div>
-                        <Input label={"Telefone"} type="number" id="tel" name="tel" value={telephone} setValue={setTelephone} className="w-full" placeholder={`${user?.telephone ?? ""}`} inactive={blockEdit} mandatory={false} />
-                        <Input label={"Email"} type="email" id="email" name="email" value={email} setValue={setEmail} placeholder={`${user?.email ?? ""}`} inactive={blockEdit} mandatory={false} />
-                        <Input label={"Endereço"} type="text" id="address" name="address" value={address} setValue={setAddress} placeholder={`${user?.address ?? ""}`} inactive={blockEdit} mandatory={false} />
-                        <Input label={"CEP"} type="number" id="cep" name="cep" value={cep} setValue={setCep} placeholder={`${user?.zipCode ?? ""}`} inactive={blockEdit} mandatory={false} />
-                        <div className="flex flex-col gap-4 items-center mt-4">
-                            <Button order="quit" text="Sair" action={handleLogout} />
+                                }}/>
+                            )}
+                            <Button order={`${blockEdit ? "primary" : "cancel"}`} text={`${blockEdit ? "Editar" : "Cancelar"}`} action={handleEdit} />
                         </div>
 
-                        {!blockEdit && 
-                        <Button order={`primary`} text="Salvar" action={async () => {
-                            const payload: any = {
-                                firstName,
-                                lastName,
-                                telephone,
-                                zipCode: cep,
-                                email,
-                                address,
-                            };
+                        <div className="flex flex-col gap-4">
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <div>
+                                    <Input label={"Primeiro Nome"} type="text" id="firstName" name="firstName" value={firstName} setValue={setFirstName} placeholder={`${user?.firstName ?? ""}`} inactive={blockEdit} mandatory={!blockEdit} />
+                                    {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
+                                </div>
+                                <div className="w-full">
+                                    <Input label={"Sobrenome"} type="text" id="lastName" name="lastName" value={lastName} setValue={setLastName} placeholder={`${user?.lastName ?? ""}`} inactive={blockEdit} mandatory={!blockEdit} />
+                                    {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
+                                </div>
+                            </div>
 
-                            if (profilePicture) {
-                                payload.profilePicture = profilePicture;
-                            }
+                            <div>
+                                <Input label={"Telefone"} type="text" id="tel" name="tel" value={telephone} setValue={setTelephone} className="w-full" placeholder={`${user?.telephone ?? ""}`} inactive={blockEdit} mandatory={!blockEdit} />
+                                {errors.telephone && <p className="text-red-500 text-xs mt-1">{errors.telephone}</p>}
+                            </div>
 
-                            const [data, error] = await UserService.updateProfile(payload);
-                            if (!error && data) {
-                                setBlockEdit(true);
-                                showToast("Perfil atualizado com sucesso!", "success");
-                                updateUserContext(data);
-                                setUser(data);
+                            <div>
+                                <Input label={"Email"} type="email" id="email" name="email" value={email} setValue={setEmail} inactive={true} />
+                                {!blockEdit && <p className="text-gray-500 text-xs mt-1">O e-mail não pode ser alterado.</p>}
+                            </div>
 
-                                const [updatedUser] = await UserService.getCurrentUser();
-                                if (updatedUser) setUser(updatedUser);
-                            } else {
-                                console.error("Erro ao atualizar perfil:", error);
-                                showToast("Erro ao atualizar perfil. Verifique os dados e tente novamente.", "error");
-                            }
-                        }} />
-                        }
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <div>
+                                    <Input label={"CEP"} type="text" id="cep" name="cep" value={cep} setValue={setCep} placeholder={`${user?.zipCode ?? ""}`} inactive={blockEdit} mandatory={!blockEdit} />
+                                    {errors.cep && <p className="text-red-500 text-xs mt-1">{errors.cep}</p>}
+                                </div>
+                                <div className="w-full">
+                                    <Input label={"Endereço"} type="text" id="address" name="address" value={address} setValue={setAddress} placeholder={`${user?.address ?? ""}`} inactive={blockEdit} mandatory={!blockEdit} />
+                                </div>
+                            </div>
+                            
+                            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mt-auto">
+                                {!blockEdit && 
+                                    <Button order={`primary`} text="Salvar" className="w-full sm:w-auto" action={handleSave} />
+                                }
+                                <div className={`flex w-full ${blockEdit ? 'justify-end' : 'justify-center sm:justify-end'}`}>
+                                    <Button order="quit" text="Sair da Conta" action={handleLogout} />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Card>
+            </Card>
         </div>
-    )
+    );
 }
