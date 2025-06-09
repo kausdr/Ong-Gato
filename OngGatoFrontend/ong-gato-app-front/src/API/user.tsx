@@ -6,6 +6,7 @@ const link: string = 'http://localhost:8081/user'
 export interface User {
     id?: number
     name?: string
+    lastName?: string
     birthDate?: string
     cpf?: string
     telephone?: string
@@ -15,6 +16,7 @@ export interface User {
     password?: string
     userTypeID?: number
     cargo?: string
+    profilePicture?: string;
 }
 
 export class UserService {
@@ -25,7 +27,18 @@ export class UserService {
             return [response.data, null]
 
         } catch (error) {
-            console.log("erro na chamada de usuario: " + error)
+            console.log("erro na chamada de usuarios: " + error)
+            return [null, error]
+        }
+    }
+
+    static async getCurrentUser(): Promise<[User | null, any]> {
+        try {
+            const response = await axios.get(link + `/me`)
+            return [response.data, null]
+
+        } catch (error) {
+            console.log("Erro ao buscar perfil do usuário: ", error)
             return [null, error]
         }
     }
@@ -41,6 +54,21 @@ export class UserService {
         }
     }
 
+    static async updateProfile(data: any): Promise<[any, any]> {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await axios.put(link + `/me`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return [response.data, null]
+
+        } catch (error: any) {
+            console.log("erro ao atualizar perfil: " + error)
+            return [null, error.response?.data || "Erro desconhecido"];
+        }
+    }
 
     static async validateEmail(email: string): Promise<[boolean | null, any]> {
         try {

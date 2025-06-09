@@ -74,33 +74,33 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createUser(@RequestBody UserModel userModel) {
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
         try {
 
-            List<UserResponseDTO> userModelList = userFacade.createUser(userModel);
+            UserModel userModel = userFacade.fromDto(userDTO);
 
-            if (CollectionUtils.isEmpty(userModelList)) {
-                return ResponseEntity.ok().body("No user with code: " + userModel.getId() + " found");
-            }
+            List<UserResponseDTO> createdUsers = userFacade.createUser(userModel);
 
-            return ResponseEntity.ok().body(userModelList);
-
+            return ResponseEntity.ok().body(createdUsers);
         } catch (Exception e) {
-            logger.error("Unable to get use", e);
-            return ResponseEntity.badRequest().body("No users found");
+            logger.error("Unable to create user", e);
+            return ResponseEntity.badRequest().body("Erro ao o criar usuário: " + e.getMessage());
         }
     }
 
-    @PatchMapping
-    public ResponseEntity<?> updateUser(@RequestBody UserDTO updateModel) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDTO updateModel) {
         try {
-            if (!Objects.isNull(updateModel)) {
+            if (updateModel != null) {
+                updateModel.setId(id);
                 UserModel model = userFacade.populateUserModel(updateModel);
 
-                return ResponseEntity.ok().body(Objects.requireNonNullElseGet(model, () -> "No user with code: " + updateModel.getId() + " found"));
+                return ResponseEntity.ok().body(
+                        Objects.requireNonNullElseGet(model, () -> "No user with code: " + id + " found")
+                );
             }
         } catch (Exception e) {
-            logger.error("Unable to get user", e);
+            logger.error("Unable to update user", e);
             throw new RuntimeException(e);
         }
         return ResponseEntity.badRequest().body("Dados de atualização inválidos");

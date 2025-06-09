@@ -13,11 +13,10 @@ interface InputProps {
     setValue: React.Dispatch<SetStateAction<any>>
     mandatory?: boolean
     inactive?: boolean
+    helperText?: string
 }
 
-
-
-function Input({ label, type, icon, id, name, placeholder, className, value, setValue, mandatory = true, inactive = false}: InputProps) {
+function Input({ label, type, icon, id, name, placeholder, className, value, setValue, mandatory = true, inactive = false, helperText }: InputProps) {
 
     const [renderError, setRenderError] = useState<boolean>(false)
     const [displayVazioWarn, setDisplayVazioWarn] = useState<boolean>(false)
@@ -37,18 +36,17 @@ function Input({ label, type, icon, id, name, placeholder, className, value, set
         Vazio = "Vazio"
     }
 
-
     const renderErrorWarning = (tipoErro: Error) => {
         setRenderError(true)
-
         switch (tipoErro) {
             case Error.Email:
                 setDisplayEmailWarn(true)
+                break;
             case Error.Vazio:
                 setDisplayVazioWarn(true)
+                break;
         }
     }
-
 
     return (
         <div className="flex flex-col gap-2">
@@ -73,6 +71,9 @@ function Input({ label, type, icon, id, name, placeholder, className, value, set
                 </div>
             )}
 
+            {!renderError && helperText && (
+                <p className="text-xs text-blue-500 ml-1">{helperText}</p>
+            )}
         </div>
     )
 }

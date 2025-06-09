@@ -5,34 +5,28 @@ import Button from "../../../Components/Layout/Button";
 import { useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { UserService } from "../../../API/user";
-
-
+import { useAuth } from "../../../Contexts/AuthContext"
 
 function Login() {
+
+    const { login: loginContext } = useAuth()
 
     const navigate = useNavigate();
         const [email, setEmail] = useState('')
         const [password, setPassword] = useState('')
         const [canCreate, setCanCreate] = useState<boolean> (false)
 
-
-    const verifyLogin = async () => {
-        const [response, error] = await UserService.login(email, password)
-        
-        if (response) {
-            console.log("Login bem-sucedido:", response)
-            navigate("/historico")
-        } else {
-            alert("Login falhou. Verifique suas credenciais.")
-        }
-    }
-
     const login = async (email: string, password: string) => {
         const [response, error] = await UserService.login(email, password)
         if (error) {
             console.log("erro ao fazer login "+error)
+            alert("Erro ao fazer login. Verifique suas credenciais.")
         } else {
-            console.log("response login "+response)
+            console.log("response login ", response)
+            localStorage.setItem('token', response.token)
+            loginContext(response.user)
+            localStorage.setItem('user', JSON.stringify(response.user))
+            navigate("/")
         }
     }
 
@@ -46,6 +40,7 @@ function Login() {
 
     return (
         <div className="flex flex-col gap-5">
+            
             <div className="flex justify-center">
                 <h1 className="font-medium">LOGIN</h1>
             </div>
@@ -58,7 +53,7 @@ function Login() {
                     login(email, password)
                     }}></Button>
 
-                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/signup")}>Não tem uma conta ainda?</a>
+                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/inicio/signup")}>Não possui uma conta ainda?</a>
             </div>
         </div>
     )
@@ -68,6 +63,7 @@ export default Login
 
 export function logout() {
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
 }
 
 export function isAuthenticated(): boolean {

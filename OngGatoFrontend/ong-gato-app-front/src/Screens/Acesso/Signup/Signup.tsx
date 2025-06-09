@@ -13,8 +13,10 @@ const validateEmailRegex = (email: string) =>
 const validatePassword = (password: string) =>
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/.test(password);
 
-const validateTelephone = (telephone: string) =>
-  /^\d{10,11}$/.test(telephone);
+const validateTelephone = (telephone: string) => {
+  const numbersOnly = telephone.replace(/\D/g, "");
+  return /^\d{10,11}$/.test(numbersOnly);
+};
 
 const validateCEP = async (cep: string) => {
   try {
@@ -24,6 +26,48 @@ const validateCEP = async (cep: string) => {
     return false;
   }
 }
+
+const validateCPF = (rawCpf: string) => {
+  const cpf = rawCpf.replace(/\D/g, '');
+  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+  let sum = 0;
+  for (let i = 0; i < 9; i++) sum += parseInt(cpf[i]) * (10 - i);
+  let check = 11 - (sum % 11);
+  if (check > 9) check = 0;
+  if (check !== parseInt(cpf[9])) return false;
+
+  sum = 0;
+  for (let i = 0; i < 10; i++) sum += parseInt(cpf[i]) * (11 - i);
+  check = 11 - (sum % 11);
+  if (check > 9) check = 0;
+  return check === parseInt(cpf[10]);
+};
+
+const formatCPF = (value: string) => {
+  const cleaned = value.replace(/\D/g, '').slice(0, 11);
+  return cleaned.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, (_, p1, p2, p3, p4) =>
+    `${p1}.${p2}.${p3}${p4 ? '-' + p4 : ''}`
+  );
+};
+
+const formatPhone = (value: string) => {
+  const cleaned = value.replace(/\D/g, '').slice(0, 11);
+  if (cleaned.length <= 10) {
+    return cleaned.replace(/(\d{2})(\d{4})(\d{0,4})/, (_, p1, p2, p3) =>
+      `(${p1}) ${p2}${p3 ? '-' + p3 : ''}`
+    );
+  } else {
+    return cleaned.replace(/(\d{2})(\d{5})(\d{0,4})/, (_, p1, p2, p3) =>
+      `(${p1}) ${p2}${p3 ? '-' + p3 : ''}`
+    );
+  }
+};
+
+const formatCEP = (value: string) => {
+  const cleaned = value.replace(/\D/g, '').slice(0, 8);
+  return cleaned.replace(/(\d{5})(\d{0,3})/, (_, p1, p2) => `${p1}${p2 ? '-' + p2 : ''}`);
+};
 
 function Signup() {
 
@@ -38,24 +82,20 @@ function Signup() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [canCreate, setCanCreate] = useState<boolean>(false)
+    const [cpf, setCpf] = useState<string>('')
 
     useEffect(() => {
-        if (name && lastName && telephone && cep && email && address && password && confirmPassword) {
+        if (name && lastName && telephone && cep && email && address && password && confirmPassword && cpf) {
             setCanCreate(true)
         } else {
             setCanCreate(false)
         }
-    }, [name, lastName, telephone, cep, email, address, password, confirmPassword])
-
-
-
-
-    
+    }, [name, lastName, telephone, cep, email, address, password, confirmPassword, cpf])
 
     return (
         <div className="flex flex-col gap-5">
             <div className="flex justify-center">
-                <h1 className="font-medium">SIGNUP</h1>
+                <h1 className="font-medium">CADASTRO</h1>
             </div>
 
             <div className="flex flex-col gap-4">
@@ -65,18 +105,19 @@ function Signup() {
                 </div>
 
                 <div className="flex gap-2">
-                    <Input label="Telefone" type="number" id="tel" name="tel" placeholder="Digite seu telefone" value={telephone} setValue={setTelephone} className="w-full" />
+                    <Input label="Telefone" type="tel" id="tel" name="tel" placeholder="Digite seu telefone" value={telephone} setValue={(value) => setTelephone(formatPhone(value))} helperText="Digite apenas os números" className="w-full" />
+                    <Input label="CPF" type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" value={cpf} setValue={(value) => setCpf(formatCPF(value))} helperText="Digite apenas os números" className="w-full" />
                 </div>
-                <Input label="Endereço" type="text" id="adress" name="adress" placeholder="Av. Oswaldo Matoro, 176" value={address} setValue={setAddress} />
-                <Input label="CEP" type="number" id="cep" name="cep" placeholder="63748912" value={cep} setValue={setCep} />
+                <Input label="Endereço" type="text" id="adress" name="adress" placeholder="ex.: Av. Oswaldo Matoro, 176" value={address} setValue={setAddress} />
+                <Input label="CEP" type="text" id="cep" name="cep" placeholder="Digite seu CEP" value={cep} setValue={(value) => setCep(formatCEP(value))} helperText="Digite apenas os números"/>
 
-                <Input label="E-mail" type="text" icon={<CiMail />} id="email" name="email" placeholder="seuemail@email.com" value={email} setValue={setEmail} />
+                <Input label="E-mail" type="email" icon={<CiMail />} id="email" name="email" placeholder="seuemail@email.com" value={email} setValue={setEmail} />
                 <Input label="Senha" type="password" icon={<IoKeyOutline />} id="password" name="password" placeholder="Insira sua senha" value={password} setValue={setPassword} />
                 <Input label="Confirme sua senha" type="password" icon={<IoKeyOutline />} id="password" name="password" placeholder="Confirme sua senha" value={confirmPassword} setValue={setConfirmPassword} />
 
                 <Button 
                     order={canCreate ? `primary` : `inactive`} 
-                    text="SIGNUP" 
+                    text="CADASTRE-SE" 
                     action={async () => {
                         if (!validateTelephone(telephone)) {
                             alert("Telefone inválido! Use 10 ou 11 dígitos numéricos.");
@@ -109,6 +150,12 @@ function Signup() {
                         const [emailExists, error] = await UserService.validateEmail(email);
                         if (emailExists) {
                             alert("Este e-mail já está cadastrado.");
+                            console.log("E-mail já existe" + error);
+                            return;
+                        }
+
+                        if (!validateCPF(cpf)) {
+                            alert("CPF inválido!");
                             return;
                         }
 
@@ -116,11 +163,12 @@ function Signup() {
                             userTypeID: 333,
                             birthDate: new Date().toISOString(),
                             name: `${name} ${lastName}`.trim(),
-                            telephone,
-                            zipCode: cep,
+                            telephone: telephone.replace(/\D/g, ''),
+                            zipCode: cep.replace(/\D/g, ''),
                             email,
                             password,
                             address,
+                            cpf: cpf.replace(/\D/g, ''),
                         };
 
                         const [response, creationError] = await UserService.createUser(newUser);
@@ -128,12 +176,13 @@ function Signup() {
                             alert("Erro ao criar usuário.");
                         } else {
                             alert("Usuário criado com sucesso!");
+                            console.log("Usuário criado com sucesso:", response);
                             navigate("/access/login");
                         }
 
                     }}
                 />
-                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/login")}>Already have an account?</a>
+                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/inicio/login")}>Já possui uma conta?</a>
             </div>
         </div>
     )

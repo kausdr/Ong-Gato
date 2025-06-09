@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import Card from "../../Components/Layout/Card"
 import { MdOutlinePerson4 } from "react-icons/md";
 import Input from "../../../src/Components/data-input/Input.tsx"
-import { CiMail } from "react-icons/ci";
-import { IoKeyOutline } from "react-icons/io5";
 import Button from "../../Components/Layout/Button";
+import { UserService, User } from "../../API/user.tsx"
 
 export const Profile = () => {
 
@@ -14,31 +13,31 @@ export const Profile = () => {
     const [cep, setCep] = useState<string>('')
     const [email, setEmail] = useState('')
     const [address, setAddress] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [canCreate, setCanCreate] = useState<boolean>(false)
     const [blockEdit, setBlockEdit] = useState<boolean>(true)
+    const [profilePicture, setProfilePicture] = useState<string | null>(null)
 
-    const user = {
-        name: 'Carlos',
-        lastName: 'Silva',
-        telephone: '11987654321',
-        cep: '01234-567',
-        email: 'carlos.silva@email.com',
-        address: 'Rua das Flores, 123 - São Paulo, SP',
-    };
+    const [user, setUser] = useState<User | null>(null);
 
     const handleEdit = () => {
         setBlockEdit(!blockEdit)
     }
 
-
     useEffect(() => {
-        setName(name)
-        setLastName(lastName)
-        setTelephone(telephone)
-        setEmail(email)
-    }, [])
+        const fetchUser = async () => {
+            const [data, error] = await UserService.getCurrentUser();
+            if (data) {
+                setUser(data);
+                setName(data.name || "");
+                setLastName(data.lastName || "");
+                setTelephone(data.telephone || "");
+                setCep(data.zipCode || "");
+                setEmail(data.email || "");
+                setAddress(data.address || "");
+            }
+        };
+
+        fetchUser();
+    }, []);
 
 
     return (
@@ -48,9 +47,39 @@ export const Profile = () => {
                 <h1 className="text-xl font-bold">Perfil</h1>
                 <div className="flex flex-col lg:flex-row gap-30">
                     <div className="flex flex-col gap-2 items-center">
-                        <div className="w-fit h-fit rounded rounded-md border-2 border-slate-200">
-                            <MdOutlinePerson4 className={`text-slate-300`} size={150} />
+                        <div className="w-fit h-fit rounded-md border-2 border-slate-200 overflow-hidden">
+                            {user?.profilePicture ? (
+                                <img
+                                    src={user.profilePicture}
+                                    alt="Foto de perfil"
+                                    className="w-[150px] h-[150px] object-cover"
+                                />
+                            ) : (
+                                <MdOutlinePerson4 className="text-slate-300" size={150} />
+                            )}
                         </div>
+
+                        {!blockEdit && (
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        reader.onload = () => {
+                                            const base64Full = reader.result as string;
+                                            const base64 = base64Full.split(',')[1];
+                                            setProfilePicture(base64);
+                                            setUser((prev) =>
+                                                prev ? { ...prev, profilePicture: `data:image/jpeg;base64,${base64}` } : null
+                                            );
+                                        };
+                                        reader.readAsDataURL(file);
+                                    }
+                                }}
+                            />
+                        )}
 
                         <Button order={`${blockEdit ? "primary" : "cancel"}`} text={`${blockEdit ? "Editar" : "Cancelar"}`} action={() => {
                             handleEdit()
@@ -58,23 +87,39 @@ export const Profile = () => {
                     </div>
 
                     <div className="flex flex-col gap-4">
-                        <div className="flex gap-2">
-                            <Input label={"Nome"} type="text" id="fname" name="fname" value={name} setValue={setName} placeholder={`${user.name}`} inactive={blockEdit} mandatory={false} />
-                            <Input label={"Sobrenome"} type="text" id="lname" name="lname" value={lastName} setValue={setLastName} placeholder={`${user.lastName}`} inactive={blockEdit} mandatory={false} />
-                        </div>
-
-                        <div className="flex gap-2">
-                            <Input label={"Telefone"} type="number" id="tel" name="tel" value={telephone} setValue={setTelephone} className="w-full" placeholder={`${user.telephone}`} inactive={blockEdit} mandatory={false} />
-                        </div>
-                        <Input label={"Endereço"} type="text" id="adress" name="adress" value={address} setValue={setAddress} placeholder={`${user.address}`} inactive={blockEdit} mandatory={false} />
-                        <Input label={"CEP"} type="number" id="cep" name="cep" value={cep} setValue={setCep} placeholder={`${user.cep}`} inactive={blockEdit} mandatory={false} />
+                        <Input label={"Nome"} type="text" id="name" name="name" value={name} setValue={setName} placeholder={`${user?.name ?? ""}`} inactive={blockEdit} mandatory={false} />
+                        <Input label={"Telefone"} type="number" id="tel" name="tel" value={telephone} setValue={setTelephone} className="w-full" placeholder={`${user?.telephone ?? ""}`} inactive={blockEdit} mandatory={false} />
+                        <Input label={"Email"} type="email" id="email" name="email" value={email} setValue={setEmail} placeholder={`${user?.email ?? ""}`} inactive={blockEdit} mandatory={false} />
+                        <Input label={"Endereço"} type="text" id="address" name="address" value={address} setValue={setAddress} placeholder={`${user?.address ?? ""}`} inactive={blockEdit} mandatory={false} />
+                        <Input label={"CEP"} type="number" id="cep" name="cep" value={cep} setValue={setCep} placeholder={`${user?.zipCode ?? ""}`} inactive={blockEdit} mandatory={false} />
 
                         {!blockEdit && 
-                        <Button order={`primary`} text="Salvar" action={() => {
-                            setBlockEdit(true)
-                        }} />}
+                        <Button order={`primary`} text="Salvar" action={async () => {
+                            const payload: any = {
+                                name,
+                                telephone,
+                                zipCode: cep,
+                                email,
+                                address,
+                            };
 
+                            if (profilePicture) {
+                                payload.profilePicture = profilePicture;
+                            }
 
+                            const [data, error] = await UserService.updateProfile(payload);
+                            if (!error) {
+                                setBlockEdit(true);
+                                alert("Perfil atualizado com sucesso!");
+
+                                const [updatedUser, err] = await UserService.getCurrentUser();
+                                if (updatedUser) setUser(updatedUser);
+                            } else {
+                                console.error("Erro ao atualizar perfil:", error);
+                                alert("Erro ao atualizar perfil. Verifique os dados e tente novamente.");
+                            }
+                        }} />
+                        }
                     </div>
                 </div>
             </div>
