@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
 
-    const { logout } = useAuth();
+    const { logout, updateUserContext } = useAuth();
     const navigate = useNavigate();
 
     const [firstName, setFirstName] = useState('');
@@ -126,11 +126,13 @@ export const Profile = () => {
                             }
 
                             const [data, error] = await UserService.updateProfile(payload);
-                            if (!error) {
+                            if (!error && data) {
                                 setBlockEdit(true);
                                 alert("Perfil atualizado com sucesso!");
+                                updateUserContext(data);
+                                setUser(data);
 
-                                const [updatedUser, err] = await UserService.getCurrentUser();
+                                const [updatedUser, error] = await UserService.getCurrentUser();
                                 if (updatedUser) setUser(updatedUser);
                             } else {
                                 console.error("Erro ao atualizar perfil:", error);

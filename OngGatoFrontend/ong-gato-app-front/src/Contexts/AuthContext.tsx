@@ -5,6 +5,7 @@ type AuthContextType = {
   user: User | null;
   login: (userData: User, token: string) => void;
   logout: () => void;
+  updateUserContext: (newUserData: Partial<User>) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,8 +36,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(null);
   };
 
+  const updateUserContext = (newUserData: Partial<User>) => {
+    setUser(prevUser => {
+      if (prevUser) {
+        const updatedUser = { ...prevUser, ...newUserData };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        return updatedUser;
+      }
+      return null;
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{user, login, logout}}>
+    <AuthContext.Provider value={{user, login, logout, updateUserContext}}>
       {children}
     </AuthContext.Provider>
   );
