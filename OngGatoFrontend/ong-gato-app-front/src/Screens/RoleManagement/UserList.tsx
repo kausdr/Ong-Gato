@@ -23,7 +23,7 @@ export const UserList = ({ nome, email, cargo }: UserListProps) => {
             <td className="py-[10px]">
                 <div className="flex flex-wrap gap-2 px-[10px]">
                     {cargo.map((c) => (
-                        <p className={`rounded-full py-1 px-4 ${c == "user" ? "bg-slate-200" : c == "adm" ? "bg-lime-200" : ""}`} >{c}</p>
+                        <p className={`rounded-full py-1 px-4 ${c == "user" ? "bg-slate-200" : c == "adm" ? "bg-sky-200" : ""}`} >{c}</p>
                     ))}
                 </div>
             </td>

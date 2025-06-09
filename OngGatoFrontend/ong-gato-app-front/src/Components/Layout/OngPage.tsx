@@ -4,16 +4,20 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { RiListView } from "react-icons/ri";
 import { BiDonateHeart } from "react-icons/bi";
+import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { BsBarChartLine } from "react-icons/bs";
-import { IoPersonCircleOutline } from "react-icons/io5";
-import { LiaCatSolid } from "react-icons/lia";
-
-
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { IoPersonCircleOutline } from 'react-icons/io5'
+import { LiaCatSolid } from 'react-icons/lia'
+import { FaInstagram, FaFacebookF, FaTwitter, FaWhatsapp } from "react-icons/fa"
+import { useState } from "react";
 
 export const OngPage = () => {
     const navigate = useNavigate()
     const { pathname } = useLocation();
+    const [isOpen, setIsOpen] = useState(false)
 
     const activePage = {
         historico: pathname.includes("/historico"),
@@ -22,76 +26,112 @@ export const OngPage = () => {
         gerenciar: pathname.includes("/gerenciar"),
         relatorio: pathname.includes("/relatorio"),
         perfil: pathname.includes("/perfil"),
+        homePage: pathname.includes("/homePage"),
+        signout: pathname.includes("#")
     };
 
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen)
+    }
+
+    const handleMouseLeave = () => {
+        setIsOpen(false)
+    }
 
     return (
-        <div className="flex w-full bg-slate-50 h-screen">
-            <div role="navigation" className="flex flex-col justify-between gap-2 py-5 h-screen bg-white w-[200px] border-1 border-slate-200">
-                <div className="flex flex-col gap-10">
-                    <div className="flex flex-col gap-2 items-center">
-                        <LiaCatSolid className="text-sky-600" size={40} />
-                        <p className="text-sky-600">Meawnager</p>
-                    </div>
+        <div className="min-h-full">
+            <Disclosure as="nav" className="bg-sky-800">
+                <div className="w-full px-4 sm:px-6 lg:px-8">
+                    <div className="flex h-16 items-center ">
+                        <div className="w-full flex items-center justify-between">
+                            <div className="shrink-0">
+                                <LiaCatSolid className="text-white" size={40} />
+                            </div>
+                            <div className="hidden md:block w-full">
+                                <div className="flex w-full justify-between">
+                                    <div className="flex">
+                                    <Button
+                                        order={"nav"}
+                                        className={` text-white ${activePage.homePage ? "!text-white" : "text-white"} `}
+                                        text={"Home Page"}
+                                        action={() => { navigate("/homePage") }}
+                                        className={`justify-start  ${activePage.homePage ? " text-white bg-sky-800 " : "text-white "}`} />
 
-                    <div className="flex flex-col w-full">
-                        <Button
-                            order={"nav"}
-                            icon={<LuHistory className={`text-xl text-slate-500 ${activePage.historico ? "!text-sky-700" : ""} `} />}
-                            text={"Histórico"}
-                            action={() => { navigate("/historico") }}
-                            className={`justify-start ${activePage.historico ? "bg-sky-100 text-sky-700" : ""}`} />
+                                    <Button
+                                        order={"nav"}
+                                        className={` text-white ${activePage.doar ? "!text-white" : "text-white"} `}
+                                        text={"Fazer Doação"}
+                                        action={() => { navigate("/doar") }}
+                                        className={`justify-start ${activePage.doar ? " text-white bg-sky-800" : "text-white"}`}/>
 
+                                    <Button
+                                        order={"nav"}
+                                        className={` text-white ${activePage.relatorio ? "!text-white" : "text-white"} `}
+                                        text={"Relatórios"}
+                                        action={() => { navigate("/relatorio") }}
+                                        className={`justify-start ${activePage.relatorio ? " text-white bg-sky-800" : "text-white"}`}/>
 
-                        <Button
-                            order={"nav"}
-                            icon={<RiListView className={`text-xl text-slate-500 ${activePage.doadores ? "!text-sky-700" : ""} `} />}
-                            text={"Doadores"}
-                            action={() => { navigate("/doadores") }}
-                            className={`justify-start ${activePage.doadores ? "bg-sky-100 text-sky-700" : ""}`}
-                        />
+                                    <Button
+                                        order={"nav"}
+                                        className={` text-white ${activePage.doadores ? "!text-white" : "text-white"} `}
+                                        text={"Doadores"}
+                                        action={() => { navigate("/doadores") }}
+                                        className={`justify-start ${activePage.doadores ? " text-white bg-sky-800" : "text-white"}`}/>
 
-                        <Button
-                            order={"nav"}
-                            icon={<BiDonateHeart className={`text-xl text-slate-500 ${activePage.doar ? "!text-sky-700" : ""} `} />}
-                            text={"Doar"}
-                            action={() => { navigate("/doar") }}
-                            className={`justify-start ${activePage.doar ? "bg-sky-100 text-sky-700" : ""}`}
-                        />
+                                    <Button
+                                        order={"nav"}
+                                        className={` text-white ${activePage.gerenciar ? "!text-white" : "text-white"} `}
+                                        text={"Gerenciar"}
+                                        action={() => { navigate("/gerenciar") }}
+                                        className={`justify-start ${activePage.gerenciar ? " text-white bg-sky-800" : "text-white"}`}/>
 
-                        <Button
-                            order={"nav"}
-                            icon={<MdOutlineManageAccounts className={`text-xl text-slate-500 ${activePage.gerenciar ? "!text-sky-700" : ""} `} />}
-                            text={"Gerenciar"}
-                            action={() => { navigate("/gerenciar") }}
-                            className={`justify-start ${activePage.gerenciar ? "bg-sky-100 text-sky-700" : ""}`}
-                        />
+                                    <Button
+                                        order={"nav"}
+                                        className={` text-white ${activePage.historico ? "!text-white" : "text-white"} `}
+                                        text={"Histórico"}
+                                        action={() => { navigate("/historico") }}
+                                        className={`justify-start  ${activePage.historico ? " text-white bg-sky-800 " : "text-white "}`} />
 
-                        <Button
-                            order={"nav"}
-                            icon={<BsBarChartLine className={`text-xl text-slate-500 ${activePage.relatorio ? "!text-sky-700" : ""} `} />}
-                            text={"Relatório"}
-                            action={() => { navigate("/relatorio") }}
-                            className={`justify-start ${activePage.relatorio ? "bg-sky-100 text-sky-700" : ""}`}
-                        />
+                                    </div>
 
+                                    <div className="relative inline-block">
+                                        <div onClick={toggleDropdown}>
+                                            <Button
+                                                order={"nav"}
+                                                icon={<IoPersonCircleOutline className={` text-white ${activePage.perfil ? "!text-white" : "text-white"} `} size={30}/>}
+                                                action={() => {}}
+                                                className={`justify-center ${activePage.perfil ? " text-white bg-sky-800" : "text-white"}`}/>
+                                        </div>
+                                        {isOpen && (
+                                            <div
+                                                className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50"
+                                                onMouseLeave={handleMouseLeave}>
+                                                <div className="py-1 flex flex-col">
+                                                    <Button
+                                                        order={"dropdown"}
+                                                        text={"Perfil"}
+                                                        action={() => { navigate("/perfil") }}
+                                                        className={`justify-center cursor-pointer  ${activePage.perfil ? "text-white bg-sky-800" : "text-slate-700 hover:bg-slate-200"}`}/>
 
+                                                    <Button
+                                                        order={"dropdown"}
+                                                        text={"Sair"}
+                                                        action={() => { }}
+                                                        className={`justify-center cursor-pointer hover:bg-slate-200`}/>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <Button
-                    order={"nav"}
-                    icon={<IoPersonCircleOutline className={`text-3xl text-slate-500 ${activePage.perfil ? "!text-sky-700" : ""} `} />}
-                    text={"Perfil"}
-                    action={() => { navigate("/perfil") }}
-                    className={`justify-center ${activePage.perfil ? "bg-sky-100 text-sky-700" : ""}`}
-                />
-            </div>
+            </Disclosure>
 
             <div className="w-full rounded rounded-md">
                 <Outlet />
             </div>
-
         </div>
     )
 }
