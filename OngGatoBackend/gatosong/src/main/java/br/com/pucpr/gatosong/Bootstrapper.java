@@ -30,7 +30,8 @@ public class Bootstrapper implements ApplicationListener<ContextRefreshedEvent> 
             UserModel admin = new UserModel();
             admin.setEmail(adminConfig.getEmail());
             admin.setPassword(adminConfig.getPassword());
-            admin.setName(adminConfig.getName());
+            admin.setFirstName(adminConfig.getName());
+            admin.setLastName("");
             admin.setIsAdmin(true);
             userRepository.save(admin);
             log.info("ADMIN user created!");
