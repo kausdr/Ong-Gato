@@ -1,13 +1,20 @@
 package br.com.pucpr.gatosong.security;
 
 import br.com.pucpr.gatosong.user.model.UserModel;
-import lombok.Getter;
+
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class UserToken {
+public class UserToken implements Serializable {
+
+    @JsonProperty("id")
     private Long id;
+    @JsonProperty("name")
     private String name;
-    private boolean isAdmin;
+    @JsonProperty("isAdmin")
+    private Boolean isAdmin;
 
     public UserToken() {
         this.id=0L;
@@ -17,6 +24,7 @@ public class UserToken {
     public UserToken(UserModel user) {
         this.id = user.getId();
         this.name = user.getName();
+        this.isAdmin = user.getIsAdmin();
     }
 
     public UserToken(Long id, String name) {
@@ -24,11 +32,19 @@ public class UserToken {
         this.name = name;
     }
 
-    public Long getId() {
+    public  Long getId() {
         return id;
     }
 
-    public boolean isAdmin() {
+    public Boolean getIsAdmin() {
         return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public String getName() {
+        return name;
     }
 }
