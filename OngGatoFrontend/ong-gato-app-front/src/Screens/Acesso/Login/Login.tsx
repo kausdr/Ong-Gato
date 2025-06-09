@@ -41,6 +41,7 @@ function Login() {
 
     return (
         <div className="flex flex-col gap-5">
+            
             <div className="flex justify-center">
                 <h1 className="font-medium">LOGIN</h1>
             </div>
@@ -53,7 +54,7 @@ function Login() {
                     handleLogin(email, password)
                     }}></Button>
 
-                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/access/signup")}>Não possui uma conta ainda?</a>
+                <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/inicio/signup")}>Não possui uma conta ainda?</a>
             </div>
         </div>
     )

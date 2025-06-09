@@ -97,14 +97,14 @@ function Donate() {
 
                                 <Button order={canDonate ? `primary` : `inactive`} text="Doar" action={() => {
                                     setPixCode(true)
-                                    createDonation(
-                                        {
-                                            amount: donateValue,
-                                            date: new Date().toISOString().replace('Z', '+00:00'),
-                                            donatorId: 9,
-                                            typeId: 8
-                                        }
-                                    )
+                                    // createDonation(
+                                    //     {
+                                    //         amount: donateValue,
+                                    //         date: new Date().toISOString().replace('Z', '+00:00'),
+                                    //         donatorId: 9,
+                                    //         typeId: 8
+                                    //     }
+                                    // )
 
                                 }} />
                             </div>
@@ -133,14 +133,14 @@ function Donate() {
                                 </div>
 
                                 <Button order={canDonate ? `primary` : `inactive`} text="Doar" action={() => {
-                                    createDonation(
-                                        {
-                                            amount: amount,
-                                            date: new Date().toISOString().replace('Z', '+00:00'),
-                                            donatorId: 9,
-                                            typeId: 7
-                                        }
-                                    )
+                                    // createDonation(
+                                    //     {
+                                    //         amount: amount,
+                                    //         date: new Date().toISOString().replace('Z', '+00:00'),
+                                    //         donatorId: 9,
+                                    //         typeId: 7
+                                    //     }
+                                    // )
 
                                 }} />
                             </div>
@@ -159,14 +159,14 @@ function Donate() {
                                 </div>
 
                                 <Button order={canDonate ? `primary` : `inactive`} text="Doar" action={() => {
-                                    createDonation(
-                                        {
-                                            amount: amount,
-                                            date: new Date().toISOString().replace('Z', '+00:00'),
-                                            donatorId: 9,
-                                            typeId: 9
-                                        }
-                                    )
+                                    // createDonation(
+                                    //     {
+                                    //         amount: amount,
+                                    //         date: new Date().toISOString().replace('Z', '+00:00'),
+                                    //         donatorId: 9,
+                                    //         typeId: 9
+                                    //     }
+                                    // )
 
                                 }} />
                             </div>

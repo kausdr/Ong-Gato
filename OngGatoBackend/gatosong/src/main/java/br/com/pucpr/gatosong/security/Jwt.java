@@ -6,25 +6,24 @@ import io.jsonwebtoken.jackson.io.JacksonDeserializer;
 import io.jsonwebtoken.jackson.io.JacksonSerializer;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
-@Component
+@Configuration
 public class Jwt {
     public static final String SECRET = "0e5582adfb7fa6bb770815f3c6b3534d311bd5fe";
     public static final long EXPIRE_HOURS = 48L;
     public static final String ISSUER = "PUCPR AuthServer";
-    public static final String USER_FIELD = "User";
+    public static final String USER_FIELD = "UserToken";
 
     public String createToken(UserModel user) {
         UserToken userToken = new UserToken(user);
@@ -68,8 +67,7 @@ public class Jwt {
     }
 
 
-    private Jwt() {
-        // Construtor privado para evitar instância da classe
+    public Jwt() {
     }
 
     public static ZonedDateTime utcNow() {
@@ -82,7 +80,7 @@ public class Jwt {
 
     public static Authentication toAuthentication(UserToken userToken) {
 
-        if(userToken.isAdmin()) {
+        if(userToken.getIsAdmin()) {
             return new UsernamePasswordAuthenticationToken(
                     userToken, userToken.getId(), List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
             );

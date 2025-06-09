@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class UserModel {
@@ -13,16 +14,20 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code", unique = true, nullable = false)
+    @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("first_name")
     @Column(name = "first_name")
     private String firstName;
 
+    @JsonProperty("last_name")
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "is_admin")
-    private boolean isAdmin;
+    @JsonProperty("isAdmin")
+    @Column(name = "isAdmin")
+    private Boolean isAdmin;
 
     @Column(name = "birthDate")
     private LocalDate birthDate;
