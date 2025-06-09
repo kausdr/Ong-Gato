@@ -1,12 +1,17 @@
 package br.com.pucpr.gatosong.user.service.impl;
 
+import br.com.pucpr.gatosong.user.dto.LoginResponse;
+import br.com.pucpr.gatosong.user.dto.UserResponse;
 import br.com.pucpr.gatosong.user.model.UserModel;
+import br.com.pucpr.gatosong.security.Jwt;
 import br.com.pucpr.gatosong.user.repository.UserRepository;
 import br.com.pucpr.gatosong.user.service.UserService;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -22,6 +27,12 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private Jwt jwt;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserModel> getAllUsers() {
@@ -45,34 +56,31 @@ public class DefaultUserService implements UserService {
 
     @Override
     public List<UserModel> createUser(UserModel userModel) {
-
-        UserModel model = null;
-
         if (!ObjectUtils.isEmpty(userModel)) {
             try {
-                    model = userRepository.save(userModel);
+                userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
+                UserModel saved = userRepository.save(userModel);
+                return Collections.singletonList(saved);
             } catch (Exception e) {
-                    logger.error("Unable to save UserModel", e);
+                logger.error("Unable to save UserModel", e);
             }
         }
-
-        return ObjectUtils.isEmpty(model) ? null : Collections.singletonList(model);
+        return null;
     }
 
     @Override
     public UserModel updateUser(UserModel userModel) {
-
-        UserModel model = null;
-
-        if(!ObjectUtils.isEmpty(userModel) && userRepository.existsById(userModel.getId())) {
-            try {
-                model = userRepository.save(userModel);
-            }catch (Exception e) {
-                logger.error("Unable to save UserModel", e);
-            }
-        }
-
-        return ObjectUtils.isEmpty(model)? null : model;
+        return userRepository.findById(userModel.getId())
+                .map(existingUser -> {
+                    existingUser.setFirstName(userModel.getFirstName());
+                    existingUser.setLastName(userModel.getLastName());
+                    existingUser.setTelephone(userModel.getTelephone());
+                    existingUser.setAddress(userModel.getAddress());
+                    existingUser.setZipCode(userModel.getZipCode());
+                    existingUser.setProfilePicture(userModel.getProfilePicture());
+                    return userRepository.save(existingUser);
+                })
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + userModel.getId()));
     }
 
     @Override
@@ -84,6 +92,16 @@ public class DefaultUserService implements UserService {
                 logger.error("Unable to delete UserModel", e);
             }
         }
+    }
+
+    @Override
+    public LoginResponse login(String email, String rawPassword) {
+
+        UserModel userModel = userRepository.findByEmail(email);
+        if (userModel == null || !passwordEncoder.matches(rawPassword, userModel.getPassword())) {
+            throw new BadCredentialsException("Credenciais inválidas");
+        }
+        return new LoginResponse(jwt.createToken(userModel), new UserResponse(userModel));
     }
 
     @Override

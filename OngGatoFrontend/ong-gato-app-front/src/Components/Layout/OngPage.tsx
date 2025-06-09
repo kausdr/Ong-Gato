@@ -9,15 +9,17 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { BsBarChartLine } from "react-icons/bs";
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { IoPersonCircleOutline } from 'react-icons/io5'
 import { LiaCatSolid } from 'react-icons/lia'
 import { FaInstagram, FaFacebookF, FaTwitter, FaWhatsapp } from "react-icons/fa"
 import { useState } from "react";
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { useAuth } from "../../Contexts/AuthContext";
 
 export const OngPage = () => {
     const navigate = useNavigate()
     const { pathname } = useLocation();
     const [isOpen, setIsOpen] = useState(false)
+    const { user } = useAuth();
 
     const activePage = {
         historico: pathname.includes("/historico"),
@@ -64,19 +66,24 @@ export const OngPage = () => {
                                         action={() => { navigate("/doar") }}
                                         className={`justify-start ${activePage.doar ? " text-white bg-blue-400" : "text-white"}`}/>
 
-                                    <Button
-                                        order={"nav"}
-                                        className={` text-white ${activePage.relatorio ? "!text-white" : "text-white"} `}
-                                        text={"Relatórios"}
-                                        action={() => { navigate("/relatorio") }}
-                                        className={`justify-start ${activePage.relatorio ? " text-white bg-blue-400" : "text-white"}`}/>
-
-                                    <Button
-                                        order={"nav"}
-                                        className={` text-white ${activePage.doadores ? "!text-white" : "text-white"} `}
-                                        text={"Doadores"}
-                                        action={() => { navigate("/doadores") }}
-                                        className={`justify-start ${activePage.doadores ? " text-white bg-blue-400" : "text-white"}`}/>
+                        {user && user.isAdmin && (
+                            <>
+                                <Button
+                                    order={"nav"}
+                                    icon={<RiListView className={`text-xl text-slate-500 ${activePage.doadores ? "!text-sky-700" : ""} `} />}
+                                    text={"Doadores"}
+                                    action={() => { navigate("/doadores") }}
+                                    className={`justify-start ${activePage.doadores ? "bg-sky-100 text-sky-700" : ""}`}
+                                />
+                                <Button
+                                    order={"nav"}
+                                    icon={<MdOutlineManageAccounts className={`text-xl text-slate-500 ${activePage.gerenciar ? "!text-sky-700" : ""} `} />}
+                                    text={"Gerenciar"}
+                                    action={() => { navigate("/gerenciar") }}
+                                    className={`justify-start ${activePage.gerenciar ? "bg-sky-100 text-sky-700" : ""}`}
+                                />
+                            </>
+                        )}
 
                                     <Button
                                         order={"nav"}
@@ -85,49 +92,34 @@ export const OngPage = () => {
                                         action={() => { navigate("/gerenciar") }}
                                         className={`justify-start ${activePage.gerenciar ? " text-white bg-blue-400" : "text-white"}`}/>
 
-                                    <Button
-                                        order={"nav"}
-                                        className={` text-white ${activePage.historico ? "!text-white" : "text-white"} `}
-                                        text={"Histórico"}
-                                        action={() => { navigate("/historico") }}
-                                        className={`justify-start  ${activePage.historico ? " text-white bg-blue-400 " : "text-white "}`} />
-
-                                    </div>
-
-                                    <div className="relative inline-block">
-                                        <div onClick={toggleDropdown}>
-                                            <Button
-                                                order={"nav"}
-                                                icon={<IoPersonCircleOutline className={` text-white ${activePage.perfil ? "!text-white" : "text-white"} `} size={30}/>}
-                                                action={() => {}}
-                                                className={`justify-center ${activePage.perfil ? " text-white bg-blue-400" : "text-white"}`}/>
-                                        </div>
-                                        {isOpen && (
-                                            <div
-                                                className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50"
-                                                onMouseLeave={handleMouseLeave}>
-                                                <div className="py-1 flex flex-col">
-                                                    <Button
-                                                        order={"dropdown"}
-                                                        text={"Perfil"}
-                                                        action={() => { navigate("/perfil") }}
-                                                        className={`justify-center cursor-pointer  ${activePage.perfil ? "text-white bg-blue-400" : "text-slate-700 hover:bg-slate-200"}`}/>
-
-                                                    <Button
-                                                        order={"dropdown"}
-                                                        text={"Sair"}
-                                                        action={() => { }}
-                                                        className={`justify-center cursor-pointer hover:bg-slate-200`}/>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <Button
+                            order={"nav"}
+                            icon={<BsBarChartLine className={`text-xl text-slate-500 ${activePage.relatorio ? "!text-sky-700" : ""} `} />}
+                            text={"Relatório"}
+                            action={() => { navigate("/relatorio") }}
+                            className={`justify-start ${activePage.relatorio ? "bg-sky-100 text-sky-700" : ""}`}
+                        />
                     </div>
                 </div>
-            </Disclosure>
+
+                <Button
+                    order={"nav"}
+                    icon={
+                        user && user.profilePicture ? (
+                            <img 
+                                src={user.profilePicture} 
+                                alt="Foto de perfil" 
+                                className="w-8 h-8 rounded-full object-cover"
+                            />
+                        ) : (
+                            <IoPersonCircleOutline className={`text-3xl text-slate-500 ${activePage.perfil ? "!text-sky-700" : ""}`} />
+                        )
+                    }
+                    text={"Perfil"}
+                    action={() => { navigate("/perfil") }}
+                    className={`justify-center items-center ${activePage.perfil ? "bg-sky-100 text-sky-700" : ""}`}
+                />
+            </div>
 
             <div className="w-full rounded rounded-md">
                 <Outlet />

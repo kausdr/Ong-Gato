@@ -1,0 +1,27 @@
+package br.com.pucpr.gatosong.config.swagger;
+
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.OpenAPI;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+
+
+@Configuration
+public class SwaggerConfig {
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+
+        Contact contact = new Contact();
+        contact.setName("Website Ong Gato");
+        contact.setUrl("http://localhost:8081");
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Ong Gato - API")
+                        .version("v1.0")
+                        .contact(contact)
+                        .description("API Criada para documentar os endpoints"));
+    }
+}

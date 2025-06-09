@@ -1,33 +1,29 @@
+import { useEffect, useState } from "react";
+import { User, UserService } from "../../API/user";
 import Card from "../../Components/Layout/Card"
 import { UserList } from "./UserList"
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 
 
-export const UserManagement = () => {
+export const UserManagement = ()=> {
 
-    const users = [
-        {
-            nome: "LuisLuis Luis LuisLuis",
-            email: "luis@gmail.com",
-            cargo: ["adm", "user"]
-        },
-        {
-            nome: "LuLuisis",
-            email: "luis@gmail.com",
-            cargo: ["adm", "user"]
-        },
-        {
-            nome: "tereza terezatereza",
-            email: "tereza@gmail.com",
-            cargo: ["adm"]
-        },
-        {
-            nome: "angela",
-            email: "angela@gmail.com",
-            cargo: ["user"]
-        },
-    ]
+const [users, setUsers] = useState<User[]>()
+
+const fetchUsers = async () => {
+    const [response, erro] = await UserService.getUsers()
+
+    if (response) {
+        setUsers(response)
+    }
+    if (erro) {
+        console.log("erro ao pegar usuários "+erro)
+    }
+}
+
+useEffect(() => {
+    fetchUsers()
+}, [])
 
     return (
         <Card>
@@ -45,11 +41,11 @@ export const UserManagement = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {users.map((user) => (
+                    {users?.map((user) => (
                         <UserList
-                            nome={user.nome}
-                            email={user.email}
-                            cargo={user.cargo}
+                            nome={user.name ?? ""}
+                            email={user.email ?? ""}
+                            cargo={user.isAdmin ?? ""}
                         ></UserList>
                     ))
                     }

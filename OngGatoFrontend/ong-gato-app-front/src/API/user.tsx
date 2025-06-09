@@ -1,80 +1,107 @@
 // fazer as chamadas api de usuário aqui
-import axios from "axios"
+import api from './axiosConfig'; 
 
-const link: string = 'http://localhost:8081/user'
-
+const link: string = '/user'; 
 
 export interface User {
-    // public Long Id;
-    // public String name;
-    // public Date birthDate;
-    // public String telephone;
-    // public String zipCode;
-    // public String email;
-    // public String address;
-    // public String password;
-    // public Long userTypeID;
-
     id?: number
-    name: string
-    birthDate: string
-    telephone: string
-    zipCode: string
-    email: string
-    address: string
-    password: string
+    firstName?: string;
+    lastName?: string;
+    cpf?: string
+    telephone?: string
+    zipCode?: string
+    email?: string
+    address?: string
+    password?: string
     userTypeID?: number
-    // donations: []
+    isAdmin?: boolean
+    profilePicture?: string;
 }
 
 export class UserService {
+
     static async getUsers(): Promise<[User[] | null, any]> {
         try {
-            const response = await axios.get(link)
+            const response = await api.get(link)
             return [response.data, null]
 
         } catch (error) {
-            console.log("erro chamada user " + error)
+            console.log("erro na chamada de usuarios: " + error)
             return [null, error]
         }
+    }
 
+    static async getCurrentUser(): Promise<[User | null, any]> {
+        try {
+            const response = await api.get(link + `/me`)
+            return [response.data, null]
+
+        } catch (error) {
+            console.log("Erro ao buscar perfil do usuário: ", error)
+            return [null, error]
+        }
     }
 
     static async createUser(newUser: User): Promise<[User | null, any]> {
         try {
-            const response = await axios.post(link, newUser)
+            const response = await api.post(link + `/create`, newUser)
             return [response.data, null]
 
         } catch (error) {
-            console.log("erro criar user " + error)
+            console.log("erro ao criar usuario: " + error)
             return [null, error]
         }
     }
 
+    static async updateProfile(data: any): Promise<[any, any]> {
+        try {
+            const token = localStorage.getItem('token')
+            const response = await api.put(link + `/me`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return [response.data, null]
+
+        } catch (error: any) {
+            console.log("erro ao atualizar perfil: " + error)
+            return [null, error.response?.data || "Erro desconhecido"];
+        }
+    }
 
     static async validateEmail(email: string): Promise<[boolean | null, any]> {
         try {
-            const response = await axios.get(link + `/validateEmail/${email}`)
+            const response = await api.get(link + `/validateEmail/${email}`)
             return [response.data, null]
 
         } catch (error) {
-            console.log("erro ao validar e-mail " + error)
+            console.log("erro ao validar e-mail: " + error)
             return [null, error]
         }
     }
 
     static async validateCPF(cpf: string): Promise<[boolean | null, any]> {
         try {
-            const response = await axios.get(link + `/validateCPF/${cpf}`)
+            const response = await api.get(link + `/validateCPF/${cpf}`)
             return [response.data, null]
 
         } catch (error) {
-            console.log("erro ao validar e-mail " + error)
+            console.log("erro ao validar CPF: " + error)
             return [null, error]
         }
     }
 
+    static async login(email: string, password: string): Promise<[any | null, any]> {
+        try {
+            const response = await api.post(link + `/login`, {
+                email,
+                password
+            })
+            return [response.data, null]
 
-
-
+        } catch (error) {
+            console.log("Erro ao fazer login: ", error)
+            return [null, error]
+        }
+    }
 }

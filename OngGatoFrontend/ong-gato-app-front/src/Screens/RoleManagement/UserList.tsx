@@ -5,7 +5,7 @@ import Button from "../../Components/Layout/Button";
 interface UserListProps {
     nome: string,
     email: string,
-    cargo: string[]
+    cargo: string
 }
 
 

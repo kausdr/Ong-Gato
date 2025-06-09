@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './Screens/Acesso/Login/Login'
 import Signup from './Screens/Acesso/Signup/Signup'
@@ -16,6 +13,11 @@ import Donate from './Screens/Donate/Donate'
 import HomePage from './Screens/HomePage/HomePage'
 import { Relatorio } from './Screens/Relatorio/Relatorio'
 import { Profile } from './Screens/Profile/Profile'
+import { ProtectedRoutes } from './Screens/Acesso/ProtectedRoutes'
+import { AuthProvider } from './Contexts/AuthContext' 
+import { AdminRoutes } from './Screens/Acesso/AdminRoutes'
+import { ToastProvider } from './Contexts/ToastContext';
+import { ToastContainer } from './Components/toast/ToastContainer';
 
 function App() {
 
@@ -29,26 +31,35 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="access" element={<Access />}>
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
-          </Route>
-          <Route path="/" element={<OngPage />}>
-            <Route path="cargos" element={<UserManagement />} />
-            <Route path="historico" element={<History />} />
-            <Route path="doadores" element={<ListDonators/>}/>
-            <Route path="doar" element={<Donate/>}/>
-            <Route path="gerenciar" element={<UserManagement/>}/>
-            <Route path="homePage" element={<HomePage/>}/>
-            <Route path="relatorio" element={<Relatorio/>}/>
-            <Route path="perfil" element={<Profile/>}/>
-          </Route>
-        </Routes>
-      </BrowserRouter>
+    <ToastProvider renderToasts={(toasts) => <ToastContainer toasts={toasts} />}>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="inicio" element={<Access />}>
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<Signup />} />
+            </Route>
+
+            <Route element={<ProtectedRoutes/>}>
+              <Route path="/" element={<OngPage />}>
+                <Route path="historico" element={<History />} />
+                <Route path="doar" element={<Donate/>}/>
+                <Route path="relatorio" element={<Relatorio/>}/>
+                <Route path="perfil" element={<Profile/>}/>
+                <Route path="homePage" element={<HomePage/>}/>
+                <Route element={<AdminRoutes />}>
+                  <Route path="doadores" element={<ListDonators/>}/>
+                  <Route path="gerenciar" element={<UserManagement/>}/>
+                  <Route path="cargos" element={<UserManagement />} />
+                </Route>
+              </Route>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ToastProvider>
     </>
-  )
+  );
 }
 
 export default App
