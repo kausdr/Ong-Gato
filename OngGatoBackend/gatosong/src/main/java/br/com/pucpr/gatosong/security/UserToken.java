@@ -1,9 +1,7 @@
 package br.com.pucpr.gatosong.security;
 
 import br.com.pucpr.gatosong.user.model.UserModel;
-
 import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -23,7 +21,7 @@ public class UserToken implements Serializable {
 
     public UserToken(UserModel user) {
         this.id = user.getId();
-        this.name = user.getName();
+        this.name = user.getFirstName()+user.getLastName();
         this.isAdmin = user.getIsAdmin();
     }
 
@@ -32,7 +30,7 @@ public class UserToken implements Serializable {
         this.name = name;
     }
 
-    public  Long getId() {
+    public Long getId() {
         return id;
     }
 

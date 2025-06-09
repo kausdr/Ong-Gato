@@ -1,8 +1,8 @@
 // fazer as chamadas api de usuário aqui
-import axios from "axios"
+import api from './axiosConfig'; 
 import { User } from "./user"
 
-const link: string = 'http://localhost:8081/donation'
+const link: string = '/donation';
 
 export interface TypeDonation {
     id: number;
@@ -22,7 +22,7 @@ export interface Donation {
 export class DonationService {
     static async getDonations(): Promise<[Donation[] | null, any]> {
         try {
-            const response = await axios.get(link)
+            const response = await api.get(link)
             return [response.data, null]
 
         } catch (error) {
@@ -34,7 +34,7 @@ export class DonationService {
 
     static async createDonation(donation: Donation): Promise<[Donation | null, any]> {
         try {
-            const response = await axios.post(link, donation)
+            const response = await api.post(link, donation)
             return [response.data, null]
 
         } catch (error) {
@@ -42,8 +42,4 @@ export class DonationService {
             return [null, error]
         }
     }
-
-
-
-
 }

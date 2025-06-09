@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -18,9 +17,13 @@ public class UserModel {
     @JsonProperty("id")
     private Long id;
 
-    @JsonProperty("name")
-    @Column(name = "name")
-    private String name;
+    @JsonProperty("first_name")
+    @Column(name = "first_name")
+    private String firstName;
+
+    @JsonProperty("last_name")
+    @Column(name = "last_name")
+    private String lastName;
 
     @JsonProperty("isAdmin")
     @Column(name = "isAdmin")
@@ -66,13 +69,13 @@ public class UserModel {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getFirstName() { return firstName; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+
+    public String getLastName() { return lastName; }
+
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
     public boolean getIsAdmin() {
         return isAdmin;

@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
-/* src/index.css */
-
 
 .pt-serif-regular {
   font-family: "PT Serif", serif;
@@ -27,3 +25,17 @@
   font-style: italic;
 }
 
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-right {
+  animation: fade-in-right 0.5s ease-out forwards;
+}

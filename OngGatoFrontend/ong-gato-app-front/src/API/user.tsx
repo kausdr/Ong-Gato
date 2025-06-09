@@ -1,13 +1,12 @@
 // fazer as chamadas api de usuário aqui
-import axios from "axios"
+import api from './axiosConfig'; 
 
-const link: string = 'http://localhost:8081/user'
+const link: string = '/user'; 
 
 export interface User {
     id?: number
-    name?: string
-    lastName?: string
-    birthDate?: string
+    firstName?: string;
+    lastName?: string;
     cpf?: string
     telephone?: string
     zipCode?: string
@@ -15,7 +14,7 @@ export interface User {
     address?: string
     password?: string
     userTypeID?: number
-    cargo?: string
+    isAdmin?: boolean
     profilePicture?: string;
 }
 
@@ -23,7 +22,7 @@ export class UserService {
 
     static async getUsers(): Promise<[User[] | null, any]> {
         try {
-            const response = await axios.get(link)
+            const response = await api.get(link)
             return [response.data, null]
 
         } catch (error) {
@@ -34,7 +33,7 @@ export class UserService {
 
     static async getCurrentUser(): Promise<[User | null, any]> {
         try {
-            const response = await axios.get(link + `/me`)
+            const response = await api.get(link + `/me`)
             return [response.data, null]
 
         } catch (error) {
@@ -45,7 +44,7 @@ export class UserService {
 
     static async createUser(newUser: User): Promise<[User | null, any]> {
         try {
-            const response = await axios.post(link + `/create`, newUser)
+            const response = await api.post(link + `/create`, newUser)
             return [response.data, null]
 
         } catch (error) {
@@ -57,7 +56,7 @@ export class UserService {
     static async updateProfile(data: any): Promise<[any, any]> {
         try {
             const token = localStorage.getItem('token')
-            const response = await axios.put(link + `/me`, data, {
+            const response = await api.put(link + `/me`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -72,7 +71,7 @@ export class UserService {
 
     static async validateEmail(email: string): Promise<[boolean | null, any]> {
         try {
-            const response = await axios.get(link + `/validateEmail/${email}`)
+            const response = await api.get(link + `/validateEmail/${email}`)
             return [response.data, null]
 
         } catch (error) {
@@ -83,7 +82,7 @@ export class UserService {
 
     static async validateCPF(cpf: string): Promise<[boolean | null, any]> {
         try {
-            const response = await axios.get(link + `/validateCPF/${cpf}`)
+            const response = await api.get(link + `/validateCPF/${cpf}`)
             return [response.data, null]
 
         } catch (error) {
@@ -94,11 +93,10 @@ export class UserService {
 
     static async login(email: string, password: string): Promise<[any | null, any]> {
         try {
-            const response = await axios.post(link + `/login`, {
+            const response = await api.post(link + `/login`, {
                 email,
                 password
             })
-            localStorage.setItem('token', response.data.token)
             return [response.data, null]
 
         } catch (error) {
@@ -107,11 +105,3 @@ export class UserService {
         }
     }
 }
-
-axios.interceptors.request.use(config => {
-    const token = localStorage.getItem('token')
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`
-    }
-    return config
-})

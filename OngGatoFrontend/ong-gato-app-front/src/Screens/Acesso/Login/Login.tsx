@@ -6,37 +6,38 @@ import { useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { UserService } from "../../../API/user";
 import { useAuth } from "../../../Contexts/AuthContext"
+import { useToast } from '../../../Contexts/ToastContext';
 
 function Login() {
 
     const { login: loginContext } = useAuth()
+    const { showToast } = useToast();
 
     const navigate = useNavigate();
-        const [email, setEmail] = useState('')
-        const [password, setPassword] = useState('')
-        const [canCreate, setCanCreate] = useState<boolean> (false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [canCreate, setCanCreate] = useState<boolean> (false)
 
-    const login = async (email: string, password: string) => {
+    const handleLogin = async (email: string, password: string) => {
         const [response, error] = await UserService.login(email, password)
         if (error) {
-            console.log("erro ao fazer login "+error)
-            alert("Erro ao fazer login. Verifique suas credenciais.")
+            console.log("Erro ao fazer login:" + error)
+            showToast("Erro ao fazer login. Verifique suas credenciais.", "error");
         } else {
-            console.log("response login ", response)
-            localStorage.setItem('token', response.token)
-            loginContext(response.user)
-            localStorage.setItem('user', JSON.stringify(response.user))
+            console.log("Login realizado com sucesso:", response)
+            showToast("Login realizado com sucesso!", "success");
+            loginContext(response.user, response.token); 
             navigate("/")
         }
     }
 
     useEffect(() => {
-            if (email && password ) {
-                setCanCreate(true)
-            } else {
-                setCanCreate(false)
-            }
-        }, [email, password])
+        if (email && password ) {
+            setCanCreate(true)
+        } else {
+            setCanCreate(false)
+        }
+    }, [email, password])
 
     return (
         <div className="flex flex-col gap-5">
@@ -50,7 +51,7 @@ function Login() {
                 <Input label="Senha" type="password" icon={<IoKeyOutline></IoKeyOutline>} id="password" name="password" placeholder="Insira sua senha" value={password} setValue={setPassword}></Input>
 
                 <Button order={canCreate ? `primary` : `inactive`} text="Login" action={() => {
-                    login(email, password)
+                    handleLogin(email, password)
                     }}></Button>
 
                 <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/inicio/signup")}>Não possui uma conta ainda?</a>

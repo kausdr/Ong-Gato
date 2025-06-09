@@ -72,7 +72,8 @@ public class DefaultUserService implements UserService {
     public UserModel updateUser(UserModel userModel) {
         return userRepository.findById(userModel.getId())
                 .map(existingUser -> {
-                    existingUser.setName(userModel.getName());
+                    existingUser.setFirstName(userModel.getFirstName());
+                    existingUser.setLastName(userModel.getLastName());
                     existingUser.setTelephone(userModel.getTelephone());
                     existingUser.setAddress(userModel.getAddress());
                     existingUser.setZipCode(userModel.getZipCode());
