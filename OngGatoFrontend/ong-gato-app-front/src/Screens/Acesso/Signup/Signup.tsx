@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { UserService, User } from "../../../API/user.tsx"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useToast } from '../../../Contexts/ToastContext';
 
 const validateEmailRegex = (email: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -72,6 +73,7 @@ const formatCEP = (value: string) => {
 function Signup() {
 
     const navigate = useNavigate()
+    const { showToast } = useToast();
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('')
@@ -85,11 +87,11 @@ function Signup() {
     const [cpf, setCpf] = useState<string>('')
 
     useEffect(() => {
-        if (firstName && lastName && telephone && cep && email && address && password && confirmPassword && cpf) {
-            setCanCreate(true)
-        } else {
-            setCanCreate(false)
-        }
+      if (firstName && lastName && telephone && cep && email && address && password && confirmPassword && cpf) {
+        setCanCreate(true)
+      } else {
+        setCanCreate(false)
+      }
     }, [firstName, lastName, telephone, cep, email, address, password, confirmPassword, cpf])
 
     return (
@@ -120,42 +122,43 @@ function Signup() {
                     text="CADASTRE-SE" 
                     action={async () => {
                         if (!validateTelephone(telephone)) {
-                            alert("Telefone inválido! Use 10 ou 11 dígitos numéricos.");
+                            showToast("Telefone inválido! Use 10 ou 11 dígitos numéricos.", "error");
                             return;
                         }
 
                         const isCepValid = await validateCEP(cep);
                         if (!isCepValid) {
-                            alert("CEP inválido ou não encontrado.");
+                            showToast("CEP inválido ou não encontrado.", "error");
                             return;
                         }
 
                         if (!validateEmailRegex(email)) {
-                            alert("E-mail inválido!");
+                            showToast("E-mail inválido!", "error");
                             return;
                         }
 
                         if (!validatePassword(password)) {
-                            alert(
-                                "Senha inválida! A senha deve conter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais."
+                            showToast(
+                                "Senha inválida! A senha deve conter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.",
+                                "error"
                             );
                             return;
                         }
 
                         if (password !== confirmPassword) {
-                            alert("As senhas não coincidem!");
+                            showToast("As senhas não coincidem!", "error");
                             return;
                         }
 
                         const [emailExists, error] = await UserService.validateEmail(email);
                         if (emailExists) {
-                            alert("Este e-mail já está cadastrado.");
-                            console.log("E-mail já existe" + error);
+                            showToast("Este e-mail já está cadastrado.", "warning");
+                            console.log("E-mail já existente no sistema:" + error);
                             return;
                         }
 
                         if (!validateCPF(cpf)) {
-                            alert("CPF inválido!");
+                            showToast("CPF inválido!", "error");
                             return;
                         }
 
@@ -173,9 +176,9 @@ function Signup() {
 
                         const [response, creationError] = await UserService.createUser(newUser);
                         if (creationError) {
-                            alert("Erro ao criar usuário.");
+                            showToast("Erro ao criar usuário.", "error");
                         } else {
-                            alert("Usuário criado com sucesso!");
+                            showToast("Usuário criado com sucesso!", "success");
                             console.log("Usuário criado com sucesso:", response);
                             navigate("/access/login");
                         }

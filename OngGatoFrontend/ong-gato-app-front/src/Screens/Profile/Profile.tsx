@@ -6,11 +6,13 @@ import Button from "../../Components/Layout/Button";
 import { UserService, User } from "../../API/user.tsx"
 import { useAuth } from "../../Contexts/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
+import { useToast } from '../../Contexts/ToastContext';
 
 export const Profile = () => {
 
     const { logout, updateUserContext } = useAuth();
     const navigate = useNavigate();
+    const { showToast } = useToast();
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('')
@@ -34,7 +36,7 @@ export const Profile = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const [data, error] = await UserService.getCurrentUser();
+            const [data] = await UserService.getCurrentUser();
             if (data) {
                 setUser(data);
                 setFirstName(data.firstName || "");
@@ -128,15 +130,15 @@ export const Profile = () => {
                             const [data, error] = await UserService.updateProfile(payload);
                             if (!error && data) {
                                 setBlockEdit(true);
-                                alert("Perfil atualizado com sucesso!");
+                                showToast("Perfil atualizado com sucesso!", "success");
                                 updateUserContext(data);
                                 setUser(data);
 
-                                const [updatedUser, error] = await UserService.getCurrentUser();
+                                const [updatedUser] = await UserService.getCurrentUser();
                                 if (updatedUser) setUser(updatedUser);
                             } else {
                                 console.error("Erro ao atualizar perfil:", error);
-                                alert("Erro ao atualizar perfil. Verifique os dados e tente novamente.");
+                                showToast("Erro ao atualizar perfil. Verifique os dados e tente novamente.", "error");
                             }
                         }} />
                         }
