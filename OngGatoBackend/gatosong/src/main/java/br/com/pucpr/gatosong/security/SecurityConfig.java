@@ -63,8 +63,6 @@ public class SecurityConfig {
                         .requestMatchers(mvc.pattern("/validateCpf/{cpf}")).permitAll()
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/user/create")).permitAll()
                         .requestMatchers(mvc.pattern(HttpMethod.DELETE, "/donation/{id}")).hasRole("ADMIN")
-                        .anyRequest().authenticated()
-
                         )
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint((request, response, authException) -> {

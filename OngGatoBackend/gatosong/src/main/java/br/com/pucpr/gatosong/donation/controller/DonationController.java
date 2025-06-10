@@ -36,6 +36,8 @@ public class DonationController {
     @Autowired
     private DonationFacade donationFacade;
 
+    @SecurityRequirement(name="AuthServer")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/allDonations")
     public ResponseEntity<?> getDonations() {
         try {
@@ -54,6 +56,7 @@ public class DonationController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @GetMapping("/{id}")
     public ResponseEntity<?> getDonationById(@PathVariable Long id) {
         try {
@@ -72,6 +75,7 @@ public class DonationController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @PostMapping
     public ResponseEntity<?> createDonation(@RequestBody DonationDTO donation) {
         try {
@@ -90,6 +94,8 @@ public class DonationController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping
     public ResponseEntity<?> updateDonation(@RequestBody DonationDTO updateModel) {
         try {
@@ -105,6 +111,8 @@ public class DonationController {
         return null;
     }
 
+    @SecurityRequirement(name = "AuthServer")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDonation(@PathVariable Long id) {
         try {
