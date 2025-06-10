@@ -104,7 +104,7 @@ export const Profile = () => {
 
     const handleLogout = () => {
         logout();
-        navigate("/access/login");
+        navigate("/inicio");
     };
 
     useEffect(() => {
