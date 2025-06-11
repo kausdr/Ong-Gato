@@ -11,12 +11,12 @@ export interface TypeDonation {
 
 export interface Donation {
     id?: number
-    amount: number
-    date: string
+    amount?: number
+    date?: string
     donatorId?: number
-    donator: User
+    donator?: User
     typeId?: number
-    type: TypeDonation
+    type?: TypeDonation
 }
 
 export class DonationService {
