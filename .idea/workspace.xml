@@ -7,7 +7,14 @@
     <list default="true" id="0d06c9eb-8561-4ce5-99fd-265f37b5c529" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Components/Layout/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Components/Layout/Footer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Components/Layout/OngPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Components/Layout/OngPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Acesso/Access.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Acesso/Access.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Donate/Donate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Donate/Donate.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/History/History.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/History/History.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/HomePage/HomePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/HomePage/HomePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Relatorio/Relatorio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Relatorio/Relatorio.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +53,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.GatosongApplication.executor": "Run",
-    "git-widget-placeholder": "feature/HomePage",
+    "git-widget-placeholder": "feature/Footer",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "settings.editor.selected.configurable": "preferences.pluginManager"

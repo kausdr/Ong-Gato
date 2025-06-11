@@ -13,6 +13,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import { LiaCatSolid } from 'react-icons/lia';
 import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
+import Footer from '../../Components/Layout/Footer'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -94,6 +95,7 @@ export const Relatorio = () => {
           </div>
         </main>
       </div>
+      <Footer />
     </>
   );
 };

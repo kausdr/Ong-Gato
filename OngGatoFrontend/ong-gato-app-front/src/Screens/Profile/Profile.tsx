@@ -7,6 +7,7 @@ import { UserService, User } from "../../API/user.tsx"
 import { useAuth } from "../../Contexts/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
 import { useToast } from '../../Contexts/ToastContext';
+import Footer from '../../Components/Layout/Footer'
 
 interface FormErrors {
     firstName?: string;
@@ -125,11 +126,11 @@ export const Profile = () => {
     }, []);
 
 
-    return (
-        <div className="flex justify-center items-center">
-            <Card className="w-full">
-                <div className="flex flex-col h-auto min-h-[calc(100vh-40px)] gap-5 p-10 bg-white">
-                    <h1 className="text-xl font-bold">Perfil</h1>
+   return (
+     <div className="min-h-screen flex flex-col">
+       <div className="flex justify-center items-center flex-grow">
+         <div className="flex flex-col h-auto min-h-[calc(100vh-40px)] items-center gap-5 p-10 bg-white">
+            <h1 className="text-xl font-bold">Perfil</h1>
                     <div className="flex flex-col lg:flex-row gap-10">
                         <div className="flex flex-col gap-2 items-center">
                             <div className="w-fit h-fit rounded-md border-2 border-slate-200 overflow-hidden">
@@ -191,7 +192,6 @@ export const Profile = () => {
                                     <Input label={"Endereço"} type="text" id="address" name="address" value={address} setValue={setAddress} placeholder={`${user?.address ?? ""}`} inactive={blockEdit} mandatory={!blockEdit} />
                                 </div>
                             </div>
-                            
                             <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mt-auto">
                                 {!blockEdit && 
                                     <Button order={`primary`} text="Salvar" className="w-full sm:w-auto" action={handleSave} />
@@ -203,7 +203,8 @@ export const Profile = () => {
                         </div>
                     </div>
                 </div>
-            </Card>
-        </div>
+            </div>
+        <Footer />
+      </div>
     );
 }

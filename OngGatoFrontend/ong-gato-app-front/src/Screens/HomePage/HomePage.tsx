@@ -9,6 +9,7 @@ import catImg from '/Images/catImg.png'
 import foodImg from '/Images/foodImg.jpg'
 import donateImg from '/Images/donate.jpg'
 import chartImg from '/Images/chartImg.png'
+import Footer from '../../Components/Layout/Footer'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -96,6 +97,7 @@ export default function HomePage() {
               <img src={catImg} className="max-w-[200px]"/>
           </div>
       </div>
+      <Footer />
     </>
   )
 }

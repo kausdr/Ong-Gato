@@ -44,25 +44,25 @@ export const OngPage = () => {
                     order="nav"
                     text="Home Page"
                     action={() => navigate("/homePage")}
-                    className={`justify-start ${activePage.homePage ? "bg-blue-100 text-blue-400" : "text-white"}`}
+                    className={`justify-start ${activePage.homePage ? "bg-blue-100 text-blue-900 rounded-xl" : "text-blue-400 rounded-xl"}`}
                   />
                   <Button
                     order="nav"
                     text="Fazer Doação"
                     action={() => navigate("/doar")}
-                    className={`justify-start ${activePage.doar ? "bg-blue-100 text-blue-400" : "text-white"}`}
+                    className={`justify-start ${activePage.doar ? "bg-blue-100 text-blue-900 rounded-xl" : "text-blue-400 rounded-xl"}`}
                   />
                   <Button
                     order="nav"
                     text="Relatórios"
                     action={() => navigate("/relatorio")}
-                    className={`justify-start ${activePage.relatorio ? "bg-blue-100 text-blue-400" : "text-white"}`}
+                    className={`justify-start ${activePage.relatorio ? "bg-blue-100 text-blue-900 rounded-xl" : "text-blue-400 rounded-xl"}`}
                   />
                   <Button
                     order="nav"
                     text="Histórico de Doações"
                     action={() => navigate("/historico")}
-                    className={`justify-start ${activePage.historico ? "bg-blue-100 text-blue-400" : "text-white"}`}
+                    className={`justify-start ${activePage.historico ? "bg-blue-100 text-blue-900 rounded-xl" : "text-blue-400 rounded-xl"}`}
                   />
 
                   {user && user.isAdmin && (
@@ -72,14 +72,14 @@ export const OngPage = () => {
                         icon={<RiListView className={`text-xl ${activePage.doadores ? "text-sky-700" : "text-slate-500"}`} />}
                         text="Doadores"
                         action={() => navigate("/doadores")}
-                        className={`justify-start ${activePage.doadores ? "bg-sky-100 text-sky-700" : "text-white"}`}
+                        className={`justify-start ${activePage.doadores ? "bg-sky-100 text-sky-700 rounded-xl" : "text-white rounded-xl"}`}
                       />
                       <Button
                         order="nav"
                         icon={<MdOutlineManageAccounts className={`text-xl ${activePage.gerenciar ? "text-blue-400" : "text-blue-400"}`} />}
                         text="Gerenciar"
                         action={() => navigate("/gerenciar")}
-                        className={`justify-start ${activePage.gerenciar ? "bg-blue-100 text-blue-400" : "text-white"}`}
+                        className={`justify-start ${activePage.gerenciar ? "bg-blue-100 text-blue-400 rounded-xl" : "text-white rounded-xl"}`}
                       />
                     </>
                   )}
@@ -94,12 +94,12 @@ export const OngPage = () => {
                             className="w-8 h-8 rounded-full object-cover"
                           />
                         ) : (
-                          <IoPersonCircleOutline className={`text-3xl ${activePage.perfil ? "text-blue-400" : "text-blue-400"}`} />
+                          <IoPersonCircleOutline className={`text-3xl ${activePage.perfil ? "text-blue-900" : "text-blue-400"}`} />
                         )
                       }
                       text="Perfil"
                       action={() => navigate("/perfil")}
-                      className={`justify-center items-center ${activePage.perfil ? "bg-blue-100 text-blue-400" : "text-blue-400"}`}
+                      className={`justify-center items-center ${activePage.perfil ? "bg-blue-100 text-blue-900 rounded-xl" : "text-blue-400 rounded-xl"}`}
                     />
               </div>
             </div>
