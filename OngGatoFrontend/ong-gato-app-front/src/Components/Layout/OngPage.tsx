@@ -6,7 +6,7 @@ import { BiDonateHeart } from "react-icons/bi";
 import { IoHomeOutline, IoPersonCircleOutline } from "react-icons/io5";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { BsBarChartLine } from "react-icons/bs";
-import { Disclosure } from '@headlessui/react';
+import { Disclosure } from "@headlessui/react";
 import Button from "./Button";
 import { useAuth } from "../../Contexts/AuthContext";
 

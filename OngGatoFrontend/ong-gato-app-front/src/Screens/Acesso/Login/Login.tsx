@@ -27,7 +27,7 @@ function Login() {
             console.log("Login realizado com sucesso:", response)
             showToast("Login realizado com sucesso!", "success");
             loginContext(response.user, response.token); 
-            navigate("/")
+            navigate("/homePage");
         }
     }
 
