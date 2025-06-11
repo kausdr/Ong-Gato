@@ -29,7 +29,6 @@ export const OngPage = () => {
   const toggleDropdown = () => setIsOpen(!isOpen);
   const handleMouseLeave = () => setIsOpen(false);
 
-// #4b678a
 
   return (
     <div className="min-h-full">
