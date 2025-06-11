@@ -23,7 +23,7 @@ export default function HomePage() {
                     <div className="w-[80%] flex flex-grow flex-col gap-20 lg:flex-row justify-between items-center md:items-start">
                         <div className="flex flex-col gap-3 justify-center items-center md:items-start">
                             <h1 className="text-blue-900 font-bold text-[40px] text-center md:text-start">🐾 Sobre Nós</h1>
-                            <div className="flex flex-col text-xl">
+                            <div className="flex flex-col text-xl text-blue-900">
                                 <p>
                                     Somos uma organização dedicada a transformar a vida de gatos em situação de risco por meio da solidariedade.
                                     Nosso sistema de gerenciamento de doações foi criado para facilitar o apoio de pessoas que desejam contribuir
