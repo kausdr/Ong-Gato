@@ -44,7 +44,7 @@ export const OngPage = () => {
                 <div className="flex gap-1">
                   <Button
                     order="nav"
-                    text="Home Page"
+                    text="Início"
                     action={() => navigate("/homePage")}
                     className={`justify-start ${activePage.homePage ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
                   />
