@@ -1,8 +1,8 @@
 import { FaInstagram, FaFacebookF, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
-export default function Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-sky-800 mt-16 text-white relative">
+    <footer className="bg-blue-200 mt-16 text-blue-900 relative">
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
 
         {/* Contato */}
@@ -38,9 +38,9 @@ export default function Footer = () => {
             <input
               type="email"
               placeholder="Seu e-mail"
-              className="p-2 rounded text-white bg-sky-700 placeholder-white"
+              className="p-2 rounded text-blue-900 bg-white placeholder-blue-900"
             />
-            <button type="submit" className="bg-white text-sky-600 font-semibold rounded p-2 hover:bg-gray-100">
+            <button type="submit" className="bg-blue-900 text-white font-semibold rounded p-2 hover:bg-blue-400">
               Inscrever-se
             </button>
           </form>
@@ -50,12 +50,21 @@ export default function Footer = () => {
       {/* Mapa */}
       <div className="max-w-7xl mx-auto px-4 pb-12">
         <h3 className="text-lg font-semibold mb-3">Como Chegar</h3>
-        <iframe
-          className="w-full h-64 rounded"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114150.02542633498!2d-49.36581905533019!3d-25.456349027170665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dcef60aa2e91d5%3A0x1cbb729ef2b3fd4d!2sPUCPR%20-%20Pontif%C3%ADcia%20Universidade%20Cat%C3%B3lica%20do%20Paran%C3%A1!5e0!3m2!1spt-BR!2sbr!4v1716769830052!5m2!1spt-BR!2sbr"
-          loading="lazy"
-        />
+
+        <div className="flex gap-4 items-start">
+          <div className="w-4/5">
+            <iframe
+              className="w-full h-64 rounded"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114150.02542633498!2d-49.36581905533019!3d-25.456349027170665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dcef60aa2e91d5%3A0x1cbb729ef2b3fd4d!2sPUCPR%20-%20Pontif%C3%ADcia%20Universidade%20Cat%C3%B3lica%20do%20Paran%C3%A1!5e0!3m2!1spt-BR!2sbr!4v1716769830052!5m2!1spt-BR!2sbr"
+              loading="lazy"
+            />
+          </div>
+          <div className="w-1/5">
+              <img src="/Images/OngLogo.png" alt="Localização da ONG" className="w-full h-auto rounded" />
+            </div>
+        </div>
       </div>
+
 
       {/* Direitos autorais */}
       <div className="border-t border-sky-400 py-4 text-center text-sm">

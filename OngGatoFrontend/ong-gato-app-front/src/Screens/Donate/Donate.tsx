@@ -7,8 +7,7 @@ import { useEffect, useState } from "react";
 import Card from "../../Components/Layout/Card";
 import { Donation, DonationService } from "../../API/donation";
 import { BiDonateHeart } from "react-icons/bi";
-
-
+import Footer from '../../Components/Layout/Footer'
 
 function Donate() {
 
@@ -18,8 +17,6 @@ function Donate() {
     const [donationCategory, setDonationCategory] = useState<'dinheiro' | 'roupa' | 'alimento'>()
     const [pixCode, setPixCode] = useState<boolean>(false)
     const [amount, setAmount] = useState<number>(0)
-
-
 
     useEffect(() => {
         if (donateValue || amount) {
@@ -39,7 +36,8 @@ function Donate() {
     }
 
     return (
-        <div className="w-full h-screen flex justify-center items-center">
+        <div className="flex flex-col min-h-screen">
+          <div className="flex-grow flex justify-center items-center">
             <Card className="flex flex-col gap-10 p-5 bg-white max-w-[500px]">
                 <div className="flex flex-col gap-3">
                     <h1 className="text-xl font-bold">Escolha em qual categoria doar:</h1>
@@ -177,10 +175,10 @@ function Donate() {
                 }
 
 
-            </Card>
-        </div>
-
-    )
-}
-
+                    </Card>
+                  </div>
+                  <Footer />
+                </div>
+              )
+            }
 export default Donate;
