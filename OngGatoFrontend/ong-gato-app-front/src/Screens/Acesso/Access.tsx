@@ -22,8 +22,8 @@ export const Access = () => {
             <div className="flex justify-center">
                 <div className="w-[80%] pt-5 flex justify-between items-center">
                     <div className="flex flex-row gap-1 items-center">
-                        <img src="/OngLogo.png" alt="Logo" className="w-10 h-10 rounded-full" />
-                        <h1 className="pt-serif-regular text-blue-800 font-bold text-[20px]">Meawnager</h1>
+                        <img src="/Images/OngLogo.png" alt="Logo" className="w-10 h-10 rounded-full" />
+                        <h1 className="pt-serif-regular text-blue-800 font-bold text-[20px]">Meownager</h1>
                     </div>
                     <div className="flex gap-10">
                     <button className="text-blue-900 hover:text-blue-400 font-bold p-2 rounded-md cursor-pointer"

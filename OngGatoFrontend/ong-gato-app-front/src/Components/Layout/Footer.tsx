@@ -55,7 +55,7 @@ export default function Footer() {
           <div className="w-4/5">
             <iframe
               className="w-full h-64 rounded"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114150.02542633498!2d-49.36581905533019!3d-25.456349027170665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dcef60aa2e91d5%3A0x1cbb729ef2b3fd4d!2sPUCPR%20-%20Pontif%C3%ADcia%20Universidade%20Cat%C3%B3lica%20do%20Paran%C3%A1!5e0!3m2!1spt-BR!2sbr!4v1716769830052!5m2!1spt-BR!2sbr"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11389.475867151812!2d-49.252747!3d-25.451569!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce4fa6efc3181%3A0x8b0f452491a6f477!2sPUCPR%20-%20Pontif%C3%ADcia%20Universidade%20Cat%C3%B3lica%20do%20Paran%C3%A1!5e1!3m2!1spt-BR!2sbr!4v1749612710095!5m2!1spt-BR!2sbr"
               loading="lazy"
             />
           </div>
@@ -68,7 +68,7 @@ export default function Footer() {
 
       {/* Direitos autorais */}
       <div className="border-t border-sky-400 py-4 text-center text-sm">
-        © {new Date().getFullYear()} MeowNager. Todos os direitos reservados.
+        © {new Date().getFullYear()} Meownager. Todos os direitos reservados.
       </div>
 
       {/* WhatsApp Flutuante */}
@@ -83,4 +83,3 @@ export default function Footer() {
     </footer>
   );
 };
-
