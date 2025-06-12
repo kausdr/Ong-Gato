@@ -180,7 +180,7 @@ function Signup() {
                         } else {
                             showToast("Usuário criado com sucesso!", "success");
                             console.log("Usuário criado com sucesso:", response);
-                            navigate("/homePage");
+                            navigate("/inicio/login");
                         }
 
                     }}

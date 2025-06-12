@@ -1,12 +1,11 @@
 package br.com.pucpr.gatosong.user.service.impl;
 
 import br.com.pucpr.gatosong.user.dto.LoginResponse;
-import br.com.pucpr.gatosong.user.dto.UserResponse;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.security.Jwt;
 import br.com.pucpr.gatosong.user.repository.UserRepository;
 import br.com.pucpr.gatosong.user.service.UserService;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,25 +13,23 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.modelmapper.ModelMapper;
+import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@NoArgsConstructor
+@AllArgsConstructor
 public class DefaultUserService implements UserService {
 
     private static final Logger logger = LogManager.getLogger(DefaultUserService.class);
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private Jwt jwt;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final Jwt jwt;
+    private final ModelMapper modelMapper;
 
     @Override
     public List<UserModel> getAllUsers() {
@@ -101,7 +98,8 @@ public class DefaultUserService implements UserService {
         if (userModel == null || !passwordEncoder.matches(rawPassword, userModel.getPassword())) {
             throw new BadCredentialsException("Credenciais inválidas");
         }
-        return new LoginResponse(jwt.createToken(userModel), new UserResponse(userModel));
+        UserResponseDTO userResponseDTO = modelMapper.map(userModel, UserResponseDTO.class);
+        return new LoginResponse(jwt.createToken(userModel), userResponseDTO);
     }
 
     @Override

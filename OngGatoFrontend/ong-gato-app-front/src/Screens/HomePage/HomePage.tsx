@@ -29,7 +29,7 @@ export default function HomePage() {
                                                                com alimentos, medicamentos, dinheiro ou outros recursos.
 
                                   <p className="text-blue-900">Com transparência e praticidade, conectamos doadores a necessidades reais, garantindo que cada ajuda chegue onde realmente importa. </p>
-                                  <span className="bg-yellow-400 rounded-md px-1">Juntos, podemos construir um futuro mais seguro e cheio de amor para os nossos amigos felinos. 💙🩵</span></p>
+                                  <span className="bg-yellow-400 rounded-md px-1">Juntos, podemos construir um futuro mais seguro e cheio de amor para os nossos amigos felinos. 💙🐾</span></p>
                               </div>
                           </div>
                           <div className="flex justify-center items-center">

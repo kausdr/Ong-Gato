@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Card from "../../Components/Layout/Card"
 import { MdOutlinePerson4 } from "react-icons/md";
 import Input from "../../../src/Components/data-input/Input.tsx"
 import Button from "../../Components/Layout/Button";

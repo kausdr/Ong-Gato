@@ -84,6 +84,7 @@ public class DefaultUserFacade implements UserFacade {
         target.setAddress(source.getAddress());
         target.setEmail(source.getEmail());
         target.setZipCode(source.getZipCode());
+        target.setIsAdmin(source.getIsAdmin());
 
         if (source.getProfilePicture() != null && !source.getProfilePicture().isEmpty()) {
             target.setProfilePicture("data:image/jpeg;base64," + source.getProfilePicture());

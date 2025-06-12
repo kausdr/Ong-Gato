@@ -69,17 +69,15 @@ export const OngPage = () => {
                     <>
                       <Button
                         order="nav"
-                        icon={<RiListView className={`text-xl ${activePage.doadores ? "text-sky-700" : "text-slate-500"}`} />}
                         text="Doadores"
                         action={() => navigate("/doadores")}
-                        className={`justify-start ${activePage.doadores ? "bg-sky-100 text-sky-700 rounded-xl" : "text-white rounded-xl"}`}
+                        className={`justify-start ${activePage.doadores ? "bg-blue-100 text-blue-900 rounded-xl" : "text-blue-400 rounded-xl"}`}
                       />
                       <Button
                         order="nav"
-                        icon={<MdOutlineManageAccounts className={`text-xl ${activePage.gerenciar ? "text-blue-400" : "text-blue-400"}`} />}
                         text="Gerenciar"
                         action={() => navigate("/gerenciar")}
-                        className={`justify-start ${activePage.gerenciar ? "bg-blue-100 text-blue-400 rounded-xl" : "text-white rounded-xl"}`}
+                        className={`justify-start ${activePage.gerenciar ? "bg-blue-100 text-blue-900 rounded-xl" : "text-blue-400 rounded-xl"}`}
                       />
                     </>
                   )}
