@@ -13,9 +13,11 @@ public interface UserService {
 
     UserModel updateUser(UserModel target);
 
-    void deleteUserModel(Long id);
+    void deleteUser(Long id);
 
     LoginResponse login(String username, String password);
+
+    void updateUserRole(Long id, boolean isAdmin);
 
     boolean existsByCPF(String cpf);
 

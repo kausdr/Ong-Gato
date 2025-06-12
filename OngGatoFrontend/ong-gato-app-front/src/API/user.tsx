@@ -1,4 +1,4 @@
-// fazer as chamadas api de usuário aqui
+// Fazer as chamadas API de usuário aqui
 import api from './axiosConfig'; 
 
 const link: string = '/user'; 
@@ -26,7 +26,7 @@ export class UserService {
             return [response.data, null]
 
         } catch (error) {
-            console.log("erro na chamada de usuarios: " + error)
+            console.log("Erro na chamada de usuários: " + error)
             return [null, error]
         }
     }
@@ -48,7 +48,7 @@ export class UserService {
             return [response.data, null]
 
         } catch (error) {
-            console.log("erro ao criar usuario: " + error)
+            console.log("Erro ao criar usuário: " + error)
             return [null, error]
         }
     }
@@ -64,7 +64,7 @@ export class UserService {
             return [response.data, null]
 
         } catch (error: any) {
-            console.log("erro ao atualizar perfil: " + error)
+            console.log("Erro ao atualizar perfil: " + error)
             return [null, error.response?.data || "Erro desconhecido"];
         }
     }
@@ -75,7 +75,7 @@ export class UserService {
             return [response.data, null]
 
         } catch (error) {
-            console.log("erro ao validar e-mail: " + error)
+            console.log("Erro ao validar e-mail: " + error)
             return [null, error]
         }
     }
@@ -86,7 +86,7 @@ export class UserService {
             return [response.data, null]
 
         } catch (error) {
-            console.log("erro ao validar CPF: " + error)
+            console.log("Erro ao validar CPF: " + error)
             return [null, error]
         }
     }
@@ -101,6 +101,28 @@ export class UserService {
 
         } catch (error) {
             console.log("Erro ao fazer login: ", error)
+            return [null, error]
+        }
+    }
+
+    static async deleteUser(id: number): Promise<[null, any]> {
+        try {
+            await api.delete(link + `/${id}`);
+            return [null, null]
+
+        } catch (error) {
+            console.log("Erro ao deletar usuário: ", error)
+            return [null, error]
+        }
+    }
+
+    static async updateUserRole(id: number): Promise<[User | null, any]> {
+        try {
+            const response = await api.put(link + `/${id}/role`);
+            return [response.data, null]
+
+        } catch (error) {
+            console.log("Erro ao atualizar cargo do usuário: ", error)
             return [null, error]
         }
     }

@@ -6,6 +6,7 @@ import br.com.pucpr.gatosong.user.dto.UserUpdateDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.donation.service.DonationService;
+import br.com.pucpr.gatosong.user.repository.UserRepository;
 import br.com.pucpr.gatosong.user.service.UserService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +16,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-
+import org.springframework.security.core.context.SecurityContextHolder;
+import br.com.pucpr.gatosong.security.UserToken;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.hibernate.internal.CoreLogging.logger;
 
 @Getter
 @Setter
@@ -34,6 +34,9 @@ public class DefaultUserFacade implements UserFacade {
 
     @Autowired
     private DonationService donationService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public UserModel fromDto(UserDTO source) {
@@ -75,6 +78,10 @@ public class DefaultUserFacade implements UserFacade {
 
     @Override
     public UserResponseDTO populateUserResponseDTO(UserModel source) {
+        if (source == null) {
+            return null;
+        }
+
         UserResponseDTO target = new UserResponseDTO();
 
         target.setId(source.getId());
@@ -94,17 +101,23 @@ public class DefaultUserFacade implements UserFacade {
     }
 
     @Override
-    public UserModel deleteUser(Long id) {
-        List<UserModel> model = userService.getUserById(id);
-
-        if (model.isEmpty()) {
-            logger.error("UserModel not found");
-            return null;
+    public void deleteUser(Long id) {
+        Long loggedInUserId = getLoggedInUserId();
+        if (loggedInUserId.equals(id)) {
+            throw new IllegalStateException("Um administrador não pode remover a si mesmo.");
         }
 
-        userService.deleteUserModel(id);
+        UserModel userToDelete = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
 
-        return model.get(0);
+        if (Boolean.TRUE.equals(userToDelete.getIsAdmin())) {
+            long adminCount = userRepository.countByIsAdmin(true);
+            if (adminCount <= 1) {
+                throw new IllegalStateException("Não é possível remover o único administrador do sistema.");
+            }
+        }
+
+        userService.deleteUser(id);
     }
 
     @Override
@@ -172,6 +185,40 @@ public class DefaultUserFacade implements UserFacade {
         logger.info("DTO: " + dto);
 
         return populateUserResponseDTO(updated);
+    }
+
+    @Override
+    public UserResponseDTO updateUserRole(Long id) {
+        Long loggedInUserId = getLoggedInUserId();
+        if (loggedInUserId.equals(id)) {
+            throw new IllegalStateException("Um administrador não pode alterar o próprio cargo.");
+        }
+
+        UserModel userToUpdate = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
+
+        if (Boolean.TRUE.equals(userToUpdate.getIsAdmin())) {
+            long adminCount = userRepository.countByIsAdmin(true);
+            if (adminCount <= 1) {
+                throw new IllegalStateException("Não é possível alterar o cargo do único administrador.");
+            }
+        }
+
+        boolean currentIsAdmin = Boolean.TRUE.equals(userToUpdate.getIsAdmin());
+        userService.updateUserRole(id, !currentIsAdmin);
+
+        UserModel updatedUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Erro ao buscar usuário após atualização."));
+
+        return populateUserResponseDTO(updatedUser);
+    }
+
+    private Long getLoggedInUserId() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserToken) {
+            return ((UserToken) principal).getId();
+        }
+        return -1L;
     }
 
     private boolean checkIfUserCpfExists(String cpf) {

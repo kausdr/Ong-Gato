@@ -1,18 +1,25 @@
-import Card from "../../Components/Layout/Card"
-import { GoGear } from "react-icons/go";
 import Button from "../../Components/Layout/Button";
 
 interface UserListProps {
+    id: number,
     nome: string,
     email: string,
-    cargo: string
+    cargo: boolean,
+    onDelete: (id: number) => void,
+    onManageRole: (id: number) => void
+    isCurrentUser: boolean;
 }
 
+export const UserList = ({ id, nome, email, cargo, onDelete, onManageRole, isCurrentUser }: UserListProps) => {
 
-export const UserList = ({ nome, email, cargo }: UserListProps) => {
+    const cargoTexto = cargo ? "adm" : "user";
+    const cargoClasse = cargo ? "bg-sky-200" : "bg-slate-200";
 
-    return (
-        <tr className="border-b-1 border-gray-100">
+    return (    
+        <tr className={`border-b-1 border-gray-100 ${isCurrentUser ? 'bg-blue-50' : ''}`}>
+            <td className="py-[10px]">
+                <div className="px-[10px]">{id}</div>
+            </td>
             <td className="py-[10px]">
                 <div className="px-[10px]">{nome}</div>
             </td>
@@ -22,18 +29,27 @@ export const UserList = ({ nome, email, cargo }: UserListProps) => {
             </td>
             <td className="py-[10px]">
                 <div className="flex flex-wrap gap-2 px-[10px]">
-                    {cargo.map((c) => (
-                        <p className={`rounded-full py-1 px-4 ${c == "user" ? "bg-slate-200" : c == "adm" ? "bg-sky-200" : ""}`} >{c}</p>
-                    ))}
+                    <p className={`rounded-full py-1 px-4 ${cargoClasse}`}>
+                        {cargoTexto}
+                    </p>
                 </div>
             </td>
-
             <td>
-                <div>
-                <Button order="secondary" text="Gerenciar Cargo" action={() => {}}></Button>
+                <div className="flex gap-2">
+                    <Button
+                        order="secondary"
+                        text="Mudar Cargo"
+                        action={() => onManageRole(id)}
+                        disabled={isCurrentUser}
+                    />
+                    <Button
+                        order="danger"
+                        text="Remover"
+                        action={() => onDelete(id)}
+                        disabled={isCurrentUser}
+                    />
                 </div>
             </td>
         </tr>
-    )
-}
-
+    );
+};

@@ -8,7 +8,6 @@ import br.com.pucpr.gatosong.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -81,12 +80,12 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public void deleteUserModel(Long id) {
+    public void deleteUser(Long id) {
         if(userRepository.existsById(id)) {
             try {
                 userRepository.deleteById(id);
             }catch (Exception e) {
-                logger.error("Unable to delete UserModel", e);
+                logger.error("Unable to delete User", e);
             }
         }
     }
@@ -100,6 +99,11 @@ public class DefaultUserService implements UserService {
         }
         UserResponseDTO userResponseDTO = modelMapper.map(userModel, UserResponseDTO.class);
         return new LoginResponse(jwt.createToken(userModel), userResponseDTO);
+    }
+
+    @Override
+    public void updateUserRole(Long id, boolean isAdmin) {
+        userRepository.updateUserRole(id, isAdmin);
     }
 
     @Override

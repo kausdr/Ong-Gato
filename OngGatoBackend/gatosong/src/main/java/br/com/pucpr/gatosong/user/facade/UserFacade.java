@@ -15,7 +15,7 @@ public interface UserFacade {
 
     UserResponseDTO populateUserResponseDTO(UserModel source);
 
-    UserModel deleteUser(Long id);
+    void deleteUser(Long id);
 
     List<UserResponseDTO> createUser(UserModel userModel) throws Exception;
 
@@ -24,5 +24,7 @@ public interface UserFacade {
     UserResponseDTO getUserById(Long id);
 
     UserResponseDTO updateUserProfile(Long userId, UserUpdateDTO dto);
+
+    UserResponseDTO updateUserRole(Long id);
 }
 

@@ -20,15 +20,16 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
 
 @Setter
 @Getter
+@NoArgsConstructor
 @RestController
 @RequestMapping(value={"/user"})
-@NoArgsConstructor
 public class UserController {
 
     private static final Logger logger = LogManager.getLogger(UserController.class);
@@ -44,15 +45,12 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getUsers() {
         try {
-
             List<UserResponseDTO> userModelList = this.userFacade.getAllUsers();
-
             if (CollectionUtils.isEmpty(userModelList)) {
                 return ResponseEntity.ok().body("No users found");
             }
 
             return ResponseEntity.ok().body(userModelList);
-
         } catch (Exception e) {
             logger.error("Unable to get users", e);
             throw new RuntimeException(e);
@@ -113,9 +111,7 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
         try {
-
             UserModel userModel = userFacade.fromDto(userDTO);
-
             List<UserResponseDTO> createdUsers = userFacade.createUser(userModel);
 
             return ResponseEntity.ok().body(createdUsers);
@@ -145,24 +141,15 @@ public class UserController {
         return ResponseEntity.badRequest().body("Dados de atualização inválidos");
     }
 
-
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @SecurityRequirement(name = "AuthServer")
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    public void deleteUser(@PathVariable Long id) {
         try {
-
-            UserModel model = userFacade.deleteUser(id);
-
-            if (Objects.isNull(model)){
-                return ResponseEntity.ok().body("No user with code: " + id + "found");
-            }
-
-            return ResponseEntity.ok().body("Model with code: "+ id + " deleted successfully");
-
-        } catch (Exception e) {
-            logger.error("Unable to get user", e);
-            throw new RuntimeException(e);
+            userFacade.deleteUser(id);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
         }
     }
 
@@ -181,6 +168,15 @@ public class UserController {
         }
     }
 
+    @PutMapping("/{id}/role")
+    @SecurityRequirement(name = "AuthServer")
+    public UserResponseDTO updateUserRole(@PathVariable Long id) {
+        try {
+            return userFacade.updateUserRole(id);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+        }
+    }
 
     @PermitAll
     @GetMapping("/validateEmail/{email}")
