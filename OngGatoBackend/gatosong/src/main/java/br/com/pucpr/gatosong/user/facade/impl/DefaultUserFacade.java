@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.pucpr.gatosong.security.UserToken;
+import br.com.pucpr.gatosong.donation.repository.DonationRepository;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,9 @@ import java.util.List;
 public class DefaultUserFacade implements UserFacade {
 
     private static final Logger logger = LogManager.getLogger(DefaultUserFacade.class);
+
+    @Autowired
+    private DonationRepository donationRepository;
 
     @Autowired
     private UserService userService;
@@ -105,6 +109,10 @@ public class DefaultUserFacade implements UserFacade {
         Long loggedInUserId = getLoggedInUserId();
         if (loggedInUserId.equals(id)) {
             throw new IllegalStateException("Um administrador não pode remover a si mesmo.");
+        }
+
+        if (!donationRepository.findByDonatorId(id).isEmpty()) {
+            throw new IllegalStateException("Não é possível remover um usuário que possui doações registradas.");
         }
 
         UserModel userToDelete = userRepository.findById(id)
