@@ -1,11 +1,12 @@
 import Card from "../../Components/Layout/Card"
 import { GoGear } from "react-icons/go";
 import Button from "../../Components/Layout/Button";
+import ToggleSwitch from "../../Components/Layout/ToggleSwitch";
 
 interface UserListProps {
     nome: string,
     email: string,
-    cargo: string
+    cargo: boolean
 }
 
 
@@ -22,15 +23,13 @@ export const UserList = ({ nome, email, cargo }: UserListProps) => {
             </td>
             <td className="py-[10px]">
                 <div className="flex flex-wrap gap-2 px-[10px]">
-                    {cargo.map((c) => (
-                        <p className={`rounded-full py-1 px-4 ${c == "user" ? "bg-slate-200" : c == "adm" ? "bg-sky-200" : ""}`} >{c}</p>
-                    ))}
+                    <p className={`rounded-full py-1 px-4 ${cargo ? "text-slate-700 bg-sky-200" : "text-slate-700 bg-slate-200"}`} >{cargo ? "admin" : "doador"}</p>
                 </div>
             </td>
 
             <td>
                 <div>
-                <Button order="secondary" text="Gerenciar Cargo" action={() => {}}></Button>
+                    <ToggleSwitch/>
                 </div>
             </td>
         </tr>

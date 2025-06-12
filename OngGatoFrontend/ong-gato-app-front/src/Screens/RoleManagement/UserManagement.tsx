@@ -43,9 +43,9 @@ useEffect(() => {
                     <tbody>
                     {users?.map((user) => (
                         <UserList
-                            nome={user.name ?? ""}
+                            nome={user.firstName ?? ""}
                             email={user.email ?? ""}
-                            cargo={user.isAdmin ?? ""}
+                            cargo={user.isAdmin ?? false}
                         ></UserList>
                     ))
                     }
