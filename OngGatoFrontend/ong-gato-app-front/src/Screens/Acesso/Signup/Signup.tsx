@@ -95,9 +95,9 @@ function Signup() {
     }, [firstName, lastName, telephone, cep, email, address, password, confirmPassword, cpf])
 
     return (
-        <div className="flex flex-col gap-5">
-            <div className="flex justify-center">
-                <h1 className="font-medium">CADASTRO</h1>
+        <div className="flex flex-col gap-20">
+            <div className="flex justify-start">
+                <h1 className="font-bold text-blue-900 text-xl ">CADASTRO</h1>
             </div>
 
             <div className="flex flex-col gap-4">

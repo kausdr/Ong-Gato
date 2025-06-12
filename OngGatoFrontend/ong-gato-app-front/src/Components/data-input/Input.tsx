@@ -51,7 +51,7 @@ function Input({ label, type, icon, id, name, placeholder, className, value, set
     return (
         <div className="flex flex-col gap-2">
             <label className={`flex flex-col ${className}`}>
-                {label && <h3>{label}</h3>}
+                {label && <h3 className="text-slate-700 mb-1">{label}</h3>}
                 <div className="relative flex gap-2">
                     {icon && (
                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
@@ -66,8 +66,8 @@ function Input({ label, type, icon, id, name, placeholder, className, value, set
             </label>
             {renderError && (
                 <div className="flex flex-row gap-2 items-center">
-                    <IoWarning className="text-md text-red-400" />
-                    <p className="text-red-400 text-sm">{displayVazioWarn ? "Campo Obrigatório" : displayEmailWarn ? "E-mail já existe" : "Campo inválido"}</p>
+                    <IoWarning className="text-md text-[#C34936]" />
+                    <p className="text-[#C34936] text-sm">{displayVazioWarn ? "Campo Obrigatório" : displayEmailWarn ? "E-mail já existe" : "Campo inválido"}</p>
                 </div>
             )}
 

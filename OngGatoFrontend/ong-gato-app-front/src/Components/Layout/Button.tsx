@@ -8,13 +8,13 @@ interface ButtonProps {
 
 function Button({order, text, action, icon, className}: ButtonProps) {
 
-    const buttonClass = order == "primary" ? "bg-sky-400 hover:bg-sky-500"
-    : order == "secondary" ? "border-1 hover:bg-slate-100"
+    const buttonClass = order == "primary" ? "text-white font-semibold bg-[#28538f] hover:bg-[#214475]"
+    : order == "secondary" ? "border-1 text-slate-700 hover:bg-slate-100"
     : order == "nav" ? "rounded-md font-semibold text-white hover:bg-[#3873C7]"
     : order == "inactive" ? "pointer-events-none !bg-gray-200 !text-gray-400"
-    : order == "cancel" ? "bg-yellow-400 hover:bg-yellow-500"
+    : order == "cancel" ? "bg-yellow-400 font-semibold text-slate-700 hover:bg-yellow-500"
     : order == "active" ? "border-1 border-sky-500 bg-slate-100 text-sky-700 hover:bg-slate-100"
-    : order == "quit" ? "bg-red-400 hover:bg-red-500 text-white"
+    : order == "quit" ? "bg-red-700 hover:bg-red-800 text-white"
     : ""
 
     return(

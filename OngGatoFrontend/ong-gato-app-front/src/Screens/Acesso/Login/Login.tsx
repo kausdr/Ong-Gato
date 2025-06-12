@@ -40,10 +40,10 @@ function Login() {
     }, [email, password])
 
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-20">
             
-            <div className="flex justify-center">
-                <h1 className="font-medium">LOGIN</h1>
+            <div className="flex justify-start">
+                <h1 className="font-bold text-blue-900 text-xl ">LOGIN</h1>
             </div>
 
             <div className="flex flex-col gap-4">

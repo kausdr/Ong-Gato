@@ -39,8 +39,8 @@ function Donate() {
         <div className="flex flex-col min-h-screen">
           <div className="flex-grow flex justify-center items-center">
             <Card className="flex flex-col gap-10 p-5 bg-white max-w-[500px]">
-                <div className="flex flex-col gap-3">
-                    <h1 className="text-xl font-bold">Escolha em qual categoria doar:</h1>
+                <div className="flex flex-col gap-5">
+                    <h1 className="font-bold text-blue-900 text-xl ">Escolha em qual categoria doar:</h1>
                     <div className="flex gap-3">
                         <Button order={`${donationCategory == 'dinheiro' ? 'active' : 'secondary'}`} text="Dinheiro" action={() => {
                             setDonationCategory('dinheiro')
@@ -67,7 +67,7 @@ function Donate() {
                         {!pixCode ? (
                             <div className="flex flex-col gap-10">
                                 <div className="flex flex-col gap-1">
-                                    <h1 className="text-xl font-bold">Doar</h1>
+                                    <h1 className="font-bold text-blue-900 text-xl ">Doar</h1>
                                     <p className="text-slate-600">Após escolher um valor iremos gerar um código PIX para você realizar a doação por meio do seu banco de preferência.</p>
                                 </div>
                                 <div className="grid grid-cols-3 gap-3">
@@ -121,11 +121,11 @@ function Donate() {
                 ) : donationCategory == 'roupa' ? (
                             <div className="flex flex-col gap-10">
                                 <div className="flex flex-col gap-1">
-                                    <h1 className="text-xl font-bold">Doar</h1>
+                                    <h1 className="font-bold text-blue-900 text-xl ">Doar</h1>
                                     <p className="text-slate-600">Registre a doação feita pessoalmente.</p>
                                 </div>
                                 <div className="flex flex-col gap-3">
-                                    <h3 className="text-xl font-bold">Tipo: <span className="text-sky-700">Roupa</span></h3>
+                                    <h3 className="text-xl text-slate-700 font-bold">Tipo: <span className="text-sky-700">Roupa</span></h3>
 
                                     <Input type={'number'} id={"quantidade"} name={"quantidade"} label="Quantidade (unidades):" value={amount} setValue={setAmount}/>
 
@@ -147,11 +147,11 @@ function Donate() {
                         : donationCategory == 'alimento' ? (
                             <div className="flex flex-col gap-10">
                                 <div className="flex flex-col gap-1">
-                                    <h1 className="text-xl font-bold">Doar</h1>
+                                    <h1 className="font-bold text-blue-900 text-xl ">Doar</h1>
                                     <p className="text-slate-600">Registre a doação feita pessoalmente.</p>
                                 </div>
                                 <div className="flex flex-col gap-3">
-                                    <h3 className="text-xl font-bold">Tipo: <span className="text-sky-700">Alimento</span></h3>
+                                    <h3 className="text-xl text-slate-700 font-bold">Tipo: <span className="text-sky-700 font-semibold">Alimento</span></h3>
 
                                     <Input type={'number'} id={"quantidade"} name={"quantidade"} label="Quantidade (kg):" value={amount} setValue={setAmount}/>
 

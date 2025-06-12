@@ -16,6 +16,7 @@ export const Access = () => {
     const [canLogin, setCanLogin] = useState<boolean>(false)
     const [canSignIn, setCanSignIn] = useState<boolean>(false)
     const navigate = useNavigate();
+    const [homeButton, setHomeButton] = useState<'home' | 'login' | null>('home')
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -26,16 +27,18 @@ export const Access = () => {
                         <h1 className="pt-serif-regular text-blue-800 font-bold text-[20px]">Meawnager</h1>
                     </div>
                     <div className="flex gap-10">
-                    <button className="text-blue-900 hover:text-blue-400 font-bold p-2 rounded-md cursor-pointer"
+                    <button className={`text-[#28538F] hover:text-blue-500 font-bold p-2 rounded-md cursor-pointer ${homeButton == 'home' ? 'text-blue-400 border-2 border-blue-400' : ''}`}
                     onClick={() => {
                         navigate("/inicio")
+                        setHomeButton('home')
                         setCanLogin(false)}}
                     >
                         Início
                     </button>
-                    <button className="bg-blue-900 hover:bg-blue-400 text-white font-bold p-2 rounded-md cursor-pointer"
+                    <button className={`bg-[#28538F] hover:bg-blue-400 text-white font-bold p-2 rounded-md cursor-pointer ${homeButton == 'login' ? 'bg-blue-400' : 'bg-[#28538F]'}`}
                     onClick={() => {
                         navigate("/inicio/login")
+                        setHomeButton('login')
                         setCanLogin(true)
                         }}>
                         Entrar
