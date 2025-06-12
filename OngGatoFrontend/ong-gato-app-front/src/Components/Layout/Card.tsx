@@ -5,7 +5,7 @@ interface CardProps {
 
 function Card({className, children}: CardProps) {
     return(
-        <div className={`m-5 min-w-[400px] rounded overflow-hidden border-1 border-slate-200  ${className ? className : ``}`}>
+        <div className={`m-5 min-w-[400px] rounded overflow-hidden   ${className ? className : ``}`}>
             {children}
         </div>
     )

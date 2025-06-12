@@ -7,6 +7,7 @@ import { useAuth } from "../../Contexts/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
 import { useToast } from '../../Contexts/ToastContext';
 import Footer from '../../Components/Layout/Footer'
+import { FaRegEdit } from "react-icons/fa";
 
 interface FormErrors {
     firstName?: string;
@@ -125,14 +126,14 @@ export const Profile = () => {
     }, []);
 
 
-   return (
-     <div className="min-h-screen flex flex-col">
-       <div className="flex justify-center items-center flex-grow">
-         <div className="flex flex-col h-auto min-h-[calc(100vh-40px)] items-center gap-5 p-10 bg-white">
-            <h1 className="text-xl font-bold">Perfil</h1>
+    return (
+        <div className="min-h-full flex flex-col">
+            <div className="flex justify-center items-center flex-grow">
+                <div className="flex flex-col  items-start gap-20 p-10 bg-white">
+                    <h1 className="font-bold text-blue-900 text-xl ">PERFIL</h1>
                     <div className="flex flex-col lg:flex-row gap-10">
                         <div className="flex flex-col gap-2 items-center">
-                            <div className="w-fit h-fit rounded-md border-2 border-slate-200 overflow-hidden">
+                            <div className="relative w-fit h-fit rounded-md border-2 border-slate-200 overflow-hidden ">
                                 {user?.profilePicture ? (
                                     <img
                                         src={user.profilePicture}
@@ -142,27 +143,49 @@ export const Profile = () => {
                                 ) : (
                                     <MdOutlinePerson4 className="text-slate-300" size={150} />
                                 )}
-                            </div>
-                            {!blockEdit && (
-                                <input type="file" accept="image/*" onChange={(e) => {
-                                    const file = e.target.files?.[0];
-                                    if (file) {
-                                        const reader = new FileReader();
-                                        reader.onload = () => {
-                                            const base64 = (reader.result as string).split(',')[1];
-                                            setProfilePicture(base64);
-                                            setUser((prev) => prev ? { ...prev, profilePicture: `data:image/jpeg;base64,${base64}` } : null);
-                                        };
-                                        reader.readAsDataURL(file);
-                                    }
-                                }}/>
+
+                                {!blockEdit && (
+                                <div className="flex flex-col items-center gap-2 absolute bottom-0 right-0 m-1">
+                                    <input
+                                        id="profileUpload"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0];
+                                            if (file) {
+                                                const reader = new FileReader();
+                                                reader.onload = () => {
+                                                    const base64 = (reader.result as string).split(',')[1];
+                                                    setProfilePicture(base64);
+                                                    setUser((prev) =>
+                                                        prev ? { ...prev, profilePicture: `data:image/jpeg;base64,${base64}` } : null
+                                                    );
+                                                };
+                                                reader.readAsDataURL(file);
+                                            }
+                                        }}
+                                        className="hidden"
+                                    />
+                                    <label
+                                        htmlFor="profileUpload"
+                                        className="cursor-pointer text-white font-semibold bg-[#28538f] hover:bg-[#214475] p-2 text-sm rounded-md transition"
+                                    >
+                                        <FaRegEdit size={20}/>
+                                    </label>
+                                </div>
                             )}
+                            </div>
+
+                            
+
+
                             <Button order={`${blockEdit ? "primary" : "cancel"}`} text={`${blockEdit ? "Editar" : "Cancelar"}`} action={handleEdit} />
+                            <Button order="quit" text="Sair" action={handleLogout} className="mt-10" />
                         </div>
 
                         <div className="flex flex-col gap-4">
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <div>
+                                <div className="w-full">
                                     <Input label={"Primeiro Nome"} type="text" id="firstName" name="firstName" value={firstName} setValue={setFirstName} placeholder={`${user?.firstName ?? ""}`} inactive={blockEdit} mandatory={!blockEdit} />
                                     {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
                                 </div>
@@ -192,18 +215,16 @@ export const Profile = () => {
                                 </div>
                             </div>
                             <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mt-auto">
-                                {!blockEdit && 
-                                    <Button order={`primary`} text="Salvar" className="w-full sm:w-auto" action={handleSave} />
+                                {!blockEdit &&
+                                    <Button order={`primary`} text="Salvar" className="w-full " action={handleSave} />
                                 }
-                                <div className={`flex w-full ${blockEdit ? 'justify-end' : 'justify-center sm:justify-end'}`}>
-                                    <Button order="quit" text="Sair da Conta" action={handleLogout} />
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <Footer />
-      </div>
+            <Footer />
+        </div>
     );
 }

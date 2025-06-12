@@ -16,6 +16,7 @@ export const Access = () => {
     const [canLogin, setCanLogin] = useState<boolean>(false)
     const [canSignIn, setCanSignIn] = useState<boolean>(false)
     const navigate = useNavigate();
+    const [homeButton, setHomeButton] = useState<'home' | 'login' | null>('home')
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -26,16 +27,18 @@ export const Access = () => {
                         <h1 className="pt-serif-regular text-blue-800 font-bold text-[20px]">Meownager</h1>
                     </div>
                     <div className="flex gap-10">
-                    <button className="text-blue-900 hover:text-blue-400 font-bold p-2 rounded-md cursor-pointer"
+                    <button className={`text-[#28538F] hover:text-blue-500 font-bold p-2 rounded-md cursor-pointer ${homeButton == 'home' ? 'text-blue-400 border-2 border-blue-400' : ''}`}
                     onClick={() => {
                         navigate("/inicio")
+                        setHomeButton('home')
                         setCanLogin(false)}}
                     >
                         Início
                     </button>
-                    <button className="bg-blue-900 hover:bg-blue-400 text-white font-bold p-2 rounded-md cursor-pointer"
+                    <button className={`bg-[#28538F] hover:bg-blue-400 text-white font-bold p-2 rounded-md cursor-pointer ${homeButton == 'login' ? 'bg-blue-400' : 'bg-[#28538F]'}`}
                     onClick={() => {
                         navigate("/inicio/login")
+                        setHomeButton('login')
                         setCanLogin(true)
                         }}>
                         Entrar
@@ -46,7 +49,7 @@ export const Access = () => {
             </div>
         {!canLogin ? (
             <>
-            <div className="flex flex-col h-[500px] items-center py-20 relative">
+            <div className="flex flex-col items-center py-20 relative">
                 <div className="w-[80%] flex flex-grow flex-col  gap-20 md:flex-row justify-between items-center md:items-start">
                     <div className="flex flex-col gap-3 justify-center items-center md:items-start">
                         <h1 className="text-blue-900 font-bold text-[40px] text-center md:text-start">Plataforma de gerenciamento</h1>
@@ -55,6 +58,23 @@ export const Access = () => {
                             <p className="text-blue-900">Doe e gerencie doações.</p>
 
                         </div>
+                        
+                            <div className="flex flex-col text-xl text-blue-900 max-w-140 mt-10">
+                                <h2 className="text-blue-900 font-bold text-[30px] text-center md:text-start">🐾 Sobre Nós</h2>
+                                <p>
+                                    Somos uma organização dedicada a transformar a vida de gatos em situação de risco por meio da solidariedade.
+                                    Nosso sistema de gerenciamento de doações foi criado para facilitar o apoio de pessoas que desejam contribuir
+                                    com alimentos, medicamentos, dinheiro ou outros recursos.
+                                </p>
+
+                                <p>
+                                    Com transparência e praticidade, conectamos doadores a necessidades reais, garantindo que cada ajuda chegue onde realmente importa.
+                                </p>
+
+                                <span className="bg-yellow-400 rounded-md px-1">
+                                    Juntos, podemos construir um futuro mais seguro e cheio de amor para os nossos amigos felinos. 💙🩵
+                                </span>
+                            </div>
                     </div>
                     <div className="flex justify-center items-center">
                         <div className="rounded-md w-40 h-40 md:w-100 md:h-100 p-2 flex  justify-center items-center">
