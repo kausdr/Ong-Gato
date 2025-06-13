@@ -83,10 +83,10 @@ export const History = () => {
                     )
                 ) : (
                     <div className="flex flex-col w-full h-[calc(100vh-40px)] gap-5 p-10 bg-white">
-                        <h1 className="text-xl font-bold">Histórico de Doações</h1>
-                        <div className="overflow-x-auto">
+                        <h1 className="font-bold text-blue-900 text-xl ">Histórico de Doações</h1>
+                        <div className="overflow-x-auto rounded-md">
                             <table className="w-full">
-                                <thead className="bg-slate-100 text-left rounded-md">
+                                <thead className="bg-blue-200 text-left text-slate-800">
                                     <tr>
                                         <th className="py-[20px] px-[10px] w-[20%]">Tipo</th>
                                         <th className="py-[20px] px-[10px]">Quantidade</th>

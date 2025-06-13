@@ -23,7 +23,7 @@ export const HistoryDisplay = ({type, date, amount, donator} : HistoryDisplayPro
     
 
     return (
-        <tr className="border-b border-slate-200">
+        <tr className="text-slate-900 border-b-1 border-gray-100">
             <td>
                 <div className="flex flex-col px-[10px] py-2 ">
                     <div className="flex gap-2 text-xl">
@@ -43,7 +43,7 @@ export const HistoryDisplay = ({type, date, amount, donator} : HistoryDisplayPro
                 </div>
             </td>
             <td>
-                <div className="px-[10px]">por {donator ? donator.name : "Não consta"}</div>
+                <div className="px-[10px]">por {donator ? donator.firstName : "Não consta"}</div>
             </td>
         </tr>
     )

@@ -6,7 +6,7 @@ interface ListDonatorsItem {
 export const ListDonatorsItem = ({ name, email }: ListDonatorsItem) => {
 
     return (
-        <tr className="border-b-1 border-gray-100">
+        <tr className="text-slate-900 border-b-1 border-gray-100">
             <td className="py-[10px]">
                 <div className="px-[10px]">{name}</div>
 

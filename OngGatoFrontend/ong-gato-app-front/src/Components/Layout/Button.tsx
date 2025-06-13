@@ -1,6 +1,6 @@
 interface ButtonProps {
     order: string
-    text: any
+    text?: any
     action: () => void
     icon?: React.ReactNode
     className?: string
@@ -17,20 +17,20 @@ function Button({order, text, action, icon, className, disabled}: ButtonProps) {
     : order == "cancel" ? "bg-yellow-400 font-semibold text-slate-700 hover:bg-yellow-500"
     : order == "active" ? "border-1 border-sky-500 bg-slate-100 text-sky-700 hover:bg-slate-100"
     : order == "quit" ? "bg-red-700 hover:bg-red-800 text-white"
-    : order == "danger" ? "bg-red-500 hover:bg-red-600 text-white"
+    : order == "danger" ? "bg-red-700 hover:bg-red-800 text-white"
     : ""
 
     if (disabled) {
         return(
             <button className={`button inline-flex justify-center items-center gap-2 rounded py-2 px-4 cursor-not-allowed !bg-gray-200 !text-gray-400 ${buttonClass} ${className}`} disabled>
-                {icon && icon}{text}
+                {icon && icon}{text && text}
             </button>
         )
     }
 
     return(
         <button className={`button inline-flex justify-center items-center gap-2 rounded py-2 px-4 cursor-pointer ${buttonClass} ${className}`} onClick={action}>
-            {icon && icon}{text}
+            {icon && icon}{text && text}
         </button>
     )
 }

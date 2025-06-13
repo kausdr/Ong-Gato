@@ -1,5 +1,6 @@
 import Button from "../../Components/Layout/Button";
 import ToggleSwitch from "../../Components/Layout/ToggleSwitch";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 interface UserListProps {
     id: number,
@@ -14,15 +15,15 @@ interface UserListProps {
 export const UserList = ({ id, nome, email, cargo, onDelete, onManageRole, isCurrentUser }: UserListProps) => {
 
     const cargoTexto = cargo ? "admin" : "doador";
-    const cargoClasse = cargo ? "text-slate-700 bg-sky-200" : "text-slate-700 bg-slate-200";
+    const cargoClasse = cargo ? "text-slate-700 font-semibold bg-yellow-200" : "text-slate-800 bg-blue-200";
 
     return (
-        <tr className={`border-b-1 border-gray-100 ${isCurrentUser ? 'bg-blue-50' : ''}`}>
+        <tr className={`text-slate-900 border-b-1 border-gray-100 ${isCurrentUser ? 'bg-blue-50' : ''}`}>
             <td className="py-[10px]">
                 <div className="px-[10px]">{id}</div>
             </td>
             <td className="py-[10px]">
-                <div className="px-[10px]">{nome}</div>
+                <div className={` ${!isCurrentUser ? "" : "font-semibold"} px-[10px]`}>{nome}</div>
             </td>
             <td className="py-[10px]">
                 <div className="px-[10px]">{email}</div>
@@ -36,18 +37,25 @@ export const UserList = ({ id, nome, email, cargo, onDelete, onManageRole, isCur
                 </div>
             </td>
             <td>
-                <div className="flex gap-2">
-                    <ToggleSwitch
-                        checked={cargo} 
-                        onChange={() => onManageRole(id)}
-                        disabled={isCurrentUser}
-                    />
-                    <Button
+                <div className="flex gap-10 items-center justify-end mr-10">
+                    {!isCurrentUser &&
+                        <>
+                        <ToggleSwitch
+                            checked={cargo}
+                            onChange={() => onManageRole(id)}
+                            disabled={isCurrentUser}
+                        />
+
+                        <Button
                         order="danger"
-                        text="Remover"
+                        icon={<FaRegTrashAlt size={20} />}
                         action={() => onDelete(id)}
                         disabled={isCurrentUser}
                     />
+                    </>
+                    }
+
+
                 </div>
             </td>
         </tr>
