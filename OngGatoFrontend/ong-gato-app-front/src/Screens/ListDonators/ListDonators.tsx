@@ -93,8 +93,8 @@ export const ListDonators = () => {
                                             (
                                                 users.map((donation) => (
                                                     <ListDonatorsItem
-                                                        name={donation.name}
-                                                        email={donation.email}
+                                                        name={donation.firstName ?? "Nome não informado"}
+                                                        email={donation.email ?? "Email não informado"}
                                                     ></ListDonatorsItem>
                                                 ))
 

@@ -32,6 +32,18 @@ export class DonationService {
 
     }
 
+        static async getAllDonations(): Promise<[Donation[] | null, any]> {
+        try {
+            const response = await api.get(link+"/allDonations")
+            return [response.data, null]
+
+        } catch (error) {
+            console.log("erro ao chamar doações " + error)
+            return [null, error]
+        }
+
+    }
+
     static async createDonation(donation: Donation): Promise<[Donation | null, any]> {
         try {
             const response = await api.post(link, donation)
