@@ -1,11 +1,6 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { LuHistory } from "react-icons/lu";
-import { RiListView } from "react-icons/ri";
-import { BiDonateHeart } from "react-icons/bi";
-import { IoHomeOutline, IoPersonCircleOutline } from "react-icons/io5";
-import { MdOutlineManageAccounts } from "react-icons/md";
-import { BsBarChartLine } from "react-icons/bs";
+import { IoPersonCircleOutline } from "react-icons/io5";
 import { Disclosure } from "@headlessui/react";
 import Button from "./Button";
 import { useAuth } from "../../Contexts/AuthContext";
@@ -36,7 +31,7 @@ export const OngPage = () => {
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="w-full flex h-16 items-center justify-between">
             <div className="flex flex-row gap-1 items-center mr-10">
-              <img src="/OngLogoWhite.png" alt="Logo" className="w-10 h-10 rounded-full" />
+              <img src="Images/OngLogoWhite.png" alt="Logo" className="w-10 h-10 rounded-full" />
             </div>
             <div className="hidden md:block w-full">
               <div className="flex justify-between">

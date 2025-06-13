@@ -1,6 +1,5 @@
 import Input from "../../Components/data-input/Input";
-import { CiMail } from "react-icons/ci";
-import { FaBrazilianRealSign, FaInstagram, FaFacebookF, FaTwitter, FaWhatsapp } from "react-icons/fa6";
+import { FaBrazilianRealSign } from "react-icons/fa6";
 import Button from "../../Components/Layout/Button";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";

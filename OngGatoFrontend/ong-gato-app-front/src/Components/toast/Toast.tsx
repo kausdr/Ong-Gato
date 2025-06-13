@@ -32,7 +32,7 @@ export const Toast = ({ id, message, type, onClose }: ToastProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose(id);
-    }, 5000);
+    }, 3500);
 
     return () => {
       clearTimeout(timer);

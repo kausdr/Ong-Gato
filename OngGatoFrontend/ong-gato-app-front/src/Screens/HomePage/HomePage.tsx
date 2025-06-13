@@ -1,7 +1,3 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { IoPersonCircleOutline } from 'react-icons/io5'
-import { LiaCatSolid } from 'react-icons/lia'
 import mainImg from '/Images/mainPic.png'
 import waveImg from '/Images/wave3.svg'
 import dogImg from '/Images/dogImg.png'

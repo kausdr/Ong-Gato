@@ -33,13 +33,13 @@ export const UserList = ({ id, nome, email, cargo, onDelete, onManageRole, isCur
                     <p className={`rounded-full py-1 px-4 ${cargoClasse}`}>
                         {cargoTexto}
                     </p>
-                </div>œ
+                </div>
             </td>
             <td>
                 <div className="flex gap-2">
                     <ToggleSwitch
-                        text="Mudar Cargo"
-                        action={() => onManageRole(id)}
+                        checked={cargo} 
+                        onChange={() => onManageRole(id)}
                         disabled={isCurrentUser}
                     />
                     <Button

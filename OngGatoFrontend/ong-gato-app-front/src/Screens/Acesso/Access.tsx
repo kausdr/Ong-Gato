@@ -1,13 +1,12 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import Card from "../../Components/Layout/Card";
-import foodImg from '../../imgs/foodImg.jpg'
-import donateImg from '../../imgs/donate.jpg'
-import chartImg from '../../imgs/chartImg.png'
-import mainImg from '../../imgs/mainPic.png'
-import waveImg from '../../imgs/wave3.svg'
-import dogImg from '../../imgs/dogImg.png'
-import catImg from '../../imgs/catImg.png'
-import { FaGithub } from "react-icons/fa";
+import foodImg from "/Images/foodImg.jpg"
+import donateImg from "/Images/donate.jpg"
+import chartImg from "/Images/chartImg.png"
+import mainImg from "/Images/mainPic.png"
+import waveImg from "/Images/wave3.svg"
+import dogImg from "/Images/dogImg.png"
+import catImg from "/Images/catImg.png"
 import { useState } from "react";
 import Footer from '../../Components/Layout/Footer'
 
@@ -23,7 +22,7 @@ export const Access = () => {
             <div className="flex justify-center">
                 <div className="w-[80%] pt-5 flex justify-between items-center">
                     <div className="flex flex-row gap-1 items-center">
-                        <img src="/Images/OngLogo.png" alt="Logo" className="w-10 h-10 rounded-full" />
+                        <img src="Images/OngLogo.png" alt="Logo" className="w-10 h-10 rounded-full" />
                         <h1 className="pt-serif-regular text-blue-800 font-bold text-[20px]">Meownager</h1>
                     </div>
                     <div className="flex gap-10">
@@ -72,7 +71,7 @@ export const Access = () => {
                                 </p>
 
                                 <span className="bg-yellow-400 rounded-md px-1">
-                                    Juntos, podemos construir um futuro mais seguro e cheio de amor para os nossos amigos felinos. 💙🩵
+                                    Juntos, podemos construir um futuro mais seguro e cheio de amor para os nossos amigos felinos. 💙🐾
                                 </span>
                             </div>
                     </div>
