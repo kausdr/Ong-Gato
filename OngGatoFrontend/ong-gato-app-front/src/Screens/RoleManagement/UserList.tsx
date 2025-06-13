@@ -37,7 +37,7 @@ export const UserList = ({ id, nome, email, cargo, onDelete, onManageRole, isCur
                 </div>
             </td>
             <td>
-                <div className="flex gap-10 items-center justify-end mr-10">
+                <div className="flex flex-col md:flex-row gap-5 py-2 sm:gap-10 items-center justify-end md:py-0 sm:pr-2">
                     {!isCurrentUser &&
                         <>
                         <ToggleSwitch

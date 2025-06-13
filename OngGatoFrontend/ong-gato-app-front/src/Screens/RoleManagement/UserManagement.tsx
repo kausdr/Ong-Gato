@@ -69,7 +69,7 @@ export const UserManagement = ()=> {
         <Card>
         <div className="flex flex-col w-full h-full gap-5 p-10 bg-white">
             <h1 className="font-bold text-blue-900 text-xl ">Gerenciamento de Usuário</h1>
-                <div className="overflow-x-auto  rounded-md">
+                <div className="overflow-x-auto rounded-md">
                 <table className="w-full">
                     <thead className="bg-blue-200 text-left text-slate-800">
                         <tr>
