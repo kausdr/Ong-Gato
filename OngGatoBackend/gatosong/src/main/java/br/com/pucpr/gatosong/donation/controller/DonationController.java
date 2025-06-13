@@ -3,7 +3,6 @@ package br.com.pucpr.gatosong.donation.controller;
 import br.com.pucpr.gatosong.donation.dto.DonationDTO;
 import br.com.pucpr.gatosong.donation.dto.DonationResponseDTO;
 import br.com.pucpr.gatosong.donation.facade.DonationFacade;
-import br.com.pucpr.gatosong.donation.facade.impl.DefaultDonationFacade;
 import br.com.pucpr.gatosong.donation.model.DonationModel;
 import br.com.pucpr.gatosong.donation.service.DonationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -13,11 +12,11 @@ import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -38,7 +37,7 @@ public class DonationController {
 
     @SecurityRequirement(name="AuthServer")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/allDonations")
+    @GetMapping
     public ResponseEntity<?> getDonations() {
         try {
 
@@ -57,6 +56,7 @@ public class DonationController {
     }
 
     @SecurityRequirement(name = "AuthServer")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<?> getDonationById(@PathVariable Long id) {
         try {
@@ -76,7 +76,7 @@ public class DonationController {
     }
 
     @SecurityRequirement(name = "AuthServer")
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<?> createDonation(@RequestBody DonationDTO donation) {
         try {
 
@@ -96,8 +96,8 @@ public class DonationController {
 
     @SecurityRequirement(name = "AuthServer")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PatchMapping
-    public ResponseEntity<?> updateDonation(@RequestBody DonationDTO updateModel) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateDonation(@PathVariable Long id, @RequestBody DonationDTO updateModel) {
         try {
             if (!Objects.isNull(updateModel)) {
                 DonationResponseDTO responseDTO = donationFacade.updateDonation(updateModel);
@@ -111,6 +111,7 @@ public class DonationController {
         return null;
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @SecurityRequirement(name = "AuthServer")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")

@@ -1,4 +1,4 @@
-// fazer as chamadas api de usuário aqui
+// fazer as chamadas API de doações aqui
 import api from './axiosConfig'; 
 import { User } from "./user"
 

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

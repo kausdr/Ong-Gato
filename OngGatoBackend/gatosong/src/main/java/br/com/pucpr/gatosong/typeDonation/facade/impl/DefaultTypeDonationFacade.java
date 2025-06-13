@@ -5,22 +5,23 @@ import br.com.pucpr.gatosong.typeDonation.facade.TypeDonationFacade;
 import br.com.pucpr.gatosong.typeDonation.model.TypeDonationModel;
 import br.com.pucpr.gatosong.typeDonation.service.TypeDonationService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Component
-@NoArgsConstructor
 public class DefaultTypeDonationFacade implements TypeDonationFacade {
 
     private static final Logger logger = LogManager.getLogger(DefaultTypeDonationFacade.class);
 
-    @Autowired
-    private TypeDonationService typeDonationService;
+    private final TypeDonationService typeDonationService;
 
     @Override
     public TypeDonationModel populateTypeDonationModel(TypeDonationDTO source) {

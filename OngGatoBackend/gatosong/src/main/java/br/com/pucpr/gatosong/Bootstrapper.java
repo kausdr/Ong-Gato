@@ -1,6 +1,5 @@
 package br.com.pucpr.gatosong;
 
-
 import br.com.pucpr.gatosong.user.AdminConfig;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.user.repository.UserRepository;
@@ -12,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 @Component
 @PropertySource("classpath:security.properties")
 public class Bootstrapper implements ApplicationListener<ContextRefreshedEvent> {

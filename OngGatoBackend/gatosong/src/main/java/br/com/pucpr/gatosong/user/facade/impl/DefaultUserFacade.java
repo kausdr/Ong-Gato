@@ -8,8 +8,8 @@ import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.donation.service.DonationService;
 import br.com.pucpr.gatosong.user.repository.UserRepository;
 import br.com.pucpr.gatosong.user.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,23 +24,16 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@AllArgsConstructor
 @Component
 public class DefaultUserFacade implements UserFacade {
 
     private static final Logger logger = LogManager.getLogger(DefaultUserFacade.class);
 
-    @Autowired
-    private DonationRepository donationRepository;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private DonationService donationService;
-
-    @Autowired
-    private UserRepository userRepository;
+    private final DonationRepository donationRepository;
+    private final UserService userService;
+    private final DonationService donationService;
+    private final UserRepository userRepository;
 
     @Override
     public UserModel fromDto(UserDTO source) {

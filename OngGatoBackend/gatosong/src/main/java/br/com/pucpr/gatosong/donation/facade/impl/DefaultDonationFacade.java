@@ -12,42 +12,31 @@ import br.com.pucpr.gatosong.typeDonation.dto.TypeDonationDTO;
 import br.com.pucpr.gatosong.typeDonation.facade.TypeDonationFacade;
 import br.com.pucpr.gatosong.typeDonation.model.TypeDonationModel;
 import br.com.pucpr.gatosong.typeDonation.service.TypeDonationService;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@AllArgsConstructor
 @Component
 public class DefaultDonationFacade implements DonationFacade {
 
     private static final Logger logger = LogManager.getLogger(DefaultDonationFacade.class);
 
-    @Autowired
-    private UserFacade userFacade;
-
-    @Autowired
-    private TypeDonationFacade typeDonationFacade;
-
-    @Autowired
-    private DonationService donationService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private TypeDonationService typeDonationService;
-
+    private final UserFacade userFacade;
+    private final TypeDonationFacade typeDonationFacade;
+    private final DonationService donationService;
+    private final UserService userService;
+    private final TypeDonationService typeDonationService;
 
     @Override
     public DonationModel populateDonationModel(DonationDTO source) {
@@ -163,5 +152,6 @@ public class DefaultDonationFacade implements DonationFacade {
             return dtos;
         }catch (Exception e){
             return null;
-        }    }
+        }
+    }
 }

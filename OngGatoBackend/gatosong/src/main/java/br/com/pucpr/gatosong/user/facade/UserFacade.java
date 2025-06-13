@@ -4,7 +4,6 @@ import br.com.pucpr.gatosong.user.dto.UserDTO;
 import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import br.com.pucpr.gatosong.user.dto.UserUpdateDTO;
 import br.com.pucpr.gatosong.user.model.UserModel;
-
 import java.util.List;
 
 public interface UserFacade {
@@ -27,4 +26,3 @@ public interface UserFacade {
 
     UserResponseDTO updateUserRole(Long id);
 }
-

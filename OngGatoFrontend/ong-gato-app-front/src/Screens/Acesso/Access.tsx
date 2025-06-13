@@ -10,10 +10,8 @@ import catImg from "/Images/catImg.png"
 import { useState } from "react";
 import Footer from '../../Components/Layout/Footer'
 
-
 export const Access = () => {
     const [canLogin, setCanLogin] = useState<boolean>(false)
-    const [canSignIn, setCanSignIn] = useState<boolean>(false)
     const navigate = useNavigate();
     const [homeButton, setHomeButton] = useState<'home' | 'login' | null>('home')
 

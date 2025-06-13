@@ -1,23 +1,21 @@
 package br.com.pucpr.gatosong.typeDonation.controller;
 
-import br.com.pucpr.gatosong.donation.dto.DonationDTO;
 import br.com.pucpr.gatosong.typeDonation.dto.TypeDonationDTO;
-import br.com.pucpr.gatosong.typeDonation.facade.TypeDonationFacade;
 import br.com.pucpr.gatosong.typeDonation.facade.impl.DefaultTypeDonationFacade;
 import br.com.pucpr.gatosong.typeDonation.model.TypeDonationModel;
-import br.com.pucpr.gatosong.typeDonation.service.TypeDonationService;
 import br.com.pucpr.gatosong.typeDonation.service.impl.DefaultTypeDonationService;
-import lombok.AllArgsConstructor;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -36,6 +34,7 @@ public class TypeDonationController {
     @Autowired
     private DefaultTypeDonationFacade typeDonationFacade;
 
+    @SecurityRequirement(name="AuthServer")
     @GetMapping
     public ResponseEntity<?> getTypeDonations() {
         try {
@@ -54,6 +53,7 @@ public class TypeDonationController {
         }
     }
 
+    @SecurityRequirement(name = "AuthServer")
     @GetMapping("/{id}")
     public ResponseEntity<?> getTypeDonationById(@PathVariable Long id) {
         try {
@@ -72,7 +72,9 @@ public class TypeDonationController {
         }
     }
 
-    @PostMapping
+    @SecurityRequirement(name = "AuthServer")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/create")
     public ResponseEntity<?> createTypeDonation(@RequestBody TypeDonationModel donationModel) {
         try {
 
@@ -90,7 +92,9 @@ public class TypeDonationController {
         }
     }
 
-    @PatchMapping
+    @SecurityRequirement(name = "AuthServer")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/{id}")
     public ResponseEntity<?> updateTypeDonation(@RequestBody TypeDonationDTO updateModel) {
         try {
             if (!Objects.isNull(updateModel)) {
@@ -106,8 +110,11 @@ public class TypeDonationController {
     }
 
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @SecurityRequirement(name = "AuthServer")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteDonation(@PathVariable Long id) {
+    public ResponseEntity<?> deleteTypeDonation(@PathVariable Long id) {
         try {
 
             TypeDonationModel model = typeDonationFacade.deleteTypeDonation(id);
@@ -123,6 +130,5 @@ public class TypeDonationController {
             return ResponseEntity.badRequest().body("Unable to delete type");
         }
     }
-
 
 }

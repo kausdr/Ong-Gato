@@ -1,7 +1,6 @@
 package br.com.pucpr.gatosong.typeDonation.service;
 
 import br.com.pucpr.gatosong.typeDonation.model.TypeDonationModel;
-
 import java.util.List;
 
 public interface TypeDonationService {

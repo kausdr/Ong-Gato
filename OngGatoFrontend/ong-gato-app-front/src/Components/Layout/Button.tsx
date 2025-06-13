@@ -9,7 +9,8 @@ interface ButtonProps {
 
 function Button({order, text, action, icon, className, disabled}: ButtonProps) {
 
-    const buttonClass = order == "primary" ? "text-white font-semibold bg-[#28538f] hover:bg-[#214475]"
+    const buttonClass 
+    = order == "primary" ? "text-white font-semibold bg-[#28538f] hover:bg-[#214475]"
     : order == "secondary" ? "border-1 text-slate-700 hover:bg-slate-100"
     : order == "nav" ? "rounded-md font-semibold text-white hover:bg-[#3873C7]"
     : order == "inactive" ? "pointer-events-none !bg-gray-200 !text-gray-400"
@@ -33,5 +34,5 @@ function Button({order, text, action, icon, className, disabled}: ButtonProps) {
         </button>
     )
 }
-//.
+
 export default Button

@@ -3,25 +3,23 @@ package br.com.pucpr.gatosong.donation.service.impl;
 import br.com.pucpr.gatosong.donation.model.DonationModel;
 import br.com.pucpr.gatosong.donation.repository.DonationRepository;
 import br.com.pucpr.gatosong.donation.service.DonationService;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@NoArgsConstructor
+@AllArgsConstructor
 public class DefaultDonationService implements DonationService {
 
     private static final Logger logger = LogManager.getLogger(DefaultDonationService.class);
 
-    @Autowired
-    private DonationRepository donationRepository;
+    private final DonationRepository donationRepository;
 
     @Override
     public List<DonationModel> getAllDonations() {

@@ -115,7 +115,7 @@ function Signup() {
 
                 <Input label="E-mail" type="email" icon={<CiMail />} id="email" name="email" placeholder="seuemail@email.com" value={email} setValue={setEmail} />
                 <Input label="Senha" type="password" icon={<IoKeyOutline />} id="password" name="password" placeholder="Insira sua senha" value={password} setValue={setPassword} />
-                <Input label="Confirme sua senha" type="password" icon={<IoKeyOutline />} id="password" name="password" placeholder="Confirme sua senha" value={confirmPassword} setValue={setConfirmPassword} />
+                <Input label="Confirme sua senha" type="password" icon={<IoKeyOutline />} id="password2" name="password2" placeholder="Confirme sua senha" value={confirmPassword} setValue={setConfirmPassword} />
 
                 <Button 
                     order={canCreate ? `primary` : `inactive`} 

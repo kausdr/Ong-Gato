@@ -5,8 +5,6 @@ import { Donation, DonationService } from "../../API/donation";
 import { useEffect, useState } from "react";
 import { User, UserService } from "../../API/user";
 
-
-
 export const ListDonators = () => {
     const [donations, setDonations] = useState<Donation[]>([])
     const [users, setUsers] = useState<User[]>([])

@@ -13,13 +13,13 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
 
         Contact contact = new Contact();
-        contact.setName("Website Ong Gato");
-        contact.setUrl("http://localhost:8081");
+        contact.setName("Website Meownager");
+        contact.setUrl("http://localhost:8080");
         return new OpenAPI()
                 .info(new Info()
-                        .title("Ong Gato - API")
+                        .title("Meownager - API")
                         .version("v1.0")
                         .contact(contact)
-                        .description("API Criada para documentar os endpoints"));
+                        .description("API criada para documentar os endpoints"));
     }
 }

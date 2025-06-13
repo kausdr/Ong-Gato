@@ -1,18 +1,5 @@
 import ReactECharts from 'echarts-for-react';
 import Card from "../../Components/Layout/Card";
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-} from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { IoPersonCircleOutline } from 'react-icons/io5';
-import { LiaCatSolid } from 'react-icons/lia';
-import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 import Footer from '../../Components/Layout/Footer'
 
 function classNames(...classes: string[]) {

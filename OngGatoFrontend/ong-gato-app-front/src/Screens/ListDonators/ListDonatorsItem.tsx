@@ -1,12 +1,7 @@
-import Card from "../../Components/Layout/Card"
-import { GoGear } from "react-icons/go";
-import Button from "../../Components/Layout/Button";
-
 interface ListDonatorsItem {
     name: string,
     email: string
 }
-
 
 export const ListDonatorsItem = ({name, email}: ListDonatorsItem) => {
 
@@ -24,4 +19,3 @@ export const ListDonatorsItem = ({name, email}: ListDonatorsItem) => {
         </tr>
     )
 }
-

@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
 @Configuration
 public class Jwt {
     public static final String SECRET = "0e5582adfb7fa6bb770815f3c6b3534d311bd5fe";
@@ -65,7 +64,6 @@ public class Jwt {
             return null;
         }
     }
-
 
     public Jwt() {
     }

@@ -4,7 +4,6 @@ import br.com.pucpr.gatosong.user.model.UserModel;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 public class UserToken implements Serializable {
 
     @JsonProperty("id")
@@ -36,10 +35,6 @@ public class UserToken implements Serializable {
 
     public Boolean getIsAdmin() {
         return isAdmin;
-    }
-
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
     }
 
     public String getName() {

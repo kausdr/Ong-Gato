@@ -21,14 +21,6 @@ import { ToastContainer } from './Components/toast/ToastContainer';
 
 function App() {
 
-  const fetchUsers = () => {
-    return UserService.getUsers()
-  }
-
-  useEffect(() => {
-    fetchUsers()
-  }, [])
-
   return (
     <>
     <ToastProvider renderToasts={(toasts) => <ToastContainer toasts={toasts} />}>
