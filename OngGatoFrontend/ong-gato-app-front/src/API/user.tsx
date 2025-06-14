@@ -13,16 +13,15 @@ export interface User {
     email?: string
     address?: string
     password?: string
-    userTypeID?: number
     isAdmin?: boolean
-    profilePicture?: string;
+    profilePictureUrl?: string;
 }
 
 export class UserService {
 
     static async getUsers(): Promise<[User[] | null, any]> {
         try {
-            const response = await api.get(link)
+            const response = await api.get<User[]>(link)
             return [response.data, null]
 
         } catch (error) {
@@ -33,7 +32,7 @@ export class UserService {
 
     static async getCurrentUser(): Promise<[User | null, any]> {
         try {
-            const response = await api.get(link + `/me`)
+            const response = await api.get<User>(link + `/me`)
             return [response.data, null]
 
         } catch (error) {
@@ -44,7 +43,7 @@ export class UserService {
 
     static async createUser(newUser: User): Promise<[User | null, any]> {
         try {
-            const response = await api.post(link + `/create`, newUser)
+            const response = await api.post<User>(link + `/create`, newUser)
             return [response.data, null]
 
         } catch (error) {
@@ -53,14 +52,9 @@ export class UserService {
         }
     }
 
-    static async updateProfile(data: any): Promise<[any, any]> {
+    static async updateProfile(userData: Partial<User>): Promise<[User | null, any]> {
         try {
-            const token = localStorage.getItem('token')
-            const response = await api.put(link + `/me`, data, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await api.put<User>(link + `/me`, userData);
             return [response.data, null]
 
         } catch (error: any) {
@@ -71,7 +65,7 @@ export class UserService {
 
     static async validateEmail(email: string): Promise<[boolean | null, any]> {
         try {
-            const response = await api.get(link + `/validateEmail/${email}`)
+            const response = await api.get<boolean>(link + `/validateEmail/${email}`)
             return [response.data, null]
 
         } catch (error) {
@@ -82,7 +76,7 @@ export class UserService {
 
     static async validateCPF(cpf: string): Promise<[boolean | null, any]> {
         try {
-            const response = await api.get(link + `/validateCPF/${cpf}`)
+            const response = await api.get<boolean>(link + `/validateCpf/${cpf}`)
             return [response.data, null]
 
         } catch (error) {
@@ -118,12 +112,31 @@ export class UserService {
 
     static async updateUserRole(id: number): Promise<[User | null, any]> {
         try {
-            const response = await api.put(link + `/${id}/role`);
+            const response = await api.put<User>(link + `/${id}/role`);
             return [response.data, null]
 
         } catch (error) {
             console.log("Erro ao atualizar cargo do usuário: ", error)
             return [null, error]
+        }
+    }
+
+    static async updateProfilePicture(file: File): Promise<[User | null, any]> {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await api.post<User>(link + `/me/picture`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            return [response.data, null];
+
+        } catch (error) {
+            console.log("Erro ao atualizar foto de perfil: ", error);
+            return [null, error];
         }
     }
 }

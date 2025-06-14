@@ -8,6 +8,8 @@ public interface DonationService {
 
     List<DonationModel> getDonationById(Long id);
 
+    List<DonationModel> findByDonatorId(Long donatorId);
+
     List<DonationModel> createDonation(DonationModel donationModel);
 
     DonationModel updateDonation(DonationModel target);

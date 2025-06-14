@@ -72,7 +72,7 @@ public class DefaultUserService implements UserService {
                     existingUser.setTelephone(userModel.getTelephone());
                     existingUser.setAddress(userModel.getAddress());
                     existingUser.setZipCode(userModel.getZipCode());
-                    existingUser.setProfilePicture(userModel.getProfilePicture());
+                    existingUser.setProfilePictureUrl(userModel.getProfilePictureUrl());
                     return userRepository.save(existingUser);
                 })
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + userModel.getId()));
@@ -98,6 +98,16 @@ public class DefaultUserService implements UserService {
         }
         UserResponseDTO userResponseDTO = modelMapper.map(userModel, UserResponseDTO.class);
         return new LoginResponse(jwt.createToken(userModel), userResponseDTO);
+    }
+
+    @Override
+    public UserModel updateProfilePicture(Long id, String imageUrl) {
+        UserModel userToUpdate = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
+
+        userToUpdate.setProfilePictureUrl(imageUrl);
+
+        return userRepository.save(userToUpdate);
     }
 
     @Override

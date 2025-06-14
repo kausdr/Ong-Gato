@@ -4,6 +4,8 @@ import br.com.pucpr.gatosong.user.dto.UserDTO;
 import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import br.com.pucpr.gatosong.user.dto.UserUpdateDTO;
 import br.com.pucpr.gatosong.user.model.UserModel;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 public interface UserFacade {
@@ -25,4 +27,6 @@ public interface UserFacade {
     UserResponseDTO updateUserProfile(Long userId, UserUpdateDTO dto);
 
     UserResponseDTO updateUserRole(Long id);
+
+    UserResponseDTO updateProfilePicture(Long userId, MultipartFile file);
 }

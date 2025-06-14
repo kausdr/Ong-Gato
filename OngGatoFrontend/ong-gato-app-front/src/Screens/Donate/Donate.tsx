@@ -1,183 +1,185 @@
 import Input from "../../Components/data-input/Input";
-import { FaBrazilianRealSign } from "react-icons/fa6";
+import { FaBrazilianRealSign, FaQrcode } from "react-icons/fa6";
 import Button from "../../Components/Layout/Button";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Card from "../../Components/Layout/Card";
-import { Donation, DonationService } from "../../API/donation";
-import { BiDonateHeart } from "react-icons/bi";
+import { CreateDonationPayload, DonationService } from "../../API/donation";
+import { BiDonateHeart, BiCopy } from "react-icons/bi";
 import Footer from '../../Components/Layout/Footer'
+import { useAuth } from "../../Contexts/AuthContext";
+import { useToast } from "../../Contexts/ToastContext";
+
+type DonationCategory = 'DINHEIRO' | 'ROUPA' | 'ALIMENTO' | 'BRINQUEDO';
+
+type DonationStep = 'SELECT_AMOUNT' | 'SHOW_PIX' | 'CONFIRMED';
 
 function Donate() {
 
     const navigate = useNavigate();
-    const [donateValue, setDonateValue] = useState<number>(0)
-    const [canDonate, setCanDonate] = useState<boolean>(false)
-    const [donationCategory, setDonationCategory] = useState<'dinheiro' | 'roupa' | 'alimento'>()
-    const [pixCode, setPixCode] = useState<boolean>(false)
+    const { user } = useAuth();
+    const { showToast } = useToast();
+
+    const [donationCategory, setDonationCategory] = useState<DonationCategory>();
+    const [isLoading, setIsLoading] = useState(false);
     const [amount, setAmount] = useState<number>(0)
 
+    const [step, setStep] = useState<DonationStep>('SELECT_AMOUNT');
+    const [pixCode, setPixCode] = useState('');
+    
+    const canDonate = amount > 0;
+    const presetValues = [10, 25, 50, 100, 150, 250];
+
     useEffect(() => {
-        if (donateValue || amount) {
-            setCanDonate(true)
+        if (step === 'SHOW_PIX') {
+            const timer = setTimeout(() => {
+                handleRegisterDonation();
+            }, 8000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [step]);
+
+    const handleRegisterDonation = async () => {
+        if (!user || !donationCategory) return;
+        setIsLoading(true);
+
+        const donationPayload: CreateDonationPayload = {
+            amount: Number(amount),
+            type: donationCategory,
+            donator: user.id!,
+        };
+
+        const [response, error] = await DonationService.createDonation(donationPayload);
+        if (response) {
+            setStep('CONFIRMED');
         } else {
-            setCanDonate(false)
+            console.error("Erro ao registrar doação: ", error);
+            showToast('Ocorreu um erro ao registrar sua doação.', 'error');
+            setStep('SELECT_AMOUNT');
         }
-    }, [donateValue, amount])
+        setIsLoading(false);
+    };
 
+    const handleDonateClick = () => {
+        if (!canDonate) return;
 
-    const createDonation = async (donation: Donation) => {
-        const [response, erro] = await DonationService.createDonation(donation)
-
-        if (erro) {
-            console.log("erro ao criar doação "+erro)
+        if (!user) {
+            showToast('Você precisa estar logado para doar.', 'error');
+            navigate('/inicio');
+            return;
         }
-    }
 
+        if (donationCategory !== 'DINHEIRO') {
+            handleRegisterDonation();
+        } else {
+            const fakePixCode = (Math.random() + 1).toString(36).substring(2) + Date.now().toString(36);
+            setPixCode(fakePixCode);
+            setStep('SHOW_PIX');
+        }
+    };
+
+    const handleCategoryClick = (category: DonationCategory) => {
+        setDonationCategory(category);
+        setAmount(0);
+        setStep('SELECT_AMOUNT');
+    };
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(pixCode);
+        showToast('Código PIX copiado!', 'success' );
+    };
+
+    const renderContent = () => {
+        if (!donationCategory) {
+            return (
+                <div className="w-full flex flex-col gap-3 justify-center items-center my-10">
+                    <BiDonateHeart size={100} className="text-sky-100"/>
+                    <h3 className="text-xl font-normal text-gray-400">Selecione uma categoria</h3>
+                </div>
+            );
+        }
+
+        if (donationCategory === 'DINHEIRO') {
+            switch (step) {
+                case 'SHOW_PIX':
+                    return (
+                        <div className="flex flex-col gap-5 items-center text-center">
+                            <h2 className="font-bold text-blue-900 text-xl">Pague com PIX</h2>
+                            <p className="text-slate-600">Use o app do seu banco para ler o QR Code ou copie o código abaixo.</p>
+                            <FaQrcode size={180} className="text-gray-800" />
+                            <div className="w-full p-2 border-dashed border-2 border-gray-300 rounded-md flex items-center justify-between gap-2">
+                                <p className="text-xs text-gray-700 break-all">{pixCode}</p>
+                                <button onClick={copyToClipboard} title="Copiar código"><BiCopy size={20} className="text-sky-600 hover:text-sky-800 flex-shrink-0"/></button>
+                            </div>
+                            <p className="font-semibold text-sky-700 animate-pulse mt-4">Aguardando pagamento...</p>
+                        </div>
+                    );
+                case 'CONFIRMED':
+                    return (
+                        <div className="flex flex-col gap-5 items-center text-center">
+                            <BiDonateHeart size={100} className="text-green-500 mx-auto"/>
+                            <h1 className="font-bold text-green-600 text-2xl">Pagamento Confirmado!</h1>
+                            <p className="text-slate-600">Sua doação de R$ {amount} foi recebida. Muito obrigado!</p>
+                            <Button order="primary" onClick={() => handleCategoryClick('DINHEIRO')}>Doar Novamente</Button>
+                        </div>
+                    );
+                case 'SELECT_AMOUNT':
+                default:
+                    return (
+                        <div className="flex flex-col gap-10">
+                             <h1 className="font-bold text-blue-900 text-xl">Doação em Dinheiro</h1>
+                             <div className="grid grid-cols-3 gap-3">
+                                {presetValues.map(value => (
+                                    <Button key={value} order={amount === value ? 'active' : 'secondary'} onClick={() => setAmount(value)}>R$ {value}</Button>
+                                ))}
+                             </div>
+                            <Input icon={<FaBrazilianRealSign className="text-green-600 mr-1" />} id="valor" name="valor" type="number" label="Ou digite um valor personalizado:" value={amount} setValue={setAmount} min={0} />
+                            <Button order="primary" onClick={handleDonateClick} isLoading={isLoading} disabled={!canDonate}>Gerar PIX e Doar</Button>
+                        </div>
+                    );
+            }
+        } else {
+             if (step === 'CONFIRMED') {
+                return (
+                    <div className="flex flex-col gap-5 items-center text-center">
+                        <BiDonateHeart size={100} className="text-green-500 mx-auto"/>
+                        <h1 className="font-bold text-green-600 text-2xl">Doação Registrada!</h1>
+                        <p className="text-slate-600">Sua doação de {amount} {donationCategory === 'ROUPA' ? 'peça(s) de roupa' : donationCategory === 'ALIMENTO' ? 'kg de alimento' : 'brinquedo(s)'} foi registrada. Muito obrigado!</p>
+                        <Button order="primary" onClick={() => handleCategoryClick(donationCategory)}>Registrar Nova Doação</Button>
+                    </div>
+                );
+             }
+            return (
+                <div className="flex flex-col gap-10">
+                    <h1 className="font-bold text-blue-900 text-xl capitalize">Doação de {donationCategory.toLowerCase()}</h1>
+                    <p className="text-slate-600">Registre a doação feita pessoalmente na ONG.</p>
+                    <Input type="number" id="quantidade" name="quantidade" label="Quantidade (unidades/kg):" value={amount} setValue={setAmount} min={0} />
+                    <Button order="primary" onClick={handleDonateClick} isLoading={isLoading} disabled={!canDonate}>Registrar Doação</Button>
+                </div>
+            );
+        }
+    };
+    
     return (
         <div className="flex flex-col min-h-screen">
-          <div className="flex-grow flex justify-center items-center">
-            <Card className="flex flex-col gap-10 p-5 bg-white max-w-[500px]">
-                <div className="flex flex-col gap-5">
-                    <h1 className="font-bold text-blue-900 text-xl ">Escolha em qual categoria doar:</h1>
-                    <div className="flex gap-3">
-                        <Button order={`${donationCategory == 'dinheiro' ? 'active' : 'secondary'}`} text="Dinheiro" action={() => {
-                            setDonationCategory('dinheiro')
-                            setAmount(0)
-
-                        }} />
-                        <Button order={`${donationCategory == 'roupa' ? 'active' : 'secondary'}`} text="Roupa" action={() => {
-                            setDonationCategory('roupa')
-                            setAmount(0)
-                        }} />
-                        <Button order={`${donationCategory == 'alimento' ? 'active' : 'secondary'}`} text="Alimentação" action={() => {
-                            setDonationCategory('alimento')
-                            setAmount(0)
-                        }} />
+            <div className="flex-grow flex justify-center items-center p-4">
+                <Card className="flex flex-col gap-10 p-5 bg-white max-w-[500px]">
+                    <div className="flex flex-col gap-5">
+                        <h1 className="font-bold text-blue-900 text-xl">Faça sua doação</h1>
+                        <div className="flex gap-3">
+                            <Button order={donationCategory === 'DINHEIRO' ? 'active' : 'secondary'} onClick={() => handleCategoryClick('DINHEIRO')}>Dinheiro</Button>
+                            <Button order={donationCategory === 'ROUPA' ? 'active' : 'secondary'} onClick={() => handleCategoryClick('ROUPA')}>Roupa</Button>
+                            <Button order={donationCategory === 'ALIMENTO' ? 'active' : 'secondary'} onClick={() => handleCategoryClick('ALIMENTO')}>Alimento</Button>
+                            <Button order={donationCategory === 'BRINQUEDO' ? 'active' : 'secondary'} onClick={() => handleCategoryClick('BRINQUEDO')}>Brinquedo</Button>
+                        </div>
                     </div>
-                </div>
-                {donationCategory == undefined ? (
-                   <div className="w-full h-full flex flex-col gap-3 justify-center items-center mb-10">
-                        <BiDonateHeart size={100} className="text-sky-100"/>
-                        <h3 className="text-xl font-normal text-gray-400 ">Escolha uma categoria de doação</h3>
-                   </div>
-                ) : donationCategory == 'dinheiro' ? (
-                     <>
-                        {!pixCode ? (
-                            <div className="flex flex-col gap-10">
-                                <div className="flex flex-col gap-1">
-                                    <h1 className="font-bold text-blue-900 text-xl ">Doar</h1>
-                                    <p className="text-slate-600">Após escolher um valor iremos gerar um código PIX para você realizar a doação por meio do seu banco de preferência.</p>
-                                </div>
-                                <div className="grid grid-cols-3 gap-3">
-                                    <Button order={"secondary"} text="10" icon={<FaBrazilianRealSign className="text-green-600" />} action={() => {
-                                        setDonateValue(10)
-                                    }} />
-                                    <Button order={"secondary"} text="40" icon={<FaBrazilianRealSign className="text-green-600" />} action={() => {
-                                        setDonateValue(40)
-                                    }} />
-                                    <Button order={"secondary"} text="55" icon={<FaBrazilianRealSign className="text-green-600" />} action={() => {
-                                        setDonateValue(55)
-                                    }} />
-                                    <Button order={"secondary"} text="90" icon={<FaBrazilianRealSign className="text-green-600" />} action={() => {
-                                        setDonateValue(90)
-                                    }} />
-                                    <Button order={"secondary"} text="150" icon={<FaBrazilianRealSign className="text-green-600" />} action={() => {
-                                        setDonateValue(150)
-                                    }} />
-                                    <Button order={"secondary"} text="240" icon={<FaBrazilianRealSign className="text-green-600" />} action={() => {
-                                        setDonateValue(240)
-                                    }} />
+                    {renderContent()}
+                </Card>
+            </div>
+            <Footer />
+        </div>
+    );
+}
 
-                                </div>
-
-                                <Input label="Deseja inserir um valor personalizado?" type="number" icon={<FaBrazilianRealSign className="text-green-600" />} id="valor" name="valor" placeholder="Digite um valor para doar, ex: 15" value={donateValue} setValue={setDonateValue} mandatory={false} />
-
-                                <Button order={canDonate ? `primary` : `inactive`} text="Doar" action={() => {
-                                    setPixCode(true)
-                                    createDonation(
-                                        {
-                                            amount: donateValue,
-                                            date: new Date().toISOString().replace('Z', '+00:00'),
-                                            donatorId: 9,
-                                            typeId: 8
-                                        }
-                                    )
-
-                                }} />
-                            </div>
-                        ) : (
-                            <div className="flex flex-col gap-5">
-                                <h3 className="text-xl font-bold">Nós e nossos pets agradacemos a doação!</h3>
-                                <p>Seu código pix está sendo gerado...</p>
-                                <Button order={canDonate ? `primary` : `inactive`} text="Doar mais" action={() => {
-                                    setPixCode(false)
-                                }} />
-                            </div>
-
-                        )}
-                    </>
-                ) : donationCategory == 'roupa' ? (
-                            <div className="flex flex-col gap-10">
-                                <div className="flex flex-col gap-1">
-                                    <h1 className="font-bold text-blue-900 text-xl ">Doar</h1>
-                                    <p className="text-slate-600">Registre a doação feita pessoalmente.</p>
-                                </div>
-                                <div className="flex flex-col gap-3">
-                                    <h3 className="text-xl text-slate-700 font-bold">Tipo: <span className="text-sky-700">Roupa</span></h3>
-
-                                    <Input type={'number'} id={"quantidade"} name={"quantidade"} label="Quantidade (unidades):" value={amount} setValue={setAmount}/>
-
-                                </div>
-
-                                <Button order={canDonate ? `primary` : `inactive`} text="Doar" action={() => {
-                                    createDonation(
-                                        {
-                                            amount: amount,
-                                            date: new Date().toISOString().replace('Z', '+00:00'),
-                                            donatorId: 9,
-                                            typeId: 7
-                                        }
-                                    )
-
-                                }} />
-                            </div>
-                        )
-                        : donationCategory == 'alimento' ? (
-                            <div className="flex flex-col gap-10">
-                                <div className="flex flex-col gap-1">
-                                    <h1 className="font-bold text-blue-900 text-xl ">Doar</h1>
-                                    <p className="text-slate-600">Registre a doação feita pessoalmente.</p>
-                                </div>
-                                <div className="flex flex-col gap-3">
-                                    <h3 className="text-xl text-slate-700 font-bold">Tipo: <span className="text-sky-700 font-semibold">Alimento</span></h3>
-
-                                    <Input type={'number'} id={"quantidade"} name={"quantidade"} label="Quantidade (kg):" value={amount} setValue={setAmount}/>
-
-                                </div>
-
-                                <Button order={canDonate ? `primary` : `inactive`} text="Doar" action={() => {
-                                    createDonation(
-                                        {
-                                            amount: amount,
-                                            date: new Date().toISOString().replace('Z', '+00:00'),
-                                            donatorId: 9,
-                                            typeId: 9
-                                        }
-                                    )
-
-                                }} />
-                            </div>
-                        )
-                        : ""
-                
-                }
-
-
-                    </Card>
-                  </div>
-                  <Footer />
-                </div>
-              )
-            }
 export default Donate;
