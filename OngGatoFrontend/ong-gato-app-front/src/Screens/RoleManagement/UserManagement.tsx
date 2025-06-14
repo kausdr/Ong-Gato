@@ -67,11 +67,11 @@ export const UserManagement = ()=> {
 
     return (
         <Card>
-        <div className="flex flex-col w-full h-full gap-5 p-10 bg-white">
-            <h1 className="font-bold text-blue-900 text-xl ">Gerenciamento de Usuário</h1>
+        <div className="flex flex-col w-full h-full gap-5 p-10" style={{ backgroundColor: "var(--bg-color)" }}>
+            <h1 className="font-bold text-xl " style={{ color: "var(--title-color)" }}>Gerenciamento de Usuário</h1>
                 <div className="overflow-x-auto rounded-md">
-                <table className="w-full">
-                    <thead className="bg-blue-200 text-left text-slate-800">
+                <table className="w-full" >
+                    <thead className="text-left" style={{ backgroundColor: "var(--thead-color)", color: "var(--thead-text-color)" }}>
                         <tr>
                             <th className="py-[20px] px-[10px] w-[50px]">ID</th>
                             <th className="py-[20px] px-[10px]">Nome</th>

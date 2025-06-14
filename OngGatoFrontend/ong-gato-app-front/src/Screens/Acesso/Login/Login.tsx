@@ -43,7 +43,7 @@ function Login() {
         <div className="flex flex-col gap-20">
             
             <div className="flex justify-start">
-                <h1 className="font-bold text-blue-900 text-xl ">LOGIN</h1>
+                <h1 className="font-bold text-xl " style={{ color: "var(--title-color)" }}>LOGIN</h1>
             </div>
 
             <div className="flex flex-col gap-4">

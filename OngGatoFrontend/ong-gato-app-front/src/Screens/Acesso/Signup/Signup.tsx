@@ -97,7 +97,7 @@ function Signup() {
     return (
         <div className="flex flex-col gap-20">
             <div className="flex justify-start">
-                <h1 className="font-bold text-blue-900 text-xl ">CADASTRO</h1>
+                <h1 className="font-bold text-xl " style={{ color: "var(--title-color)" }}>CADASTRO</h1>
             </div>
 
             <div className="flex flex-col gap-4">

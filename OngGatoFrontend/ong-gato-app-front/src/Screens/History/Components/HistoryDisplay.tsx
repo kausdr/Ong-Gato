@@ -23,16 +23,16 @@ export const HistoryDisplay = ({type, date, amount, donator} : HistoryDisplayPro
     
 
     return (
-        <tr className="text-slate-900 border-b-1 border-gray-100">
+        <tr className="border-b-1" style={{ color: "var(--t-text-color)" , borderColor: "var(--border-color)"}}>
             <td>
                 <div className="flex flex-col px-[10px] py-2 ">
                     <div className="flex gap-2 text-xl">
-                        <p className="text-slate-600">{type.name ? type.name.toLocaleLowerCase() == "dinheiro" ? <p className="flex gap-1 items-center"><TbPigMoney className="text-green-600"/> {type.name}</p>
+                        <p>{type.name ? type.name.toLocaleLowerCase() == "dinheiro" ? <p className="flex gap-1 items-center"><TbPigMoney className="text-green-600"/> {type.name}</p>
                         : type.name.toLocaleLowerCase() == "roupa" ? <p className="flex gap-1 items-center"><PiCoatHangerBold className="text-sky-400"/> {type.name}</p>
                         : type.name.toLocaleLowerCase() == "alimento" ? <p className="flex gap-1 items-center"><GiOpenedFoodCan className="text-orange-400"/> {type.name}</p>
                         : "Não consta" : ""}</p>
                     </div>
-                    <p className="font-light text-xs text-gray-400">{dataFormatada}</p>
+                    <p className="font-light text-xs">{dataFormatada}</p>
                 </div>
             </td>
             <td>

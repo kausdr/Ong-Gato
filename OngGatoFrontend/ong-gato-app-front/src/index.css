@@ -1,6 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
+
+
+:root {
+  --bg-color: #ffffff;
+  --icon-color: #c5e7fc;
+  --placeholder-text: #91a3ba;
+  --title-color: #1d398f;
+  --thead-color: #e0f3ff;
+  --thead-text-color: #1d293d;
+  --t-text-color: #0e182b;
+  --border-color: #f2f3f5;
+  --t-highlight-color: #f0f6ff;
+  --text-color: #45556b;
+  --btn-hover-secondary: #f2f6fa;
+  --btn-active: #f2f6fa;
+  --home-text-color: #1d398f;
+  --home-bg-color: #bfdbff;
+  --input-bg-color: #f2f3f5;
+  --input-blocked-bg-color:#d2d2d25;
+}
+
+html.dark {
+  --bg-color: #1f1f1f;
+  --icon-color:  #30353b;
+  --placeholder-text: #424952;
+  --title-color: #ffffff;
+  --thead-color: #30353b;
+  --thead-text-color: #cecece;
+  --t-text-color: #cecece;
+  --border-color: #3a3a3a;
+  --t-highlight-color: #23272b;
+  --text-color: #acacac;
+  --btn-hover-secondary: #30353b;
+  --btn-active: #30353b;
+  --home-text-color: #ffffff;
+  --home-bg-color: #303843;
+  --input-bg-color: #303843;
+  --input-blocked-bg-color: #222830;
+}
+
+html.dark .hide-in-dark {
+  display: none;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.bg-active {
+  background-color: var(--btn-active);
+}
+
+.bg-hoverSecondary {
+  background-color: transparent;
+}
+
+.bg-hoverSecondary:hover {
+  background-color: var(--btn-hover-secondary);
+}
+
+
+
 .pt-serif-regular {
   font-family: "PT Serif", serif;
   font-weight: 400;

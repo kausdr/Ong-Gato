@@ -18,7 +18,7 @@ export const UserList = ({ id, nome, email, cargo, onDelete, onManageRole, isCur
     const cargoClasse = cargo ? "text-slate-700 font-semibold bg-yellow-200" : "text-slate-800 bg-blue-200";
 
     return (
-        <tr className={`text-slate-900 border-b-1 border-gray-100 ${isCurrentUser ? 'bg-blue-50' : ''}`}>
+        <tr className={`border-b-1`}  style={{ color: "var(--t-text-color)" , borderColor: "var(--border-color)", backgroundColor: isCurrentUser ? "var(--t-highlight-color)" : undefined}}>
             <td className="py-[10px]">
                 <div className="px-[10px]">{id}</div>
             </td>

@@ -129,11 +129,11 @@ export const Profile = () => {
     return (
         <div className="min-h-full flex flex-col">
             <div className="flex justify-center items-center flex-grow">
-                <div className="flex flex-col  items-start gap-20 p-10 bg-white">
-                    <h1 className="font-bold text-blue-900 text-xl ">PERFIL</h1>
+                <div className="flex flex-col  items-start gap-20 p-10" style={{ backgroundColor: "var(--bg-color)" }}>
+                    <h1 className="font-bold text-xl " style={{ color: "var(--title-color)" }}>PERFIL</h1>
                     <div className="flex flex-col lg:flex-row gap-10">
                         <div className="flex flex-col gap-2 items-center">
-                            <div className="relative w-fit h-fit rounded-md border-2 border-slate-200 overflow-hidden ">
+                            <div className="relative w-fit h-fit rounded-md border-2 overflow-hidden " style={{ color: "var(--title-color)", borderColor: "var(--border-color)" }}>
                                 {user?.profilePicture ? (
                                     <img
                                         src={user.profilePicture}

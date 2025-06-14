@@ -82,11 +82,11 @@ export const History = () => {
                         <Placeholder text="Você ainda não fez nenhuma doação" />
                     )
                 ) : (
-                    <div className="flex flex-col w-full h-[calc(100vh-40px)] gap-5 p-10 bg-white">
-                        <h1 className="font-bold text-blue-900 text-xl ">Histórico de Doações</h1>
+                    <div className="flex flex-col w-full h-[calc(100vh-40px)] gap-5 p-10" style={{ backgroundColor: "var(--bg-color)" }}>
+                        <h1 className="font-bold text-xl " style={{ color: "var(--title-color)" }}>Histórico de Doações</h1>
                         <div className="overflow-x-auto rounded-md">
-                            <table className="w-full">
-                                <thead className="bg-blue-200 text-left text-slate-800">
+                            <table className="w-full" >
+                                <thead className="text-left " style={{ backgroundColor: "var(--thead-color)", color: "var(--thead-text-color)" }}>
                                     <tr>
                                         <th className="py-[20px] px-[10px] w-[20%]">Tipo</th>
                                         <th className="py-[20px] px-[10px]">Quantidade</th>

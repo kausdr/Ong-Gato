@@ -74,7 +74,7 @@ export const Relatorio = () => {
     <>
     {/* GRÁFICOS */}
       <div className="min-h-full">
-        <main className="py-10 bg-white">
+        <main className="py-10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
             <Card><ReactECharts option={lineOptions} /></Card>
             <Card><ReactECharts option={pieOptions} /></Card>

@@ -37,9 +37,9 @@ function Donate() {
     return (
         <div className="flex flex-col min-h-screen">
           <div className="flex-grow flex justify-center items-center">
-            <Card className="flex flex-col gap-10 p-5 bg-white max-w-[500px]">
+            <Card className="flex flex-col gap-10 p-5 max-w-[500px]">
                 <div className="flex flex-col gap-5">
-                    <h1 className="font-bold text-blue-900 text-xl ">Escolha em qual categoria doar:</h1>
+                    <h1 className="font-bold text-xl " style={{ color: "var(--title-color)" }}>Escolha em qual categoria doar:</h1>
                     <div className="flex gap-3">
                         <Button order={`${donationCategory == 'dinheiro' ? 'active' : 'secondary'}`} text="Dinheiro" action={() => {
                             setDonationCategory('dinheiro')
@@ -58,7 +58,7 @@ function Donate() {
                 </div>
                 {donationCategory == undefined ? (
                    <div className="w-full h-full flex flex-col gap-3 justify-center items-center mb-10">
-                        <BiDonateHeart size={100} className="text-sky-100"/>
+                        <BiDonateHeart size={100} style={{ color: 'var(--icon-color)' }}/>
                         <h3 className="text-xl font-normal text-gray-400 ">Escolha uma categoria de doação</h3>
                    </div>
                 ) : donationCategory == 'dinheiro' ? (
@@ -66,8 +66,8 @@ function Donate() {
                         {!pixCode ? (
                             <div className="flex flex-col gap-10">
                                 <div className="flex flex-col gap-1">
-                                    <h1 className="font-bold text-blue-900 text-xl ">Doar</h1>
-                                    <p className="text-slate-600">Após escolher um valor iremos gerar um código PIX para você realizar a doação por meio do seu banco de preferência.</p>
+                                    <h1 className="font-bold text-xl " style={{ color: "var(--title-color)" }}>Doar</h1>
+                                    <p style={{color: "var(--text-color)"}}>Após escolher um valor iremos gerar um código PIX para você realizar a doação por meio do seu banco de preferência.</p>
                                 </div>
                                 <div className="grid grid-cols-3 gap-3">
                                     <Button order={"secondary"} text="10" icon={<FaBrazilianRealSign className="text-green-600" />} action={() => {
@@ -120,11 +120,11 @@ function Donate() {
                 ) : donationCategory == 'roupa' ? (
                             <div className="flex flex-col gap-10">
                                 <div className="flex flex-col gap-1">
-                                    <h1 className="font-bold text-blue-900 text-xl ">Doar</h1>
-                                    <p className="text-slate-600">Registre a doação feita pessoalmente.</p>
+                                    <h1 className="font-bold text-xl " style={{ color: "var(--title-color)" }}>Doar</h1>
+                                    <p style={{color: "var(--text-color)"}}>Registre a doação feita pessoalmente.</p>
                                 </div>
                                 <div className="flex flex-col gap-3">
-                                    <h3 className="text-xl text-slate-700 font-bold">Tipo: <span className="text-sky-700">Roupa</span></h3>
+                                    <h3 className="text-xl font-bold" style={{color: "var(--text-color)"}}>Tipo: <span className="text-sky-700">Roupa</span></h3>
 
                                     <Input type={'number'} id={"quantidade"} name={"quantidade"} label="Quantidade (unidades):" value={amount} setValue={setAmount}/>
 
@@ -146,11 +146,11 @@ function Donate() {
                         : donationCategory == 'alimento' ? (
                             <div className="flex flex-col gap-10">
                                 <div className="flex flex-col gap-1">
-                                    <h1 className="font-bold text-blue-900 text-xl ">Doar</h1>
-                                    <p className="text-slate-600">Registre a doação feita pessoalmente.</p>
+                                    <h1 className="font-bold text-xl " style={{ color: "var(--title-color)" }}>Doar</h1>
+                                    <p style={{color: "var(--text-color)"}}>Registre a doação feita pessoalmente.</p>
                                 </div>
                                 <div className="flex flex-col gap-3">
-                                    <h3 className="text-xl text-slate-700 font-bold">Tipo: <span className="text-sky-700 font-semibold">Alimento</span></h3>
+                                    <h3 className="text-xl font-bold" style={{color: "var(--text-color)"}}>Tipo: <span className="text-sky-700 font-semibold">Alimento</span></h3>
 
                                     <Input type={'number'} id={"quantidade"} name={"quantidade"} label="Quantidade (kg):" value={amount} setValue={setAmount}/>
 
