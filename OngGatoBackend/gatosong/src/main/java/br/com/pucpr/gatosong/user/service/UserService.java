@@ -22,4 +22,6 @@ public interface UserService {
     boolean existsByCPF(String cpf);
 
     boolean existsByEmail(String email);
+
+    UserModel updateProfilePicture(Long id, String imageUrl);
 }

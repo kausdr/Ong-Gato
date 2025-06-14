@@ -7,18 +7,23 @@ import br.com.pucpr.gatosong.user.facade.UserFacade;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.donation.service.DonationService;
 import br.com.pucpr.gatosong.user.repository.UserRepository;
+import br.com.pucpr.gatosong.user.service.FirebaseStorageService;
 import br.com.pucpr.gatosong.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.pucpr.gatosong.security.UserToken;
 import br.com.pucpr.gatosong.donation.repository.DonationRepository;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +35,12 @@ public class DefaultUserFacade implements UserFacade {
 
     private static final Logger logger = LogManager.getLogger(DefaultUserFacade.class);
 
+    private final FirebaseStorageService firebaseStorageService;
     private final DonationRepository donationRepository;
     private final UserService userService;
     private final DonationService donationService;
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public UserModel fromDto(UserDTO source) {
@@ -68,7 +75,7 @@ public class DefaultUserFacade implements UserFacade {
         target.setPassword(source.getPassword());
         target.setIsAdmin(source.getIsAdmin());
         target.setDonations(donationService.getDonationById(source.getId()));
-        target.setProfilePicture(source.getProfilePicture());
+        target.setProfilePictureUrl(source.getProfilePicture());
 
         return userService.updateUser(target);
     }
@@ -89,10 +96,7 @@ public class DefaultUserFacade implements UserFacade {
         target.setEmail(source.getEmail());
         target.setZipCode(source.getZipCode());
         target.setIsAdmin(source.getIsAdmin());
-
-        if (source.getProfilePicture() != null && !source.getProfilePicture().isEmpty()) {
-            target.setProfilePicture("data:image/jpeg;base64," + source.getProfilePicture());
-        }
+        target.setProfilePictureUrl(source.getProfilePictureUrl());
 
         return target;
     }
@@ -178,7 +182,7 @@ public class DefaultUserFacade implements UserFacade {
         if (dto.getTelephone() != null) user.setTelephone(dto.getTelephone());
         if (dto.getZipCode() != null) user.setZipCode(dto.getZipCode());
         if (dto.getAddress() != null) user.setAddress(dto.getAddress());
-        if (dto.getProfilePicture() != null) user.setProfilePicture(dto.getProfilePicture());
+        if (dto.getProfilePicture() != null) user.setProfilePictureUrl(dto.getProfilePicture());
 
         UserModel updated = userService.updateUser(user);
 
@@ -220,6 +224,30 @@ public class DefaultUserFacade implements UserFacade {
             return ((UserToken) principal).getId();
         }
         return -1L;
+    }
+
+    @Override
+    public UserResponseDTO updateProfilePicture(Long userId, MultipartFile file) {
+        try {
+            List<?> rawUser = userService.getUserById(userId);
+            UserModel user;
+            if (rawUser != null && !rawUser.isEmpty()) {
+                user = (UserModel) rawUser.get(0);
+            } else if (rawUser instanceof UserModel) {
+                user = (UserModel) rawUser;
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado");
+            }
+
+            String imageUrl = firebaseStorageService.uploadImage(file);
+
+            user.setProfilePictureUrl(imageUrl);
+            UserModel updatedUser = userService.updateProfilePicture(user.getId(), imageUrl);
+
+            return modelMapper.map(updatedUser, UserResponseDTO.class);
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Falha ao fazer upload da imagem de perfil", e);
+        }
     }
 
     private boolean checkIfUserCpfExists(String cpf) {

@@ -87,9 +87,9 @@ export const OngPage = () => {
                     <Button
                       order="nav"
                       icon={
-                        user && user.profilePicture ? (
+                        user && user.profilePictureUrl ? (
                           <img
-                            src={user.profilePicture}
+                            src={user.profilePictureUrl}
                             alt="Foto de perfil"
                             className="w-8 h-8 rounded-full object-cover"
                           />

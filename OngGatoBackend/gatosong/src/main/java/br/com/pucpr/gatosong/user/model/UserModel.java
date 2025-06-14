@@ -15,6 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class UserModel {
 
     @Id
@@ -57,9 +58,8 @@ public class UserModel {
     @Column(name = "cpf", nullable = false, unique = true)
     private String cpf;
 
-    @Lob
-    @Column(name = "profile_picture", columnDefinition = "MEDIUMTEXT")
-    private String profilePicture;
+    @Column(name = "profile_picture_url", length = 512)
+    private String profilePictureUrl;
 
     @OneToMany(mappedBy = "donator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DonationModel> donations = new ArrayList<>();
