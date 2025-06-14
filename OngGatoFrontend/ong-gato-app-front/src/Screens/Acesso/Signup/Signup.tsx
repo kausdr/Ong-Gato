@@ -5,8 +5,8 @@ import Button from "../../../Components/Layout/Button";
 import { useNavigate } from "react-router-dom";
 import { UserService, User } from "../../../API/user.tsx"
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useToast } from '../../../Contexts/ToastContext';
+import api from "../../../API/axiosConfig.ts";
 
 const validateEmailRegex = (email: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -21,9 +21,10 @@ const validateTelephone = (telephone: string) => {
 
 const validateCEP = async (cep: string) => {
   try {
-    const res = await axios.get(`/viacep/ws/${cep}/json/`);
-    return !res.data.erro;
+    const response = await api.get(`/api/address/cep/${cep}`);
+    return !response.data.erro;
   } catch (err) {
+    console.error("CEP não encontrado ou erro na API", err);
     return false;
   }
 }
@@ -148,16 +149,23 @@ function Signup() {
                             showToast("As senhas não coincidem!", "error");
                             return;
                         }
+                        
+                        if (!validateCPF(cpf)) {
+                            showToast("CPF inválido!", "error");
+                            return;
+                        }
 
                         const [emailExists, error] = await UserService.validateEmail(email);
                         if (emailExists) {
                             showToast("Este e-mail já está cadastrado.", "warning");
-                            console.log("E-mail já existente no sistema:" + error);
+                            console.log("E-mail já existente no sistema: " + error);
                             return;
                         }
 
-                        if (!validateCPF(cpf)) {
-                            showToast("CPF inválido!", "error");
+                        const [cpfExists, cpfError] = await UserService.validateCPF(cpf.replace(/\D/g, ''));
+                        if (cpfExists) {
+                            showToast("Este CPF já está cadastrado.", "warning");
+                            console.log("CPF já existente no sistema: " + cpfError);
                             return;
                         }
 

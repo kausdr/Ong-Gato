@@ -82,7 +82,7 @@ export class UserService {
 
     static async validateCPF(cpf: string): Promise<[boolean | null, any]> {
         try {
-            const response = await api.get(link + `/validateCPF/${cpf}`)
+            const response = await api.get(link + `/validateCpf/${cpf}`)
             return [response.data, null]
 
         } catch (error) {
