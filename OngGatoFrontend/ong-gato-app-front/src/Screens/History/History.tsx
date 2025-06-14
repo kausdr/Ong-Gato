@@ -40,6 +40,10 @@ export const History = () => {
         fetchUserDonations();
     }, [user]);
 
+    useEffect(() => {
+        console.log("doacoes: "+JSON.stringify(donations,null,2))
+    },[donations])
+
     if (isLoading) {
         return <Placeholder text="Carregando histórico..." />;
     }

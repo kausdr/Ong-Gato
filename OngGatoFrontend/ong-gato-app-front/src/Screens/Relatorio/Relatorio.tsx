@@ -3,8 +3,10 @@ import ReactECharts from 'echarts-for-react';
 import Card from "../../Components/Layout/Card";
 import Footer from '../../Components/Layout/Footer';
 import { Donation, DonationService } from "../../API/donation";
+import { useAuth } from "../../Contexts/AuthContext";
 
 export const Relatorio = () => {
+   const { user } = useAuth();
   const [donations, setDonations] = useState<Donation[]>([]);
 
   const [donationByMonth, setDonationByMonth] = useState<{months: string[], values: number[]}>({
@@ -16,15 +18,24 @@ export const Relatorio = () => {
 
   useEffect(() => {
     async function fetchDonations() {
-      const [data, error] = await DonationService.getAllDonations();
+      if (!user) return;
+
+      const serviceCall = user.isAdmin
+        ? DonationService.getDonations()
+        : DonationService.getMyDonations();
+
+      const [data, error] = await serviceCall;
+
       if (error || !data) {
         console.error("Erro ao buscar doações", error);
         return;
       }
+
       setDonations(data);
     }
+
     fetchDonations();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (donations.length === 0) return;
@@ -41,8 +52,9 @@ export const Relatorio = () => {
     const monthLabels = last12Months.map(d => monthNames[d.getMonth()]);
     const monthValues = new Array(12).fill(0);
 
-    const firstDayLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    const lastDayLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+const currentMonth = now.getMonth();
+const currentYear = now.getFullYear();
+
 
     const typesMap: Record<string, number> = {};
 
@@ -58,8 +70,8 @@ export const Relatorio = () => {
         }
       });
 
-      if (donationDate >= firstDayLastMonth && donationDate <= lastDayLastMonth) {
-        const typeName = donation.type?.name || "Outros";
+      if (donationDate.getFullYear() === currentYear && donationDate.getMonth() === currentMonth) {
+        const typeName = donation.type;
         if (!typesMap[typeName]) typesMap[typeName] = 0;
         typesMap[typeName] += donation.amount!;
       }
