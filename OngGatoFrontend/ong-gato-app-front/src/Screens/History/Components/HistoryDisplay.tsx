@@ -1,50 +1,55 @@
-import { DonatorInfo } from "../../../API/donation";
-import { User } from "../../../API/user"
+import { Donation } from "../../../API/donation";
 import { FaBrazilianRealSign } from "react-icons/fa6";
 import { TbPigMoney } from "react-icons/tb";
 import { PiCoatHangerBold } from "react-icons/pi";
 import { GiOpenedFoodCan } from "react-icons/gi";
+import { FaGift } from "react-icons/fa";
 
 interface HistoryDisplayProps {
-    type: DonatorInfo
-    date: string
-    amount: number
-    donator: User
+    donation: Donation;
+    isAdmin: boolean;
 }
 
-export const HistoryDisplay = ({type, date, amount, donator} : HistoryDisplayProps) => {
-
-    const convertedDate = new Date(date)
-    const dia = String(convertedDate.getDate()).padStart(2, '0');
-    const mes = String(convertedDate.getMonth() + 1).padStart(2, '0');
-    const ano = convertedDate.getFullYear();
-
-    const dataFormatada = `${dia}/${mes}/${ano}`;
+const formatDate = (dateString?: string) => {
+    if (!dateString) return 'N/A';
+    return new Date(dateString).toLocaleDateString('pt-BR');
+};
     
+const typeInfo = {
+    DINHEIRO: { icon: <TbPigMoney className="text-green-600"/>, label: 'Dinheiro' },
+    ROUPA: { icon: <PiCoatHangerBold className="text-sky-400"/>, label: 'Roupa' },
+    ALIMENTO: { icon: <GiOpenedFoodCan className="text-orange-400"/>, label: 'Alimento' },
+    BRINQUEDO: { icon: <FaGift className="text-purple-500"/>, label: 'Brinquedo' },
+};
+
+export const HistoryDisplay = ({ donation, isAdmin } : HistoryDisplayProps) => {
+
+    const { type, date, amount, donator } = donation;
+    const currentType = typeInfo[type] || { icon: null, label: type };
 
     return (
-        <tr className="text-slate-900 border-b-1 border-gray-100">
-            <td>
-                <div className="flex flex-col px-[10px] py-2 ">
-                    <div className="flex gap-2 text-xl">
-                        <p className="text-slate-600">{type.name ? type.name.toLocaleLowerCase() == "dinheiro" ? <p className="flex gap-1 items-center"><TbPigMoney className="text-green-600"/> {type.name}</p>
-                        : type.name.toLocaleLowerCase() == "roupa" ? <p className="flex gap-1 items-center"><PiCoatHangerBold className="text-sky-400"/> {type.name}</p>
-                        : type.name.toLocaleLowerCase() == "alimento" ? <p className="flex gap-1 items-center"><GiOpenedFoodCan className="text-orange-400"/> {type.name}</p>
-                        : "Não consta" : ""}</p>
-                    </div>
-                    <p className="font-light text-xs text-gray-400">{dataFormatada}</p>
+        <tr className="text-slate-900 border-b-2 border-gray-100">
+            <td className="p-2">
+                <div className="flex gap-2 items-center text-md">
+                    {currentType.icon}
+                    <span>{currentType.label}</span>
                 </div>
             </td>
-            <td>
-                <div className="flex items-center px-[10px]">{type.name.toLocaleLowerCase() == "dinheiro" ? <p className="flex gap-2 items-center"><FaBrazilianRealSign className="text-green-600" /> {amount} </p> 
-                : type.name.toLocaleLowerCase() == "alimento" ? <p>{amount} <span className="text-sm font-semibold text-orange-600">kg</span></p> 
-                : type.name.toLocaleLowerCase() == "roupa" ? <p>{amount}</p> 
-                : ""}
+            <td className="p-2">
+                {formatDate(date)}
+            </td>
+            <td className="p-2">
+                <div className="flex items-center">
+                    {type === 'DINHEIRO' && <FaBrazilianRealSign className="text-green-600 mr-1" />}
+                    {amount}
+                    {type === 'ALIMENTO' && <span className="text-sm font-semibold text-orange-600 ml-1">kg</span>}
                 </div>
             </td>
-            <td>
-                <div className="px-[10px]">por {donator ? donator.firstName : "Não consta"}</div>
-            </td>
+            {isAdmin && (
+                <td className="p-2">
+                    {donator ? `${donator.firstName} ${donator.lastName}` : "Não consta"}
+                </td>
+            )}
         </tr>
-    )
-}
+    );
+};

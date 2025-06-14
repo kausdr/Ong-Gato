@@ -134,7 +134,7 @@ function Donate() {
                                     <Button key={value} order={amount === value ? 'active' : 'secondary'} onClick={() => setAmount(value)}>R$ {value}</Button>
                                 ))}
                              </div>
-                            <Input icon={<FaBrazilianRealSign />} id="valor" name="valor" type="number" label="Ou digite um valor personalizado:" value={amount} setValue={setAmount} min={0} />
+                            <Input icon={<FaBrazilianRealSign className="text-green-600 mr-1" />} id="valor" name="valor" type="number" label="Ou digite um valor personalizado:" value={amount} setValue={setAmount} min={0} />
                             <Button order="primary" onClick={handleDonateClick} isLoading={isLoading} disabled={!canDonate}>Gerar PIX e Doar</Button>
                         </div>
                     );

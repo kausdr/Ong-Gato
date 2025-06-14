@@ -15,8 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
+import br.com.pucpr.gatosong.security.UserToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import java.util.List;
 import java.util.Objects;
 
@@ -61,6 +62,14 @@ public class DonationController {
             logger.error("Unable to get Donation", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @SecurityRequirement(name = "AuthServer")
+    @GetMapping("/me")
+    public ResponseEntity<List<DonationResponseDTO>> getMyDonations(@AuthenticationPrincipal UserToken user) {
+        Long userId = user.getId();
+        List<DonationResponseDTO> userDonations = donationFacade.getDonationsByUserId(userId);
+        return ResponseEntity.ok(userDonations);
     }
 
     @SecurityRequirement(name = "AuthServer")

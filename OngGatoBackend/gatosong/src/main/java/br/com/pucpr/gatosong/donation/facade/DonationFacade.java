@@ -20,4 +20,6 @@ public interface DonationFacade {
     List<DonationResponseDTO> getAllDonations();
 
     List<DonationResponseDTO> getDonationById(Long id);
+
+    List<DonationResponseDTO> getDonationsByUserId(Long userId);
 }

@@ -3,7 +3,6 @@ package br.com.pucpr.gatosong.donation.facade.impl;
 import br.com.pucpr.gatosong.donation.dto.DonationDTO;
 import br.com.pucpr.gatosong.donation.facade.DonationFacade;
 import br.com.pucpr.gatosong.donation.model.DonationModel;
-import br.com.pucpr.gatosong.donation.model.DonationType;
 import br.com.pucpr.gatosong.donation.service.DonationService;
 import br.com.pucpr.gatosong.donation.dto.DonationResponseDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
@@ -19,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -141,5 +141,16 @@ public class DefaultDonationFacade implements DonationFacade {
         }catch (Exception e){
             return null;
         }
+    }
+
+    @Override
+    public List<DonationResponseDTO> getDonationsByUserId(Long userId) {
+        List<DonationModel> models = donationService.findByDonatorId(userId);
+        if (CollectionUtils.isEmpty(models)) {
+            return new ArrayList<>();
+        }
+        return models.stream()
+                .map(this::populateResponseDTO)
+                .collect(Collectors.toList());
     }
 }

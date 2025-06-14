@@ -41,6 +41,11 @@ public class DefaultDonationService implements DonationService {
     }
 
     @Override
+    public List<DonationModel> findByDonatorId(Long donatorId) {
+        return donationRepository.findByDonatorId(donatorId);
+    }
+
+    @Override
     public List<DonationModel> createDonation(DonationModel donationModel) {
 
         DonationModel model = null;
