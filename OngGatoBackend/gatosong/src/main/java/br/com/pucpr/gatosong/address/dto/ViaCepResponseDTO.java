@@ -6,6 +6,9 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ViaCepResponseDTO {
+
+    private boolean erro;
+
     private String cep;
     private String logradouro;
     private String complemento;

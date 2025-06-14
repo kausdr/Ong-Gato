@@ -14,17 +14,26 @@ public class AddressController {
 
     @GetMapping("/cep/{cep}")
     public ResponseEntity<ViaCepResponseDTO> getAddressByCep(@PathVariable String cep) {
+
         String sanitizedCep = cep.replaceAll("[^0-9]", "");
 
+        if (sanitizedCep.length() != 8) {
+            return ResponseEntity.badRequest().build();
+        }
+
         String viaCepUrl = "https://viacep.com.br/ws/" + sanitizedCep + "/json/";
-
         RestTemplate restTemplate = new RestTemplate();
-        try {
-            ResponseEntity<ViaCepResponseDTO> response = restTemplate.getForEntity(viaCepUrl, ViaCepResponseDTO.class);
 
-            return ResponseEntity.ok(response.getBody());
+        try {
+            ViaCepResponseDTO viaCepResponse = restTemplate.getForObject(viaCepUrl, ViaCepResponseDTO.class);
+
+            if (viaCepResponse != null && viaCepResponse.isErro()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            return ResponseEntity.ok(viaCepResponse);
         } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(500).build();
         }
     }
 }
