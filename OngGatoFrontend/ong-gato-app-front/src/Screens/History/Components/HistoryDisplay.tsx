@@ -1,4 +1,4 @@
-import { TypeDonation } from "../../../API/donation";
+import { DonatorInfo } from "../../../API/donation";
 import { User } from "../../../API/user"
 import { FaBrazilianRealSign } from "react-icons/fa6";
 import { TbPigMoney } from "react-icons/tb";
@@ -6,7 +6,7 @@ import { PiCoatHangerBold } from "react-icons/pi";
 import { GiOpenedFoodCan } from "react-icons/gi";
 
 interface HistoryDisplayProps {
-    type: TypeDonation
+    type: DonatorInfo
     date: string
     amount: number
     donator: User

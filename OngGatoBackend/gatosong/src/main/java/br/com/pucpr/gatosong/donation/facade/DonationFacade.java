@@ -15,7 +15,7 @@ public interface DonationFacade {
 
     DonationResponseDTO createDonation(DonationDTO donation);
 
-    DonationResponseDTO updateDonation(DonationDTO donation);
+    DonationResponseDTO updateDonation(Long id, DonationDTO donation);
 
     List<DonationResponseDTO> getAllDonations();
 

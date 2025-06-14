@@ -3,21 +3,17 @@ package br.com.pucpr.gatosong.donation.facade.impl;
 import br.com.pucpr.gatosong.donation.dto.DonationDTO;
 import br.com.pucpr.gatosong.donation.facade.DonationFacade;
 import br.com.pucpr.gatosong.donation.model.DonationModel;
+import br.com.pucpr.gatosong.donation.model.DonationType;
 import br.com.pucpr.gatosong.donation.service.DonationService;
 import br.com.pucpr.gatosong.donation.dto.DonationResponseDTO;
 import br.com.pucpr.gatosong.user.facade.UserFacade;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import br.com.pucpr.gatosong.user.service.UserService;
-import br.com.pucpr.gatosong.typeDonation.dto.TypeDonationDTO;
-import br.com.pucpr.gatosong.typeDonation.facade.TypeDonationFacade;
-import br.com.pucpr.gatosong.typeDonation.model.TypeDonationModel;
-import br.com.pucpr.gatosong.typeDonation.service.TypeDonationService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
@@ -33,10 +29,8 @@ public class DefaultDonationFacade implements DonationFacade {
     private static final Logger logger = LogManager.getLogger(DefaultDonationFacade.class);
 
     private final UserFacade userFacade;
-    private final TypeDonationFacade typeDonationFacade;
     private final DonationService donationService;
     private final UserService userService;
-    private final TypeDonationService typeDonationService;
 
     @Override
     public DonationModel populateDonationModel(DonationDTO source) {
@@ -45,19 +39,13 @@ public class DefaultDonationFacade implements DonationFacade {
 
         target.setId(source.getId());
         target.setAmount(source.getAmount( ));
-        target.setDate(source.getDate());
-
+        target.setDate(new java.util.Date());
+        target.setType(source.getType());
 
         UserModel userModel = userService.getUserById(source.getDonator()).get(0);
 
         if (!Objects.isNull(userModel)){
             target.setDonator(userModel);
-        }
-
-        TypeDonationModel typeDonationModel = typeDonationService.getTypeDonationById(source.getType()).get(0);
-        if (!Objects.isNull(typeDonationModel))
-        {
-            target.setType(typeDonationModel);
         }
 
         return target;
@@ -71,15 +59,9 @@ public class DefaultDonationFacade implements DonationFacade {
         target.setId(source.getId());
         target.setAmount(source.getAmount());
         target.setDate(source.getDate());
-
         target.setDonator(userFacade.populateUserResponseDTO(source.getDonator()));
+        target.setType(source.getType());
 
-        TypeDonationDTO donationDTO = new TypeDonationDTO();
-
-        donationDTO.setId(source.getType().getId());
-        donationDTO.setName(source.getType().getName());
-
-        target.setType(donationDTO);
         return target;
     }
 
@@ -109,14 +91,20 @@ public class DefaultDonationFacade implements DonationFacade {
     }
 
     @Override
-    public DonationResponseDTO updateDonation(DonationDTO donation) {
-        DonationModel donationModel = populateDonationModel(donation);
-        try {
-            donationService.updateDonation(donationModel);
-            return populateResponseDTO(donationModel);
-        }catch (Exception e){
-            throw new RuntimeException("Unable to update model");
+    public DonationResponseDTO updateDonation(Long id, DonationDTO donation) {
+        DonationModel existingDonation = donationService.getDonationById(id).stream().findFirst()
+                .orElseThrow(() -> new RuntimeException("Doação não encontrada com o id: " + id));
+
+        if (donation.getAmount() != null) {
+            existingDonation.setAmount(donation.getAmount());
         }
+        if (donation.getType() != null) {
+            existingDonation.setType(donation.getType());
+        }
+
+        DonationModel updatedDonation = donationService.updateDonation(existingDonation);
+
+        return populateResponseDTO(updatedDonation);
     }
 
     @Override

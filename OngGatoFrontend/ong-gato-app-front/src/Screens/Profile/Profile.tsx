@@ -179,8 +179,12 @@ export const Profile = () => {
                             
 
 
-                            <Button order={`${blockEdit ? "primary" : "cancel"}`} text={`${blockEdit ? "Editar" : "Cancelar"}`} action={handleEdit} />
-                            <Button order="quit" text="Sair" action={handleLogout} className="mt-10" />
+                            <Button order={`${blockEdit ? "primary" : "cancel"}`} onClick={handleEdit} >
+                                {blockEdit ? "Editar" : "Cancelar"}
+                            </Button>
+                            <Button order="quit" onClick={handleLogout} className="mt-10" >
+                                Sair
+                            </Button>
                         </div>
 
                         <div className="flex flex-col gap-4">
@@ -216,7 +220,9 @@ export const Profile = () => {
                             </div>
                             <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mt-auto">
                                 {!blockEdit &&
-                                    <Button order={`primary`} text="Salvar" className="w-full " action={handleSave} />
+                                    <Button order={`primary`} className="w-full " onClick={handleSave} >
+                                        Salvar
+                                    </Button>
                                 }
 
                             </div>

@@ -14,9 +14,10 @@ interface InputProps {
     mandatory?: boolean
     inactive?: boolean
     helperText?: string
+    min?: number
 }
 
-function Input({ label, type, icon, id, name, placeholder, className, value, setValue, mandatory = true, inactive = false, helperText }: InputProps) {
+function Input({ label, type, icon, id, name, placeholder, className, value, setValue, mandatory = true, inactive = false, helperText, min }: InputProps) {
 
     const [renderError, setRenderError] = useState<boolean>(false)
     const [displayVazioWarn, setDisplayVazioWarn] = useState<boolean>(false)
@@ -58,7 +59,7 @@ function Input({ label, type, icon, id, name, placeholder, className, value, set
                             {icon}
                         </div>
                     )}
-                    <input type={type} id={id} name={name} placeholder={placeholder} value={value} onChange={(e) => setValue(e.target.value)}
+                    <input type={type} id={id} name={name} placeholder={placeholder} value={value} min={min} onChange={(e) => setValue(e.target.value)}
                         onBlur={() => { fieldCheck() }}
                         className={`w-full border border-1 ${renderError ? "border-red-400" : "border-gray-200"} ${inactive ? "readOnly bg-gray-100 pointer-events-none focus:outline-none focus:border-none" : ""}placeholder:font-light placeholder:text-sm rounded p-1 ${icon ? "pl-8" : ''}`} 
                         readOnly={inactive}/>

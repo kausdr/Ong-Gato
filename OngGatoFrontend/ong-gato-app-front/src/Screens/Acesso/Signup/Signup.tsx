@@ -119,8 +119,7 @@ function Signup() {
 
                 <Button 
                     order={canCreate ? `primary` : `inactive`} 
-                    text="CADASTRE-SE" 
-                    action={async () => {
+                    onClick={async () => {
                         if (!validateTelephone(telephone)) {
                             showToast("Telefone inválido! Use 10 ou 11 dígitos numéricos.", "error");
                             return;
@@ -184,7 +183,9 @@ function Signup() {
                         }
 
                     }}
-                />
+                >
+                    CADASTRE-SE
+                </Button>
                 <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/inicio/login")}>Já possui uma conta?</a>
             </div>
         </div>

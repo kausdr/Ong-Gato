@@ -50,9 +50,11 @@ function Login() {
                 <Input label="E-mail" type="text" icon={<CiMail></CiMail>} id="email" name="email" placeholder="seuemail@email.com" value={email} setValue={setEmail}></Input>
                 <Input label="Senha" type="password" icon={<IoKeyOutline></IoKeyOutline>} id="password" name="password" placeholder="Insira sua senha" value={password} setValue={setPassword}></Input>
 
-                <Button order={canCreate ? `primary` : `inactive`} text="Login" action={() => {
+                <Button order={canCreate ? `primary` : `inactive`} onClick={() => {
                     handleLogin(email, password)
-                    }}></Button>
+                    }}>
+                        Entrar
+                </Button>
 
                 <a className="text-sky-700 cursor-pointer hover:text-sky-900" onClick={() => navigate("/inicio/signup")}>Não possui uma conta ainda?</a>
             </div>

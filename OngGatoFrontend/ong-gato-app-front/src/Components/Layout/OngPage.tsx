@@ -38,43 +38,49 @@ export const OngPage = () => {
                 <div className="flex gap-1">
                   <Button
                     order="nav"
-                    text="Início"
-                    action={() => navigate("/homePage")}
+                    onClick={() => navigate("/homePage")}
                     className={`justify-start ${activePage.homePage ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
-                  />
+                  >
+                    Início
+                  </Button>
                   <Button
                     order="nav"
-                    text="Fazer Doação"
-                    action={() => navigate("/doar")}
+                    onClick={() => navigate("/doar")}
                     className={`justify-start ${activePage.doar ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
-                  />
+                  >
+                    Fazer Doação
+                  </Button>
                   <Button
                     order="nav"
-                    text="Relatórios"
-                    action={() => navigate("/relatorio")}
+                    onClick={() => navigate("/relatorio")}
                     className={`justify-start ${activePage.relatorio ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
-                  />
+                  >
+                    Relatórios
+                  </Button>
                   <Button
                     order="nav"
-                    text="Histórico de Doações"
-                    action={() => navigate("/historico")}
+                    onClick={() => navigate("/historico")}
                     className={`justify-start ${activePage.historico ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
-                  />
+                  >
+                    Histórico de Doações
+                  </Button>
 
                   {user && user.isAdmin && (
                     <>
                       <Button
                         order="nav"
-                        text="Doadores"
-                        action={() => navigate("/doadores")}
+                        onClick={() => navigate("/doadores")}
                         className={`justify-start ${activePage.doadores ? "bg-[#3B7BD4] text-sky-700 rounded-xl" : ""}`}
-                      />
+                      >
+                        Doadores
+                      </Button>
                       <Button
                         order="nav"
-                        text="Gerenciar"
-                        action={() => navigate("/gerenciar")}
+                        onClick={() => navigate("/gerenciar")}
                         className={`justify-start ${activePage.gerenciar ? "bg-[#3B7BD4] " : ""}`}
-                      />
+                      >
+                        Gerenciar
+                      </Button>
                     </>
                   )}
                 </div>
@@ -91,10 +97,11 @@ export const OngPage = () => {
                           <IoPersonCircleOutline className={`text-3xl ${activePage.perfil ? "text-white" : "text-white"}`} />
                         )
                       }
-                      text="Perfil"
-                      action={() => navigate("/perfil")}
+                      onClick={() => navigate("/perfil")}
                       className={`justify-center items-center ${activePage.perfil ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
-                    />
+                    >
+                        Perfil
+                    </Button>
               </div>
             </div>
           </div>

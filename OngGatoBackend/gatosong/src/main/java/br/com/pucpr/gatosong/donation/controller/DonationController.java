@@ -38,45 +38,33 @@ public class DonationController {
     @SecurityRequirement(name="AuthServer")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public ResponseEntity<?> getDonations() {
+    public ResponseEntity<List<DonationResponseDTO>> getDonations() {
         try {
-
             List<DonationResponseDTO> donationList = donationFacade.getAllDonations();
 
-            if (CollectionUtils.isEmpty(donationList)) {
-                return ResponseEntity.ok().body("No donations found");
-            }
-
-            return ResponseEntity.ok().body(donationList);
-
+            return ResponseEntity.ok(donationList);
         } catch (Exception e) {
             logger.error("Unable to get Donations", e);
-            throw new RuntimeException(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @SecurityRequirement(name = "AuthServer")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<?> getDonationById(@PathVariable Long id) {
+    public ResponseEntity<List<DonationResponseDTO>> getDonationById(@PathVariable Long id) {
         try {
-
             List<DonationResponseDTO> responseDTOS = donationFacade.getDonationById(id);
 
-            if (CollectionUtils.isEmpty(responseDTOS)) {
-                return ResponseEntity.ok().body("No donation with code: " + id + "found");
-            }
-
-            return ResponseEntity.ok().body(responseDTOS);
-
+            return ResponseEntity.ok(responseDTOS);
         } catch (Exception e) {
             logger.error("Unable to get Donation", e);
-            throw new RuntimeException(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @SecurityRequirement(name = "AuthServer")
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<?> createDonation(@RequestBody DonationDTO donation) {
         try {
 
@@ -99,16 +87,13 @@ public class DonationController {
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateDonation(@PathVariable Long id, @RequestBody DonationDTO updateModel) {
         try {
-            if (!Objects.isNull(updateModel)) {
-                DonationResponseDTO responseDTO = donationFacade.updateDonation(updateModel);
+            DonationResponseDTO responseDTO = donationFacade.updateDonation(id, updateModel);
 
-                return ResponseEntity.ok().body(Objects.requireNonNullElseGet(responseDTO, () -> "No donation with code: " + updateModel.getId() + " found"));
-            }
+            return ResponseEntity.ok(responseDTO);
         } catch (Exception e) {
             logger.error("Unable to update Donation", e);
-            throw new RuntimeException(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
-        return null;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

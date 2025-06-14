@@ -1,5 +1,6 @@
 package br.com.pucpr.gatosong.donation.dto;
 
+import br.com.pucpr.gatosong.donation.model.DonationType;
 import lombok.Data;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,7 +12,7 @@ public class DonationDTO {
     public BigDecimal amount;
     public Long donator;
     public Date date;
-    public Long type;
+    private DonationType type;
 
     public Long getId() {
         return id;
@@ -45,11 +46,7 @@ public class DonationDTO {
         this.donator = donator;
     }
 
-    public Long getType() {
-        return type;
-    }
+    public DonationType getType() { return type; }
 
-    public void setType(Long type) {
-        this.type = type;
-    }
+    public void setType(DonationType type) { this.type = type; }
 }
