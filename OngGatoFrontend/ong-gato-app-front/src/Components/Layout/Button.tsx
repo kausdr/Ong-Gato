@@ -16,16 +16,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 function Button({ children, order = 'primary', icon, isLoading = false, ...props }: ButtonProps) {
 
-    const buttonClass 
-    = order == "primary" ? "text-white font-semibold bg-[#28538f] hover:bg-[#214475]"
-    : order == "secondary" ? "border-1 bg-hoverSecondary"
-    : order == "nav" ? "rounded-md font-semibold text-white hover:bg-[#3873C7]"
-    : order == "inactive" ? "dark inactive-button pointer-events-none"
-    : order == "cancel" ? "bg-yellow-400 font-semibold text-slate-700 hover:bg-yellow-500"
-    : order == "active" ? "bg-active border-1 border-sky-500 text-sky-700 hover:bg-slate-100"
-    : order == "quit" ? "bg-red-700 hover:bg-red-800 text-white"
-    : order == "danger" ? "bg-red-700 hover:bg-red-800 text-white"
-    : ""
+    const buttonClass
+        = order == "primary" ? "text-white font-semibold bg-[#28538f] hover:bg-[#214475]"
+            : order == "secondary" ? "border-1 bg-hoverSecondary"
+                : order == "nav" ? "rounded-md font-semibold text-white hover:bg-[#3873C7]"
+                    : order == "inactive" ? "dark inactive-button pointer-events-none"
+                        : order == "cancel" ? "bg-yellow-400 font-semibold text-slate-700 hover:bg-yellow-500"
+                            : order == "active" ? "bg-active border-1 border-sky-500 text-sky-700 hover:bg-slate-100"
+                                : order == "quit" ? "bg-red-700 hover:bg-red-800 text-white"
+                                    : order == "danger" ? "bg-red-700 hover:bg-red-800 text-white"
+                                        : ""
 
     const isDisabled = isLoading || props.disabled;
 
@@ -42,8 +42,21 @@ function Button({ children, order = 'primary', icon, isLoading = false, ...props
                 </>
             ) : (
                 <>
-                    {icon && icon}
-                    {children}
+                    {order == "nav" ? (
+                        <>
+                            <div className="block lg:hidden">
+                                {icon}
+                            </div>
+                            <div className="hidden lg:block">
+                                {children}
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            {icon && icon}
+                            {children}
+                        </>
+                    )}
                 </>
             )}
         </button>

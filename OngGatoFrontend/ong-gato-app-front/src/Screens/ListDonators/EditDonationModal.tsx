@@ -53,31 +53,33 @@ export const EditDonationModal: React.FC<EditDonationModalProps> = ({ isOpen, on
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
-                <h2 className="text-xl font-bold mb-4">Editar Doação</h2>
+        <div className="dark custom-modal-bg fixed inset-0 flex justify-center items-center z-50">
+            <div className="dark custom-modal p-6 rounded-lg shadow-xl w-full max-w-md">
+                <h2 className="text-xl font-bold mb-4" style={{color: "var(--title-color)"}}>Editar Doação</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="donatorName">
+                        <label className="block  text-sm font-bold mb-2" htmlFor="donatorName"  style={{ color: "var(--text-color)" }}>
                             Doador
                         </label>
                         <input
                             id="donatorName"
                             type="text"
                             value={fullName}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
+                            className="dark custom-input-block shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                             disabled
+                            style={{color: "var(--text-color)"}}
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="donationType">
+                        <label className="block text-sm font-bold mb-2" htmlFor="donationType"  style={{ color: "var(--text-color)" }}>
                             Tipo de Doação
                         </label>
                         <select
                             id="donationType"
                             value={type}
                             onChange={(e) => setType(e.target.value as any)}
-                            className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline"
+                            style={{backgroundColor: "var(--bg-color)", color: "var(--text-color)"}}
                         >
                             {donationTypes.map(typeOption => (
                                 <option key={typeOption} value={typeOption}>{typeOption}</option>
@@ -85,7 +87,7 @@ export const EditDonationModal: React.FC<EditDonationModalProps> = ({ isOpen, on
                         </select>
                     </div>
                     <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+                        <label className="block text-sm font-bold mb-2" htmlFor="amount"  style={{ color: "var(--text-color)" }}>
                             Quantidade/Valor
                         </label>
                         <input
@@ -93,8 +95,9 @@ export const EditDonationModal: React.FC<EditDonationModalProps> = ({ isOpen, on
                             type="number"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                             required
+                            style={{backgroundColor: "var(--bg-color)", color: "var(--text-color)"}}
                         />
                     </div>
                     <div className="flex items-center justify-end gap-4">

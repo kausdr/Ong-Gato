@@ -8,6 +8,12 @@ import { useTheme } from "../../Contexts/ThemeProvider";
 import ToggleSwitch from "./ToggleSwitch";
 import { FaSun } from "react-icons/fa";
 import { IoMoon } from "react-icons/io5";
+import { IoHomeOutline } from "react-icons/io5";
+import { BiDonateHeart } from "react-icons/bi";
+import { GrLineChart } from "react-icons/gr";
+import { MdHistory } from "react-icons/md";
+import { FaRegListAlt } from "react-icons/fa";
+import { MdOutlineManageAccounts } from "react-icons/md";
 
 export const OngPage = () => {
   const navigate = useNavigate();
@@ -40,18 +46,20 @@ export const OngPage = () => {
               <div className="flex flex-row gap-1 items-center mr-10">
                 <img src="Images/OngLogoWhite.png" alt="Logo" className="w-10 h-10 rounded-full" />
               </div>
-              <div className="hidden md:block w-full">
+              <div className=" w-full">
                 <div className="flex justify-between">
                   <div className="flex gap-1">
                     <Button
                       order="nav"
+                      icon={<IoHomeOutline size={20}/>}
                       onClick={() => navigate("/homePage")}
                       className={`justify-start ${activePage.homePage ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
                     >
                       Início
                     </Button>
-                    <Button
+                     <Button
                       order="nav"
+                      icon={<BiDonateHeart size={20}/>}
                       onClick={() => navigate("/doar")}
                       className={`justify-start ${activePage.doar ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
                     >
@@ -59,6 +67,7 @@ export const OngPage = () => {
                     </Button>
                     <Button
                       order="nav"
+                      icon={<GrLineChart size={20}/>}
                       onClick={() => navigate("/relatorio")}
                       className={`justify-start ${activePage.relatorio ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
                     >
@@ -66,23 +75,26 @@ export const OngPage = () => {
                     </Button>
                     <Button
                       order="nav"
+                      icon={<MdHistory size={20}/>}
                       onClick={() => navigate("/historico")}
                       className={`justify-start ${activePage.historico ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
                     >
                       Histórico de Doações
-                    </Button>
+                    </Button> 
 
                     {user && user.isAdmin && (
                       <>
                         <Button
                           order="nav"
+                          icon={<FaRegListAlt size={20}/>}
                           onClick={() => navigate("/doadores")}
-                          className={`justify-start ${activePage.doadores ? "bg-[#3B7BD4] text-sky-700 rounded-xl" : ""}`}
+                          className={`justify-start ${activePage.doadores ? "bg-[#3B7BD4] text-sky-700 rounded-md" : ""}`}
                         >
                           Doadores
                         </Button>
                         <Button
                           order="nav"
+                          icon={<MdOutlineManageAccounts size={20}/>}
                           onClick={() => navigate("/gerenciar")}
                           className={`justify-start ${activePage.gerenciar ? "bg-[#3B7BD4] " : ""}`}
                         >

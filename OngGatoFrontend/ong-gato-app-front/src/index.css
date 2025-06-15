@@ -19,7 +19,7 @@
   --home-text-color: #1d398f;
   --home-bg-color: #bfdbff;
   --input-bg-color: #f2f3f5;
-  --input-blocked-bg-color:#d2d2d25;
+  --input-blocked-bg-color: #d2d2d2;
   --footer-bg-color: #bfdbff;
   --footer-text-color: #1d398f;
   --btn-inactive-color: #e4e6eb;
@@ -52,6 +52,33 @@ html.dark {
   --table-hover: #161616;
   --qrCode: #78a5e3;
 }
+
+.custom-modal-bg {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dark .custom-modal-bg {
+  background-color: rgb(255, 255, 255, 0.5);
+}
+
+.custom-input-block {
+  background-color: var(--input-blocked-bg-color);
+}
+.dark .custom-input-block {
+  background-color: var(--input-blocked-bg-color);
+}
+
+
+
+.custom-modal {
+  background-color: var(--bg-color)
+
+}
+
+.dark .custom-modal {
+  background-color: var(--bg-color)
+}
+
 
 html .table-hover:hover {
   background-color: var(--table-hover)
