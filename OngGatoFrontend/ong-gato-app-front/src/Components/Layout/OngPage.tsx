@@ -127,7 +127,19 @@ export const OngPage = () => {
                     onClick={() => navigate("/perfil")}
                     className={`justify-center items-center ${activePage.perfil ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
                   >
+                    <div className="flex gap-2 items-center">
+                      {user && user.profilePictureUrl ? (
+                        <img
+                          src={user.profilePictureUrl}
+                          alt="Foto de perfil"
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                      ) : (
+                        <IoPersonCircleOutline className={`text-3xl ${activePage.perfil ? "text-white" : "text-white"}`} />
+                      )
+                    }
                     Perfil
+                    </div>
                   </Button>
                 </div>
 
