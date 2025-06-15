@@ -94,7 +94,7 @@ function Donate() {
         if (!donationCategory) {
             return (
                 <div className="w-full flex flex-col gap-3 justify-center items-center my-10">
-                    <BiDonateHeart size={100} className="text-sky-100"/>
+                    <BiDonateHeart size={100} style={{ color: 'var(--icon-color)' }}/>
                     <h3 className="text-xl font-normal text-gray-400">Selecione uma categoria</h3>
                 </div>
             );
@@ -107,7 +107,7 @@ function Donate() {
                         <div className="flex flex-col gap-5 items-center text-center">
                             <h2 className="font-bold text-xl" style={{ color: "var(--title-color)" }}>Pague com PIX</h2>
                             <p  style={{ color: "var(--text-color)" }}>Use o app do seu banco para ler o QR Code ou copie o código abaixo.</p>
-                            <FaQrcode size={180} className="text-gray-800" />
+                            <FaQrcode size={180} style={{color: "var(--qrCode)"}} />
                             <div className="w-full p-2 border-dashed border-2 border-gray-300 rounded-md flex items-center justify-between gap-2">
                                 <p className="text-xs break-all"  style={{ color: "var(--text-color)" }}>{pixCode}</p>
                                 <button onClick={copyToClipboard} title="Copiar código"><BiCopy size={20} className="text-sky-600 hover:text-sky-800 flex-shrink-0"/></button>
@@ -118,7 +118,7 @@ function Donate() {
                 case 'CONFIRMED':
                     return (
                         <div className="flex flex-col gap-5 items-center text-center">
-                            <BiDonateHeart size={100} className="text-green-500 mx-auto"/>
+                            <BiDonateHeart size={100} className="mx-auto" style={{ color: 'var(--icon-color)' }}/>
                             <h1 className="font-bold text-green-600 text-2xl">Pagamento Confirmado!</h1>
                             <p  style={{ color: "var(--text-color)" }}>Sua doação de R$ {amount} foi recebida. Muito obrigado!</p>
                             <Button order="primary" onClick={() => handleCategoryClick('DINHEIRO')}>Doar Novamente</Button>
@@ -143,7 +143,7 @@ function Donate() {
              if (step === 'CONFIRMED') {
                 return (
                     <div className="flex flex-col gap-5 items-center text-center">
-                        <BiDonateHeart size={100} className="text-green-500 mx-auto"/>
+                        <BiDonateHeart size={100} className="mx-auto" style={{ color: 'var(--icon-color)' }}/>
                         <h1 className="font-bold text-green-600 text-2xl">Doação Registrada!</h1>
                         <p style={{ color: "var(--text-color)" }}>Sua doação de {amount} {donationCategory === 'ROUPA' ? 'peça(s) de roupa' : donationCategory === 'ALIMENTO' ? 'kg de alimento' : 'brinquedo(s)'} foi registrada. Muito obrigado!</p>
                         <Button order="primary" onClick={() => handleCategoryClick(donationCategory)}>Registrar Nova Doação</Button>

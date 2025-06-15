@@ -25,7 +25,7 @@
   --btn-inactive-color: #e4e6eb;
   --btn-inactive-text: #97a0ad;
   --table-hover: #f7f9fa;
-
+  --qrCode: #1e2938;
 }
 
 html.dark {
@@ -50,6 +50,7 @@ html.dark {
   --btn-inactive-color: #252525;
   --btn-inactive-text: #6a717b;
   --table-hover: #161616;
+  --qrCode: #78a5e3;
 }
 
 html .table-hover:hover {
