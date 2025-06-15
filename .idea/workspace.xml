@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0d06c9eb-8561-4ce5-99fd-265f37b5c529" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Diagramas/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Diagramas/.idea/Diagramas.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Diagramas/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Diagramas/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentacao/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentacao/.idea/Documentacao.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentacao/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentacao/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/serviceAccountKey.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Components/Layout/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Components/Layout/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Components/Layout/OngPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Components/Layout/OngPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Acesso/Access.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Acesso/Access.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Donate/Donate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Donate/Donate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/History/History.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/History/History.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/HomePage/HomePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/HomePage/HomePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Profile/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Relatorio/Relatorio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/OngGatoFrontend/ong-gato-app-front/src/Screens/Relatorio/Relatorio.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +38,9 @@
     &quot;accountId&quot;: &quot;a06558fc-73b3-4f87-9d3a-20e47f28deb9&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
@@ -53,9 +57,10 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.GatosongApplication.executor": "Run",
-    "git-widget-placeholder": "feature/Footer",
+    "git-widget-placeholder": "feature/DocumentacaoDiagramas",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/julia/Downloads/BSI-5/Ong-Gato/OngGatoBackend/gatosong/src/main/resources",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
@@ -131,8 +136,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/service/impl/DefaultUserService.java</url>
-          <line>96</line>
-          <properties class="br.com.pucpr.gatosong.user.service.impl.DefaultUserService" method="login">
+          <line>91</line>
+          <properties class="br.com.pucpr.gatosong.user.service.impl.DefaultUserService">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -140,37 +145,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/controller/UserController.java</url>
-          <line>159</line>
+          <line>152</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/donation/controller/DonationController.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/SecurityConfig.java</url>
-          <line>37</line>
+          <line>35</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/JwtTokenFilter.java</url>
-          <line>25</line>
+          <line>24</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/JwtTokenFilter.java</url>
-          <line>26</line>
+          <line>25</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>43</line>
+          <line>42</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>44</line>
+          <line>43</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -183,52 +183,52 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/JwtTokenFilter.java</url>
-          <line>20</line>
+          <line>19</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/service/impl/DefaultUserService.java</url>
-          <line>102</line>
+          <line>97</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>46</line>
+          <line>45</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>82</line>
+          <line>80</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>83</line>
+          <line>81</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/JwtTokenFilter.java</url>
-          <line>29</line>
+          <line>28</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>84</line>
+          <line>82</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>62</line>
+          <line>61</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>61</line>
+          <line>60</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>54</line>
+          <line>53</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -243,27 +243,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>37</line>
+          <line>36</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>38</line>
+          <line>37</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/security/Jwt.java</url>
-          <line>55</line>
+          <line>54</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/service/impl/DefaultUserService.java</url>
-          <line>99</line>
+          <line>94</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/OngGatoBackend/gatosong/src/main/java/br/com/pucpr/gatosong/user/service/impl/DefaultUserService.java</url>
-          <line>100</line>
+          <line>95</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
