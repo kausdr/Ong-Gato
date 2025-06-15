@@ -16,5 +16,5 @@ public class UserResponseDTO {
     private String address;
     private String zipCode;
     private Boolean isAdmin;
-    private String profilePicture;
+    private String profilePictureUrl;
 }

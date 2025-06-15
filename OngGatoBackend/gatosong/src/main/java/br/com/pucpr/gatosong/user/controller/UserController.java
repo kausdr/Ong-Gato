@@ -20,6 +20,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Objects;
@@ -167,14 +168,23 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{id}/role")
     @SecurityRequirement(name = "AuthServer")
+    @PutMapping("/{id}/role")
     public UserResponseDTO updateUserRole(@PathVariable Long id) {
         try {
             return userFacade.updateUserRole(id);
         } catch (IllegalStateException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
         }
+    }
+
+    @SecurityRequirement(name = "AuthServer")
+    @PostMapping("/me/picture")
+    public ResponseEntity<UserResponseDTO> uploadProfilePicture(
+            @RequestParam("file") MultipartFile file,
+            @AuthenticationPrincipal UserToken userId) {
+        UserResponseDTO updatedUser = userFacade.updateProfilePicture(userId.getId(), file);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @PermitAll

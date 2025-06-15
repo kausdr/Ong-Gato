@@ -24,6 +24,7 @@
   --footer-text-color: #1d398f;
   --btn-inactive-color: #e4e6eb;
   --btn-inactive-text: #97a0ad;
+  --table-hover: #f7f9fa;
 
 }
 
@@ -48,6 +49,15 @@ html.dark {
   --footer-text-color: #ffffff;
   --btn-inactive-color: #252525;
   --btn-inactive-text: #6a717b;
+  --table-hover: #161616;
+}
+
+html .table-hover:hover {
+  background-color: var(--table-hover)
+}
+
+html.dark .table-hover:hover {
+  background-color: var(--table-hover)
 }
 
 html.dark .hide-in-dark {

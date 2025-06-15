@@ -6,7 +6,6 @@ import br.com.pucpr.gatosong.donation.service.DonationService;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import java.util.Collections;
@@ -39,6 +38,11 @@ public class DefaultDonationService implements DonationService {
         Optional<DonationModel> donationModel = donationRepository.findById(id);
 
         return donationModel.map(Collections::singletonList).orElse(null);
+    }
+
+    @Override
+    public List<DonationModel> findByDonatorId(Long donatorId) {
+        return donationRepository.findByDonatorId(donatorId);
     }
 
     @Override

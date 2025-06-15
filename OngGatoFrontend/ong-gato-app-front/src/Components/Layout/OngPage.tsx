@@ -41,64 +41,70 @@ export const OngPage = () => {
                 <img src="Images/OngLogoWhite.png" alt="Logo" className="w-10 h-10 rounded-full" />
               </div>
               <div className="hidden md:block w-full">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between">
                   <div className="flex gap-1">
                     <Button
                       order="nav"
-                      text="Início"
-                      action={() => navigate("/homePage")}
+                      onClick={() => navigate("/homePage")}
                       className={`justify-start ${activePage.homePage ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
-                    />
+                    >
+                      Início
+                    </Button>
                     <Button
                       order="nav"
-                      text="Fazer Doação"
-                      action={() => navigate("/doar")}
+                      onClick={() => navigate("/doar")}
                       className={`justify-start ${activePage.doar ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
-                    />
+                    >
+                      Fazer Doação
+                    </Button>
                     <Button
                       order="nav"
-                      text="Relatórios"
-                      action={() => navigate("/relatorio")}
+                      onClick={() => navigate("/relatorio")}
                       className={`justify-start ${activePage.relatorio ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
-                    />
+                    >
+                      Relatórios
+                    </Button>
                     <Button
                       order="nav"
-                      text="Histórico de Doações"
-                      action={() => navigate("/historico")}
+                      onClick={() => navigate("/historico")}
                       className={`justify-start ${activePage.historico ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
-                    />
+                    >
+                      Histórico de Doações
+                    </Button>
 
                     {user && user.isAdmin && (
                       <>
                         <Button
                           order="nav"
-                          text="Doadores"
-                          action={() => navigate("/doadores")}
+                          onClick={() => navigate("/doadores")}
                           className={`justify-start ${activePage.doadores ? "bg-[#3B7BD4] text-sky-700 rounded-xl" : ""}`}
-                        />
+                        >
+                          Doadores
+                        </Button>
                         <Button
                           order="nav"
-                          text="Gerenciar"
-                          action={() => navigate("/gerenciar")}
+                          onClick={() => navigate("/gerenciar")}
                           className={`justify-start ${activePage.gerenciar ? "bg-[#3B7BD4] " : ""}`}
-                        />
+                        >
+                          Gerenciar
+                        </Button>
                       </>
                     )}
                   </div>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-5">
                   <ToggleSwitch
                     checked={theme == "dark"}
                     onChange={toggleTheme}
-                    iconOff={<FaSun className="text-yellow-600"/>}
-                    iconOn={<IoMoon className="text-blue-200"/>}
+                    iconOff={<FaSun className="text-yellow-600" />}
+                    iconOn={<IoMoon className="text-blue-200" />}
                     hasIcon={true}
                   />
                   <Button
                     order="nav"
                     icon={
-                      user && user.profilePicture ? (
+                      user && user.profilePictureUrl ? (
                         <img
-                          src={user.profilePicture}
+                          src={user.profilePictureUrl}
                           alt="Foto de perfil"
                           className="w-8 h-8 rounded-full object-cover"
                         />
@@ -106,21 +112,23 @@ export const OngPage = () => {
                         <IoPersonCircleOutline className={`text-3xl ${activePage.perfil ? "text-white" : "text-white"}`} />
                       )
                     }
-                    text="Perfil"
-                    action={() => navigate("/perfil")}
+                    onClick={() => navigate("/perfil")}
                     className={`justify-center items-center ${activePage.perfil ? "bg-[#3B7BD4] text-blue-900 rounded-md" : ""}`}
-                  />
-                  </div>
+                  >
+                    Perfil
+                  </Button>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
-      </Disclosure>
-
-      <div className="w-full rounded-md">
-        <Outlet />
-      </div>
     </div>
+      </Disclosure >
+
+  <div className="w-full rounded-md">
+    <Outlet />
+  </div>
+    </div >
   );
 };

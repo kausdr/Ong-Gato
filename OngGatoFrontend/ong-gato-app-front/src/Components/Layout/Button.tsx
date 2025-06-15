@@ -1,13 +1,20 @@
-interface ButtonProps {
-    order: string
-    text?: any
-    action: () => void
-    icon?: React.ReactNode
-    className?: string
-    disabled?: boolean
+import React from 'react';
+
+const Spinner = () => (
+    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+);
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    order?: 'primary' | 'secondary' | 'nav' | 'inactive' | 'cancel' | 'active' | 'quit' | 'danger';
+    isLoading?: boolean;
+    icon?: React.ReactNode;
+    children: React.ReactNode;
 }
 
-function Button({order, text, action, icon, className, disabled}: ButtonProps) {
+function Button({ children, order = 'primary', icon, isLoading = false, ...props }: ButtonProps) {
 
     const buttonClass 
     = order == "primary" ? "text-white font-semibold bg-[#28538f] hover:bg-[#214475]"
@@ -20,24 +27,27 @@ function Button({order, text, action, icon, className, disabled}: ButtonProps) {
     : order == "danger" ? "bg-red-700 hover:bg-red-800 text-white"
     : ""
 
-    const customStyle = order === "secondary" ? { color: "var(--text-color)" }
-    : {}
+    const isDisabled = isLoading || props.disabled;
 
-    if (disabled) {
-        return(
-            <button className={`button inline-flex justify-center items-center gap-2 rounded py-2 px-4 cursor-not-allowed !bg-gray-200 !text-gray-400 ${buttonClass} ${className}`} disabled>
-                {icon && icon}{text && text}
-            </button>
-        )
-    }
-
-    return(
-        <button className={`button inline-flex justify-center items-center gap-2 rounded py-2 px-4 cursor-pointer ${buttonClass} ${className}`}
-        onClick={action}
-        style={customStyle}>
-            {icon && icon}{text && text}
+    return (
+        <button
+            {...props}
+            className={`button inline-flex justify-center items-center gap-2 rounded py-2 px-4 font-sans transition-colors duration-200 ${buttonClass} ${props.className || ''} ${isDisabled ? 'dark inactive-button cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
+            disabled={isDisabled}
+        >
+            {isLoading ? (
+                <>
+                    <Spinner />
+                    <span>Carregando...</span>
+                </>
+            ) : (
+                <>
+                    {icon && icon}
+                    {children}
+                </>
+            )}
         </button>
-    )
+    );
 }
 
 export default Button

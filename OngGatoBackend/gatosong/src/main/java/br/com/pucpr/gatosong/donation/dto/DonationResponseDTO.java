@@ -1,6 +1,6 @@
 package br.com.pucpr.gatosong.donation.dto;
 
-import br.com.pucpr.gatosong.typeDonation.dto.TypeDonationDTO;
+import br.com.pucpr.gatosong.donation.model.DonationType;
 import br.com.pucpr.gatosong.user.dto.UserResponseDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +17,5 @@ public class DonationResponseDTO {
     public BigDecimal amount;
     public Date date;
     public UserResponseDTO donator;
-    public TypeDonationDTO type;
+    public DonationType type;
 }

@@ -40,19 +40,21 @@ export const UserList = ({ id, nome, email, cargo, onDelete, onManageRole, isCur
                 <div className="flex flex-col md:flex-row gap-5 py-2 sm:gap-10 items-center justify-end md:py-0 sm:pr-2">
                     {!isCurrentUser &&
                         <>
-                        <ToggleSwitch
-                            checked={cargo}
-                            onChange={() => onManageRole(id)}
-                            disabled={isCurrentUser}
-                        />
+                            <ToggleSwitch
+                                checked={cargo}
+                                onChange={() => onManageRole(id)}
+                                disabled={isCurrentUser}
+                            />
 
-                        <Button
-                        order="danger"
-                        icon={<FaRegTrashAlt size={20} />}
-                        action={() => onDelete(id)}
-                        disabled={isCurrentUser}
-                    />
-                    </>
+                            <Button
+                                order="danger"
+                                icon={<FaRegTrashAlt size={20}/>}
+                                onClick={() => onDelete(id)}
+                                disabled={isCurrentUser}
+                            >
+                                <span className="sr-only">Excluir usuário</span>
+                            </Button>
+                        </>
                     }
 
 

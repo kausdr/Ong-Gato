@@ -6,8 +6,6 @@ import { UserManagement } from './Screens/RoleManagement/UserManagement'
 import { History } from './Screens/History/History'
 import { ListDonators } from './Screens/ListDonators/ListDonators'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from 'react'
-import { UserService } from './API/user'
 import { Access } from './Screens/Acesso/Access'
 import Donate from './Screens/Donate/Donate'
 import HomePage from './Screens/HomePage/HomePage'

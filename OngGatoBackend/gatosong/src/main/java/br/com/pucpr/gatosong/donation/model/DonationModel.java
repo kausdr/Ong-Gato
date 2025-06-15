@@ -1,6 +1,5 @@
 package br.com.pucpr.gatosong.donation.model;
 
-import br.com.pucpr.gatosong.typeDonation.model.TypeDonationModel;
 import br.com.pucpr.gatosong.user.model.UserModel;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.Date;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @Getter
 @Setter
@@ -30,7 +31,7 @@ public class DonationModel {
     @JoinColumn(name = "user_code", nullable = false)
     private UserModel donator;
 
-    @ManyToOne
-    @JoinColumn(name = "type_code", nullable = false)
-    private TypeDonationModel type;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private DonationType type;
 }

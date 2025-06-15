@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import { MdOutlinePerson4 } from "react-icons/md";
 import Input from "../../../src/Components/data-input/Input.tsx"
 import Button from "../../Components/Layout/Button";
@@ -30,10 +30,12 @@ export const Profile = () => {
     const [email, setEmail] = useState('')
     const [address, setAddress] = useState('')
     const [blockEdit, setBlockEdit] = useState<boolean>(true)
-    const [profilePicture, setProfilePicture] = useState<string | null>(null)
 
     const [user, setUser] = useState<User | null>(null);
     const [errors, setErrors] = useState<FormErrors>({});
+
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
     const validateForm = (): boolean => {
         const newErrors: FormErrors = {};
@@ -80,10 +82,6 @@ export const Profile = () => {
             address,
         };
 
-        if (profilePicture) {
-            payload.profilePicture = profilePicture;
-        }
-
         const [data, error] = await UserService.updateProfile(payload);
 
         if (!error && data) {
@@ -98,8 +96,37 @@ export const Profile = () => {
         }
     };
 
+     const handlePictureUpload = async () => {
+        if (!selectedFile) return;
+
+        const [data, error] = await UserService.updateProfilePicture(selectedFile);
+
+        if (!error && data) {
+            showToast("Foto de perfil atualizada!", "success");
+            updateUserContext(data);
+            setUser(data);
+            setPreviewUrl(null);
+            setSelectedFile(null);
+        } else {
+            console.error("Erro ao enviar a foto:", error);
+            showToast("Erro ao enviar a foto.", "error");
+        }
+    };
+
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setSelectedFile(file);
+            setPreviewUrl(URL.createObjectURL(file));
+        }
+    };
+
     const handleEdit = () => {
-        setBlockEdit(!blockEdit)
+        setBlockEdit(!blockEdit);
+        if (!blockEdit) {
+            setPreviewUrl(null);
+            setSelectedFile(null);
+        }
         setErrors({});
     };
 
@@ -125,6 +152,7 @@ export const Profile = () => {
         fetchUser();
     }, []);
 
+    const displayImageUrl = previewUrl || user?.profilePictureUrl;
 
     return (
         <div className="min-h-full flex flex-col">
@@ -133,10 +161,10 @@ export const Profile = () => {
                     <h1 className="font-bold text-xl " style={{ color: "var(--title-color)" }}>PERFIL</h1>
                     <div className="flex flex-col lg:flex-row gap-10">
                         <div className="flex flex-col gap-2 items-center">
-                            <div className="relative w-fit h-fit rounded-md border-2 overflow-hidden " style={{ color: "var(--title-color)", borderColor: "var(--border-color)" }}>
-                                {user?.profilePicture ? (
+                            <div className="relative w-fit h-fit rounded-md border-2 border-slate-200 overflow-hidden ">
+                                {displayImageUrl ? (
                                     <img
-                                        src={user.profilePicture}
+                                        src={displayImageUrl}
                                         alt="Foto de perfil"
                                         className="w-[150px] h-[150px] object-cover"
                                     />
@@ -145,42 +173,33 @@ export const Profile = () => {
                                 )}
 
                                 {!blockEdit && (
-                                <div className="flex flex-col items-center gap-2 absolute bottom-0 right-0 m-1">
-                                    <input
-                                        id="profileUpload"
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={(e) => {
-                                            const file = e.target.files?.[0];
-                                            if (file) {
-                                                const reader = new FileReader();
-                                                reader.onload = () => {
-                                                    const base64 = (reader.result as string).split(',')[1];
-                                                    setProfilePicture(base64);
-                                                    setUser((prev) =>
-                                                        prev ? { ...prev, profilePicture: `data:image/jpeg;base64,${base64}` } : null
-                                                    );
-                                                };
-                                                reader.readAsDataURL(file);
-                                            }
-                                        }}
-                                        className="hidden"
-                                    />
-                                    <label
-                                        htmlFor="profileUpload"
-                                        className="cursor-pointer text-white font-semibold bg-[#28538f] hover:bg-[#214475] p-2 text-sm rounded-md transition"
-                                    >
-                                        <FaRegEdit size={20}/>
-                                    </label>
-                                </div>
-                            )}
+                                    <div className="absolute bottom-2 right-2 flex justify-center items-center">
+                                        <input
+                                            id="profileUpload"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleFileChange}
+                                            className="hidden"
+                                        />
+                                        <label htmlFor="profileUpload" className=" cursor-pointer text-white font-semibold bg-[#28538f] hover:bg-[#214475] p-2 text-sm rounded-md transition">
+                                            <FaRegEdit size={20}/>
+                                        </label>
+                                    </div>
+                                )}
                             </div>
 
-                            
+                            {!blockEdit && selectedFile && (
+                                <Button order="primary" onClick={handlePictureUpload} className="mt-2">
+                                    Salvar Foto
+                                </Button>
+                            )}
 
-
-                            <Button order={`${blockEdit ? "primary" : "cancel"}`} text={`${blockEdit ? "Editar" : "Cancelar"}`} action={handleEdit} />
-                            <Button order="quit" text="Sair" action={handleLogout} className="mt-10" />
+                            <Button order={`${blockEdit ? "primary" : "cancel"}`} onClick={handleEdit} >
+                                {blockEdit ? "Editar" : "Cancelar"}
+                            </Button>
+                            <Button order="quit" onClick={handleLogout} className="mt-10" >
+                                Sair
+                            </Button>
                         </div>
 
                         <div className="flex flex-col gap-4">
@@ -216,7 +235,9 @@ export const Profile = () => {
                             </div>
                             <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mt-auto">
                                 {!blockEdit &&
-                                    <Button order={`primary`} text="Salvar" className="w-full " action={handleSave} />
+                                    <Button order={`primary`} className="w-full " onClick={handleSave} >
+                                        Salvar Alterações
+                                    </Button>
                                 }
 
                             </div>

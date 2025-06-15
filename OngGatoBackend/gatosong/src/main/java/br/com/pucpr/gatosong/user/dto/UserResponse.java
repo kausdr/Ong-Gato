@@ -17,8 +17,8 @@ public record UserResponse(
                 user.getLastName(),
                 user.getEmail(),
                 user.getIsAdmin(),
-                user.getProfilePicture() != null && !user.getProfilePicture().isEmpty() ?
-                        "data:image/jpeg;base64," + user.getProfilePicture() : null
+                user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty() ?
+                        "data:image/jpeg;base64," + user.getProfilePictureUrl() : null
         );
     }
 }
