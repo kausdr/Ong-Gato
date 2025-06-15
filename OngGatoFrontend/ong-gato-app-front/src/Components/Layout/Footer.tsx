@@ -2,7 +2,7 @@ import { FaInstagram, FaFacebookF, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-200 mt-16 text-blue-900 relative">
+    <footer className="mt-16 relative" style={{ backgroundColor: "var(--footer-bg-color)", color: "var(--footer-text-color)" }}>
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
 
         {/* Contato */}
@@ -54,17 +54,18 @@ export default function Footer() {
         <div className="flex gap-4 items-start">
           <div className="w-4/5">
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d22778.951734303624!2d-49.252747!3d-25.451569!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce4fa6efc3181%3A0x8b0f452491a6f477!2sPUCPR%20-%20Pontif%C3%ADcia%20Universidade%20Cat%C3%B3lica%20do%20Paran%C3%A1!5e1!3m2!1spt-BR!2sbr!4v1749784580425!5m2!1spt-BR!2sbr"
-                className="w-full h-64 rounded"
-                style={{ border:0 }}
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade">
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d22778.951734303624!2d-49.252747!3d-25.451569!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce4fa6efc3181%3A0x8b0f452491a6f477!2sPUCPR%20-%20Pontif%C3%ADcia%20Universidade%20Cat%C3%B3lica%20do%20Paran%C3%A1!5e1!3m2!1spt-BR!2sbr!4v1749784580425!5m2!1spt-BR!2sbr"
+              className="w-full h-64 rounded"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade">
             </iframe>
           </div>
           <div className="w-1/5">
-              <img src="/Images/OngLogo.png" alt="Localização da ONG" className="w-full h-auto rounded" />
-            </div>
+            <img src="/Images/OngLogo.png" alt="Localização da ONG" className="logo light-mode  w-full h-auto rounded" />
+            <img src="/Images/OngLogoWhite.png" alt="Localização da ONG" className="logo dark-mode w-full h-auto rounded" />
+          </div>
         </div>
       </div>
 

@@ -13,7 +13,7 @@ function Button({order, text, action, icon, className, disabled}: ButtonProps) {
     = order == "primary" ? "text-white font-semibold bg-[#28538f] hover:bg-[#214475]"
     : order == "secondary" ? "border-1 bg-hoverSecondary"
     : order == "nav" ? "rounded-md font-semibold text-white hover:bg-[#3873C7]"
-    : order == "inactive" ? "pointer-events-none !bg-gray-200 !text-gray-400"
+    : order == "inactive" ? "dark inactive-button pointer-events-none"
     : order == "cancel" ? "bg-yellow-400 font-semibold text-slate-700 hover:bg-yellow-500"
     : order == "active" ? "bg-active border-1 border-sky-500 text-sky-700 hover:bg-slate-100"
     : order == "quit" ? "bg-red-700 hover:bg-red-800 text-white"
@@ -21,7 +21,7 @@ function Button({order, text, action, icon, className, disabled}: ButtonProps) {
     : ""
 
     const customStyle = order === "secondary" ? { color: "var(--text-color)" }
-    : {};
+    : {}
 
     if (disabled) {
         return(
